@@ -1,0 +1,1746 @@
+for file in amr_parameters.o amr_commons.o random.o pm_parameters.o pm_commons.o poisson_parameters.o  poisson_commons.o hydro_parameters.o hydro_commons.o cooling_module.o bisection.o sparse_mat.o clfind_commons.o gadgetreadfile.o  write_makefile.o write_patch.o write_gitinfo.o radiation_parameters.o rt_parameters.o rt_hydro_commons.o coolrates_module.o rt_spectra.o  rt_metal_cooling_module.o rt_cooling_module.o rt_flux_module.o table_1d_module.o singlestar_module.o feedback_module.o cloud_module.o; do unset MAKELEVEL ; make $file; done
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/amr_parameters.f90 -o amr_parameters.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/amr_commons.f90 -o amr_commons.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/random.f90 -o random.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/pm_parameters.f90 -o pm_parameters.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/pm_commons.f90 -o pm_commons.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/poisson_parameters.f90 -o poisson_parameters.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/poisson_commons.f90 -o poisson_commons.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/hydro_parameters.f90 -o hydro_parameters.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/hydro_commons.f90 -o hydro_commons.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../hydro/cooling_module.f90 -o cooling_module.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/bisection.f90 -o bisection.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/sparse_mat.f90 -o sparse_mat.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/clfind_commons.f90 -o clfind_commons.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/gadgetreadfile.f90 -o gadgetreadfile.o 
+./../utils/scripts/cr_write_makefile.sh  Makefile
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c write_makefile.f90 -o write_makefile.o
+./../utils/scripts/cr_write_patch.sh patch/rt/old_frig_main
+cat: patch/rt/old_frig_main/*.f90: Aucun fichier ou dossier de ce type
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c write_patch.f90 -o write_patch.o
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -DPATCH=\'patch/rt/old_frig_main\' -DGITBRANCH=\'ism\' -DGITHASH=\'"f94bb736491c81eef403b8b56cd47145fef7435c"\' \
+ -DGITREPO=\'https://phennebe@bitbucket.org/bcommerc/ramses_ism.git\' -DBUILDDATE=\'"12/22/17-21:14:39"\' -c ./../amr/write_gitinfo.f90 -o write_gitinfo.o		
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../fld/radiation_parameters.f90 -o radiation_parameters.o 
+../fld/radiation_parameters.f90(104): remark #7712: This variable has not been used.   [TR]
+function planck_ana(dens,Tp,Tr,igroup)
+----------------------------^
+../fld/radiation_parameters.f90(104): remark #7712: This variable has not been used.   [IGROUP]
+function planck_ana(dens,Tp,Tr,igroup)
+-------------------------------^
+../fld/radiation_parameters.f90(128): remark #7712: This variable has not been used.   [TR]
+function rosseland_ana(dens,Tp,Tr,igroup)
+-------------------------------^
+../fld/radiation_parameters.f90(128): remark #7712: This variable has not been used.   [IGROUP]
+function rosseland_ana(dens,Tp,Tr,igroup)
+----------------------------------^
+../fld/radiation_parameters.f90(154): remark #7712: This variable has not been used.   [DENS]
+function scattering_ana(dens,Tp,Tr,igroup)
+------------------------^
+../fld/radiation_parameters.f90(154): remark #7712: This variable has not been used.   [TP]
+function scattering_ana(dens,Tp,Tr,igroup)
+-----------------------------^
+../fld/radiation_parameters.f90(154): remark #7712: This variable has not been used.   [TR]
+function scattering_ana(dens,Tp,Tr,igroup)
+--------------------------------^
+../fld/radiation_parameters.f90(154): remark #7712: This variable has not been used.   [IGROUP]
+function scattering_ana(dens,Tp,Tr,igroup)
+-----------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_parameters.f90 -o rt_parameters.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_hydro_commons.f90 -o rt_hydro_commons.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/coolrates_module.f90 -o coolrates_module.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_spectra.f90 -o rt_spectra.o 
+../rt/rt_spectra.f90(114): remark #7712: This variable has not been used.   [SPECIES]
+FUNCTION fdivLambda(lambda, f, species)
+-------------------------------^
+../rt/rt_spectra.f90(108): remark #7712: This variable has not been used.   [SPECIES]
+FUNCTION fLambda(lambda, f, species)
+----------------------------^
+../rt/rt_spectra.f90(102): remark #7712: This variable has not been used.   [SPECIES]
+FUNCTION f1(lambda, f, species)
+-----------------------^
+../rt/rt_spectra.f90(102): remark #7712: This variable has not been used.   [LAMBDA]
+FUNCTION f1(lambda, f, species)
+------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_metal_cooling_module.f90 -o rt_metal_cooling_module.o 
+../rt/rt_metal_cooling_module.f90(31): remark #7712: This variable has not been used.   [NH]
+  real(dp)::T1,T2,nH,flux,cool1,cool2,eps
+------------------^
+../rt/rt_metal_cooling_module.f90(31): remark #7712: This variable has not been used.   [FLUX]
+  real(dp)::T1,T2,nH,flux,cool1,cool2,eps
+---------------------^
+../rt/rt_metal_cooling_module.f90(75): remark #7712: This variable has not been used.   [LOGT]
+  real(dp)::logT,logN,logF,sig,coolph,coolphoto,dummy,drefdt
+------------^
+../rt/rt_metal_cooling_module.f90(75): remark #7712: This variable has not been used.   [LOGN]
+  real(dp)::logT,logN,logF,sig,coolph,coolphoto,dummy,drefdt
+-----------------^
+../rt/rt_metal_cooling_module.f90(75): remark #7712: This variable has not been used.   [LOGF]
+  real(dp)::logT,logN,logF,sig,coolph,coolphoto,dummy,drefdt
+----------------------^
+../rt/rt_metal_cooling_module.f90(75): remark #7712: This variable has not been used.   [SIG]
+  real(dp)::logT,logN,logF,sig,coolph,coolphoto,dummy,drefdt
+---------------------------^
+../rt/rt_metal_cooling_module.f90(75): remark #7712: This variable has not been used.   [DUMMY]
+  real(dp)::logT,logN,logF,sig,coolph,coolphoto,dummy,drefdt
+------------------------------------------------^
+../rt/rt_metal_cooling_module.f90(245): remark #7712: This variable has not been used.   [LCOOL]
+  real(dp)::TT,lTT,deltaT,lcool,lcool1,lcool2,lcool1_prime,lcool2_prime
+--------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_cooling_module.f90 -o rt_cooling_module.o 
+../rt/rt_cooling_module.f90(188): remark #7712: This variable has not been used.   [MU]
+  real(dp):: mu
+-------------^
+../rt/rt_cooling_module.f90(144): remark #7712: This variable has not been used.   [A_EXP]
+                           ,nH, c_switch, Zsolar, dt, a_exp, nCell)
+------------------------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_flux_module.f90 -o rt_flux_module.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/table_1d_module.f90 -o table_1d_module.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/singlestar_module.f90 -o singlestar_module.o 
+../pm/singlestar_module.f90(201): remark #7712: This variable has not been used.   [X1]
+  real(dp)::m1,m2,x1,x2,x,life,life1,life2,o1,o2
+------------------^
+../pm/singlestar_module.f90(201): remark #7712: This variable has not been used.   [X2]
+  real(dp)::m1,m2,x1,x2,x,life,life1,life2,o1,o2
+---------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/feedback_module.f90 -o feedback_module.o 
+../pm/feedback_module.f90(834): warning #6843: A dummy argument with an explicit INTENT(OUT) declaration is not given an explicit value.   [DTOUT]
+subroutine courant_fb_fixed(dtout)
+----------------------------^
+../pm/feedback_module.f90(134): remark #7712: This variable has not been used.   [NML_OK]
+SUBROUTINE read_feedback_params(nml_ok)
+--------------------------------^
+../pm/feedback_module.f90(217): remark #7712: This variable has not been used.   [DENS_MAX]
+  real(dp):: rr, pi,dens_max,pgas,dgas,ekin,mass_sn_tot,dens_max_all,mass_sn_tot_all
+--------------------^
+../pm/feedback_module.f90(217): remark #7712: This variable has not been used.   [DENS_MAX_ALL]
+  real(dp):: rr, pi,dens_max,pgas,dgas,ekin,mass_sn_tot,dens_max_all,mass_sn_tot_all
+--------------------------------------------------------^
+../pm/feedback_module.f90(219): remark #7712: This variable has not been used.   [CC]
+  integer ,dimension(1:nvector)::cc
+---------------------------------^
+../pm/feedback_module.f90(220): remark #7712: This variable has not been used.   [X]
+  real(dp),dimension(1:nvector,1:ndim)::x
+----------------------------------------^
+../pm/feedback_module.f90(834): remark #7712: This variable has not been used.   [DTOUT]
+subroutine courant_fb_fixed(dtout)
+----------------------------^
+../pm/feedback_module.f90(891): remark #7712: This variable has not been used.   [DX_SEL]
+  real(dp):: sn_r, sn_m, sn_e, sn_vol, sn_d, sn_ed, dx_sel, sn_p, sn_v
+----------------------------------------------------^
+../pm/feedback_module.f90(894): remark #7712: This variable has not been used.   [SEL]
+  logical:: sel = .false.
+------------^
+../pm/feedback_module.f90(1084): remark #7712: This variable has not been used.   [K]
+  integer::ncell,ilevel,i,k,nx_loc,isn
+--------------------------^
+../pm/feedback_module.f90(1087): remark #7712: This variable has not been used.   [W]
+  real(dp)::dx_loc,rvec(ndim),w,rmag,rFB
+------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../patch/rt/old_frig_main/cloud_module.f90 -o cloud_module.o 
+../patch/rt/old_frig_main/cloud_module.f90(183): remark #7712: This variable has not been used.   [NML_OK]
+subroutine read_cloud_params(nml_ok)
+-----------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(258): remark #7712: This variable has not been used.   [INFO]
+  integer::info,ibound,nx_loc,idim,neul=5
+-----------^
+../patch/rt/old_frig_main/cloud_module.f90(258): remark #7712: This variable has not been used.   [IBOUND]
+  integer::info,ibound,nx_loc,idim,neul=5
+----------------^
+../patch/rt/old_frig_main/cloud_module.f90(258): remark #7712: This variable has not been used.   [NEUL]
+  integer::info,ibound,nx_loc,idim,neul=5
+-----------------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(259): remark #7712: This variable has not been used.   [D]
+  real(dp)::dx,dx_loc,scale,d,u,v,w,A,B,C
+----------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(259): remark #7712: This variable has not been used.   [U]
+  real(dp)::dx,dx_loc,scale,d,u,v,w,A,B,C
+------------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(259): remark #7712: This variable has not been used.   [V]
+  real(dp)::dx,dx_loc,scale,d,u,v,w,A,B,C
+--------------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(259): remark #7712: This variable has not been used.   [W]
+  real(dp)::dx,dx_loc,scale,d,u,v,w,A,B,C
+----------------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(260): remark #7712: This variable has not been used.   [RHO_MAX_LOC]
+  real(kind=8)::rho_max_loc,rho_max_all,epot_loc,epot_all
+----------------^
+../patch/rt/old_frig_main/cloud_module.f90(260): remark #7712: This variable has not been used.   [RHO_MAX_ALL]
+  real(kind=8)::rho_max_loc,rho_max_all,epot_loc,epot_all
+----------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(260): remark #7712: This variable has not been used.   [EPOT_LOC]
+  real(kind=8)::rho_max_loc,rho_max_all,epot_loc,epot_all
+----------------------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(260): remark #7712: This variable has not been used.   [EPOT_ALL]
+  real(kind=8)::rho_max_loc,rho_max_all,epot_loc,epot_all
+-------------------------------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(266): remark #7712: This variable has not been used.   [VV]
+  real(dp),dimension(1:nvector,1:3),save::vv
+------------------------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(267): remark #7712: This variable has not been used.   [Q]
+  real(dp),dimension(1:nvector,1:nvar+3)::q   ! Primitive variables
+------------------------------------------^
+../patch/rt/old_frig_main/cloud_module.f90(269): remark #7712: This variable has not been used.   [IVAR]
+  integer ::ivar,jgrid,ind_cell_vois
+------------^
+../patch/rt/old_frig_main/cloud_module.f90(271): remark #7712: This variable has not been used.   [FACT]
+  real(dp)::dx_min, fact, Emag,Emag0
+--------------------^
+../patch/rt/old_frig_main/cloud_module.f90(271): remark #7712: This variable has not been used.   [EMAG0]
+  real(dp)::dx_min, fact, Emag,Emag0
+-------------------------------^
+make ramses
+make[1]: entrant dans le répertoire « /home/users/phennebe/ramses_ism/old_bin_ph_rt_frig »
+./../utils/scripts/cr_write_makefile.sh  Makefile
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c write_makefile.f90 -o write_makefile.o
+./../utils/scripts/cr_write_patch.sh patch/rt/old_frig_main
+cat: patch/rt/old_frig_main/*.f90: Aucun fichier ou dossier de ce type
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c write_patch.f90 -o write_patch.o
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -DPATCH=\'patch/rt/old_frig_main\' -DGITBRANCH=\'ism\' -DGITHASH=\'"f94bb736491c81eef403b8b56cd47145fef7435c"\' \
+ -DGITREPO=\'https://phennebe@bitbucket.org/bcommerc/ramses_ism.git\' -DBUILDDATE=\'"12/22/17-21:14:44"\' -c ./../amr/write_gitinfo.f90 -o write_gitinfo.o		
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/read_params.f90 -o read_params.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/init_amr.f90 -o init_amr.o 
+../amr/init_amr.f90(15): remark #7712: This variable has not been used.   [MASS_SPH2]
+  real(dp)::mass_sph2
+------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/init_time.f90 -o init_time.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/init_refine.f90 -o init_refine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/adaptive_loop.f90 -o adaptive_loop.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/amr_step.f90 -o amr_step.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/update_time.f90 -o update_time.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../patch/rt/old_frig_main/output_amr.f90 -o output_amr.o 
+../patch/rt/old_frig_main/output_amr.f90(25): remark #7712: This variable has not been used.   [IREC]
+  integer::irec,ierr
+-----------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/flag_utils.f90 -o flag_utils.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/physical_boundaries.f90 -o physical_boundaries.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/virtual_boundaries.f90 -o virtual_boundaries.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/refine_utils.f90 -o refine_utils.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/nbors_utils.f90 -o nbors_utils.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/hilbert.f90 -o hilbert.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/load_balance.f90 -o load_balance.o 
+../amr/load_balance.f90(730): remark #7712: This variable has not been used.   [ZZ]
+  real(kind=8)::zz,zc
+----------------^
+../amr/load_balance.f90(859): remark #7712: This variable has not been used.   [ZZ]
+  real(kind=8)::zz,zc
+----------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/title.f90 -o title.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/sort.f90 -o sort.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../hydro/cooling_fine.f90 -o cooling_fine.o 
+../hydro/cooling_fine.f90(140): remark #7712: This variable has not been used.   [BAROTROP1D]
+  real(dp) :: barotrop1D,mincolumn_dens
+--------------^
+../hydro/cooling_fine.f90(140): remark #7712: This variable has not been used.   [MINCOLUMN_DENS]
+  real(dp) :: barotrop1D,mincolumn_dens
+-------------------------^
+../hydro/cooling_fine.f90(141): remark #7712: This variable has not been used.   [COEFF_CHI]
+  real(dp)                                   :: x0, y0, z0,coeff_chi,cst2, coef
+-----------------------------------------------------------^
+../hydro/cooling_fine.f90(141): remark #7712: This variable has not been used.   [CST2]
+  real(dp)                                   :: x0, y0, z0,coeff_chi,cst2, coef
+---------------------------------------------------------------------^
+../hydro/cooling_fine.f90(141): remark #7712: This variable has not been used.   [COEF]
+  real(dp)                                   :: x0, y0, z0,coeff_chi,cst2, coef
+---------------------------------------------------------------------------^
+../hydro/cooling_fine.f90(142): remark #7712: This variable has not been used.   [V_EXTINCTION]
+  double precision                           :: v_extinction
+------------------------------------------------^
+../hydro/cooling_fine.f90(143): remark #7712: This variable has not been used.   [ULEIDH]
+  integer::uleidx,uleidy,uleidz,uleidh,igrid,ii,indc2,iskip2,ind_ll
+--------------------------------^
+../hydro/cooling_fine.f90(143): remark #7712: This variable has not been used.   [IGRID]
+  integer::uleidx,uleidy,uleidz,uleidh,igrid,ii,indc2,iskip2,ind_ll
+---------------------------------------^
+../hydro/cooling_fine.f90(143): remark #7712: This variable has not been used.   [INDC2]
+  integer::uleidx,uleidy,uleidz,uleidh,igrid,ii,indc2,iskip2,ind_ll
+------------------------------------------------^
+../hydro/cooling_fine.f90(143): remark #7712: This variable has not been used.   [ISKIP2]
+  integer::uleidx,uleidy,uleidz,uleidh,igrid,ii,indc2,iskip2,ind_ll
+------------------------------------------------------^
+../hydro/cooling_fine.f90(143): remark #7712: This variable has not been used.   [IND_LL]
+  integer::uleidx,uleidy,uleidz,uleidh,igrid,ii,indc2,iskip2,ind_ll
+-------------------------------------------------------------^
+../hydro/cooling_fine.f90(148): remark #7712: This variable has not been used.   [COLUMN_DENS_LOC]
+  real(dp),dimension(1:nvector,1:NdirExt_m,1:NdirExt_n):: column_dens,column_dens_loc  !
+----------------------------------------------------------------------^
+../hydro/cooling_fine.f90(149): remark #7712: This variable has not been used.   [H2COLUMN_DENS_LOC]
+  real(dp),dimension(1:nvector,1:NdirExt_m,1:NdirExt_n):: H2column_dens,H2column_dens_loc  ! H2 column density
+------------------------------------------------------------------------^
+../hydro/cooling_fine.f90(152): remark #7712: This variable has not been used.   [XPOS]
+  real(dp),dimension(1:3)                              :: xpos
+----------------------------------------------------------^
+../hydro/cooling_fine.f90(153): remark #7712: This variable has not been used.   [DX_CROSS_INT]
+  real(dp)                                             :: dx_cross_int, dx_cross_loc
+----------------------------------------------------------^
+../hydro/cooling_fine.f90(153): remark #7712: This variable has not been used.   [DX_CROSS_LOC]
+  real(dp)                                             :: dx_cross_int, dx_cross_loc
+------------------------------------------------------------------------^
+../hydro/cooling_fine.f90(154): remark #7712: This variable has not been used.   [INDEX_M]
+  integer                                              :: index_m,index_n, mmmm,nnnn
+----------------------------------------------------------^
+../hydro/cooling_fine.f90(154): remark #7712: This variable has not been used.   [INDEX_N]
+  integer                                              :: index_m,index_n, mmmm,nnnn
+------------------------------------------------------------------^
+../hydro/cooling_fine.f90(154): remark #7712: This variable has not been used.   [MMMM]
+  integer                                              :: index_m,index_n, mmmm,nnnn
+---------------------------------------------------------------------------^
+../hydro/cooling_fine.f90(154): remark #7712: This variable has not been used.   [NNNN]
+  integer                                              :: index_m,index_n, mmmm,nnnn
+--------------------------------------------------------------------------------^
+../hydro/cooling_fine.f90(155): remark #7712: This variable has not been used.   [M]
+  integer                                              :: m, n, mloop, nloop, nl   
+----------------------------------------------------------^
+../hydro/cooling_fine.f90(155): remark #7712: This variable has not been used.   [N]
+  integer                                              :: m, n, mloop, nloop, nl   
+-------------------------------------------------------------^
+../hydro/cooling_fine.f90(155): remark #7712: This variable has not been used.   [MLOOP]
+  integer                                              :: m, n, mloop, nloop, nl   
+----------------------------------------------------------------^
+../hydro/cooling_fine.f90(155): remark #7712: This variable has not been used.   [NLOOP]
+  integer                                              :: m, n, mloop, nloop, nl   
+-----------------------------------------------------------------------^
+../hydro/cooling_fine.f90(155): remark #7712: This variable has not been used.   [NL]
+  integer                                              :: m, n, mloop, nloop, nl   
+------------------------------------------------------------------------------^
+../hydro/cooling_fine.f90(156): remark #7712: This variable has not been used.   [DELTAN1]
+  integer, dimension(1:NdirExt_n)                      :: deltan1, deltan2
+----------------------------------------------------------^
+../hydro/cooling_fine.f90(156): remark #7712: This variable has not been used.   [DELTAN2]
+  integer, dimension(1:NdirExt_n)                      :: deltan1, deltan2
+-------------------------------------------------------------------^
+../hydro/cooling_fine.f90(157): remark #7712: This variable has not been used.   [DELTAM]
+  integer                                              :: deltam
+----------------------------------------------------------^
+../hydro/cooling_fine.f90(803): remark #7712: This variable has not been used.   [RHO_TEMP]
+subroutine pressure_eos(rho_temp,Enint_temp,Peos)
+------------------------^
+../hydro/cooling_fine.f90(900): remark #7712: This variable has not been used.   [ENINT]
+function cmp_Cv_eos(rho,Enint)
+------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../patch/rt/old_frig_main/units.f90 -o units.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/light_cone.f90 -o light_cone.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/movie.f90 -o movie.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/init_hydro.f90 -o init_hydro.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/init_flow_fine.f90 -o init_flow_fine.o 
+../mhd/init_flow_fine.f90(483): remark #7712: This variable has not been used.   [RADIATION_SOURCE]
+  real(dp)::radiation_source
+------------^
+../mhd/init_flow_fine.f90(484): remark #7712: This variable has not been used.   [J]
+  integer::i,j,k
+-------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/write_screen.f90 -o write_screen.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/output_hydro.f90 -o output_hydro.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/courant_fine.f90 -o courant_fine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../patch/rt/old_frig_main/godunov_fine.f90 -o godunov_fine.o 
+../patch/rt/old_frig_main/godunov_fine.f90(16): remark #7712: This variable has not been used.   [IVAR]
+  integer::i,ivar,igrid,ncache,ngrid
+-------------^
+../patch/rt/old_frig_main/godunov_fine.f90(53): remark #7712: This variable has not been used.   [IRAD]
+  integer::i,ivar,ind,icpu,iskip,irad
+---------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(133): remark #7712: This variable has not been used.   [IRAD]
+  integer::i,ivar,ind,iskip,nx_loc,irad,ind_cell
+-----------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(135): remark #7712: This variable has not been used.   [D_OLD]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,dx,fact,d_old
+----------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(137): remark #7712: This variable has not been used.   [CV]
+  real(dp)::cv,dd,ee,TP_loc
+------------^
+../patch/rt/old_frig_main/godunov_fine.f90(137): remark #7712: This variable has not been used.   [DD]
+  real(dp)::cv,dd,ee,TP_loc
+---------------^
+../patch/rt/old_frig_main/godunov_fine.f90(137): remark #7712: This variable has not been used.   [EE]
+  real(dp)::cv,dd,ee,TP_loc
+------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(137): remark #7712: This variable has not been used.   [TP_LOC]
+  real(dp)::cv,dd,ee,TP_loc
+---------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(251): remark #7712: This variable has not been used.   [IVAR]
+  integer::i,ivar,ind,iskip,nx_loc,ind_cell
+-------------^
+../patch/rt/old_frig_main/godunov_fine.f90(251): remark #7712: This variable has not been used.   [NX_LOC]
+  integer::i,ivar,ind,iskip,nx_loc,ind_cell
+----------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(307): remark #7712: This variable has not been used.   [K]
+  integer::i,j,k,ivar,irad,ind,iskip,nx_loc,ind_cell1
+---------------^
+../patch/rt/old_frig_main/godunov_fine.f90(307): remark #7712: This variable has not been used.   [IRAD]
+  integer::i,j,k,ivar,irad,ind,iskip,nx_loc,ind_cell1
+----------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(307): remark #7712: This variable has not been used.   [IND_CELL1]
+  integer::i,j,k,ivar,irad,ind,iskip,nx_loc,ind_cell1
+--------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(315): remark #7712: This variable has not been used.   [ERG]
+  real(dp),dimension(1:nvector,1:ndim,1:ngrp),save::Erg,Erd
+----------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(315): remark #7712: This variable has not been used.   [ERD]
+  real(dp),dimension(1:nvector,1:ndim,1:ngrp),save::Erg,Erd
+--------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(320): remark #7712: This variable has not been used.   [GRADER]
+  real(dp) ,dimension(1:nvector,1:ndim,1:ngrp)::gradEr
+------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(322): remark #7712: This variable has not been used.   [IGROUP]
+  integer::igroup
+-----------^
+../patch/rt/old_frig_main/godunov_fine.f90(323): remark #7712: This variable has not been used.   [CV]
+  real(dp)::usquare,emag,erad_loc,ekin,eps,cv,pp_eos
+-------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(324): remark #7712: This variable has not been used.   [E_MAG]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,fact,e_r
+------------^
+../patch/rt/old_frig_main/godunov_fine.f90(324): remark #7712: This variable has not been used.   [E_KIN]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,fact,e_r
+------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(324): remark #7712: This variable has not been used.   [E_CONS]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,fact,e_r
+------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(324): remark #7712: This variable has not been used.   [E_PRIM]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,fact,e_r
+-------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(324): remark #7712: This variable has not been used.   [E_TRUNC]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,fact,e_r
+--------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(324): remark #7712: This variable has not been used.   [DIV]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,fact,e_r
+----------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(324): remark #7712: This variable has not been used.   [FACT]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,fact,e_r
+--------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(324): remark #7712: This variable has not been used.   [E_R]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,fact,e_r
+-------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(325): remark #7712: This variable has not been used.   [ROSSELAND_ANA]
+  real(dp)::rosseland_ana,radiation_source
+------------^
+../patch/rt/old_frig_main/godunov_fine.f90(325): remark #7712: This variable has not been used.   [RADIATION_SOURCE]
+  real(dp)::rosseland_ana,radiation_source
+--------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(326): remark #7712: This variable has not been used.   [PGDIVU]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+------------^
+../patch/rt/old_frig_main/godunov_fine.f90(326): remark #7712: This variable has not been used.   [U_SQUARE]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+-------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(326): remark #7712: This variable has not been used.   [D_LOC]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+----------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(326): remark #7712: This variable has not been used.   [TP_LOC]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+----------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(326): remark #7712: This variable has not been used.   [TR_LOC]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+-----------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(326): remark #7712: This variable has not been used.   [CAL_TEG]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(327): remark #7712: This variable has not been used.   [KAPPA_R]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+------------^
+../patch/rt/old_frig_main/godunov_fine.f90(327): remark #7712: This variable has not been used.   [GRADER_NORM]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+--------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(327): remark #7712: This variable has not been used.   [GRADER_NORM2]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+--------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(327): remark #7712: This variable has not been used.   [R]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+---------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(327): remark #7712: This variable has not been used.   [LAMBDA]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+-----------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(327): remark #7712: This variable has not been used.   [LAMBDA_FLD]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(327): remark #7712: This variable has not been used.   [CHI]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+-----------------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(327): remark #7712: This variable has not been used.   [PGMERDIVU]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+---------------------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(327): remark #7712: This variable has not been used.   [GRADERU]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+-------------------------------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(328): remark #7712: This variable has not been used.   [PG]
+  real(dp) ,dimension(1:ndim,1:ndim,1:ngrp)::Pg
+---------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(329): remark #7712: This variable has not been used.   [U_LOC]
+  real(dp) ,dimension(1:ndim       )::u_loc
+--------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(339): remark #7712: This variable has not been used.   [NUPRDIVU]
+  real(dp) :: nuPrDivu,nuPr,nuPl,Pr_nu
+--------------^
+../patch/rt/old_frig_main/godunov_fine.f90(339): remark #7712: This variable has not been used.   [NUPR]
+  real(dp) :: nuPrDivu,nuPr,nuPl,Pr_nu
+-----------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(339): remark #7712: This variable has not been used.   [NUPL]
+  real(dp) :: nuPrDivu,nuPr,nuPl,Pr_nu
+----------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(339): remark #7712: This variable has not been used.   [PR_NU]
+  real(dp) :: nuPrDivu,nuPr,nuPl,Pr_nu
+---------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(342): remark #7712: This variable has not been used.   [DD]
+  real(dp) :: dd,ee,cmp_Cv_eos
+--------------^
+../patch/rt/old_frig_main/godunov_fine.f90(342): remark #7712: This variable has not been used.   [EE]
+  real(dp) :: dd,ee,cmp_Cv_eos
+-----------------^
+../patch/rt/old_frig_main/godunov_fine.f90(342): remark #7712: This variable has not been used.   [CMP_CV_EOS]
+  real(dp) :: dd,ee,cmp_Cv_eos
+--------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(343): remark #7712: This variable has not been used.   [HT]
+  integer  :: ht
+--------------^
+../patch/rt/old_frig_main/godunov_fine.f90(813): remark #7712: This variable has not been used.   [G1]
+  real(dp),dimension(1:nvector,0:twondim  ,1:ndim),save::g1=0.0d0
+---------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(814): remark #7712: This variable has not been used.   [G2]
+  real(dp),dimension(1:nvector,1:twotondim,1:ndim),save::g2=0.0d0
+---------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(829): remark #7712: This variable has not been used.   [IBUFFER]
+  integer::i,j,ivar,idim,ind_son,ind_father,iskip,nbuffer,ibuffer
+----------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1736): remark #7712: This variable has not been used.   [C]
+  real(dp)::scale,d,u,v,w,A,B,C,d_old
+------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1735): remark #7712: This variable has not been used.   [J]
+  integer::i,j,k,ivar,ind,iskip,nx_loc,info
+-------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1735): remark #7712: This variable has not been used.   [K]
+  integer::i,j,k,ivar,ind,iskip,nx_loc,info
+---------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1735): remark #7712: This variable has not been used.   [IVAR]
+  integer::i,j,k,ivar,ind,iskip,nx_loc,info
+-----------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1735): remark #7712: This variable has not been used.   [INFO]
+  integer::i,j,k,ivar,ind,iskip,nx_loc,info
+---------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1736): remark #7712: This variable has not been used.   [D]
+  real(dp)::scale,d,u,v,w,A,B,C,d_old
+------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1736): remark #7712: This variable has not been used.   [U]
+  real(dp)::scale,d,u,v,w,A,B,C,d_old
+--------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1736): remark #7712: This variable has not been used.   [V]
+  real(dp)::scale,d,u,v,w,A,B,C,d_old
+----------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1736): remark #7712: This variable has not been used.   [W]
+  real(dp)::scale,d,u,v,w,A,B,C,d_old
+------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1736): remark #7712: This variable has not been used.   [A]
+  real(dp)::scale,d,u,v,w,A,B,C,d_old
+--------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1736): remark #7712: This variable has not been used.   [B]
+  real(dp)::scale,d,u,v,w,A,B,C,d_old
+----------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1736): remark #7712: This variable has not been used.   [D_OLD]
+  real(dp)::scale,d,u,v,w,A,B,C,d_old
+--------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1737): remark #7712: This variable has not been used.   [E_MAG]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,dx,fact,e_r
+------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1737): remark #7712: This variable has not been used.   [E_KIN]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,dx,fact,e_r
+------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1737): remark #7712: This variable has not been used.   [E_CONS]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,dx,fact,e_r
+------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1737): remark #7712: This variable has not been used.   [E_PRIM]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,dx,fact,e_r
+-------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1737): remark #7712: This variable has not been used.   [E_TRUNC]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,dx,fact,e_r
+--------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1737): remark #7712: This variable has not been used.   [DIV]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,dx,fact,e_r
+----------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1737): remark #7712: This variable has not been used.   [FACT]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,dx,fact,e_r
+-----------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1737): remark #7712: This variable has not been used.   [E_R]
+  real(dp)::e_mag,e_kin,e_cons,e_prim,e_trunc,div,dx,fact,e_r
+----------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1742): remark #7712: This variable has not been used.   [ERG]
+  real(dp),dimension(1:nvector,1:ndim,1:ngrp),save::Erg,Erd
+----------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1742): remark #7712: This variable has not been used.   [ERD]
+  real(dp),dimension(1:nvector,1:ndim,1:ngrp),save::Erg,Erd
+--------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1743): remark #7712: This variable has not been used.   [VELG]
+  real(dp),dimension(1:nvector,1:ndim,1:ndim),save::velg,veld
+----------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1743): remark #7712: This variable has not been used.   [VELD]
+  real(dp),dimension(1:nvector,1:ndim,1:ndim),save::velg,veld
+---------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1744): remark #7712: This variable has not been used.   [DX_G]
+  real(dp),dimension(1:nvector,1:ndim)::dx_g,dx_d
+----------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1744): remark #7712: This variable has not been used.   [DX_D]
+  real(dp),dimension(1:nvector,1:ndim)::dx_g,dx_d
+---------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1745): remark #7712: This variable has not been used.   [ROSSELAND_ANA]
+  real(dp)::rosseland_ana
+------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1746): remark #7712: This variable has not been used.   [PGDIVU]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1746): remark #7712: This variable has not been used.   [U_SQUARE]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+-------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1746): remark #7712: This variable has not been used.   [D_LOC]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+----------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1746): remark #7712: This variable has not been used.   [TP_LOC]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+----------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1746): remark #7712: This variable has not been used.   [TR_LOC]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+-----------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1746): remark #7712: This variable has not been used.   [CAL_TEG]
+  real(dp)::Pgdivu,u_square,d_loc,Tp_loc,Tr_loc,cal_Teg
+------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1748): remark #7712: This variable has not been used.   [ID1]
+  integer::ncache,igrid,ngrid,idim,id1,ig1,ih1,id2,ig2,ih2,igroup
+-----------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1748): remark #7712: This variable has not been used.   [IG1]
+  integer::ncache,igrid,ngrid,idim,id1,ig1,ih1,id2,ig2,ih2,igroup
+---------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1748): remark #7712: This variable has not been used.   [IH1]
+  integer::ncache,igrid,ngrid,idim,id1,ig1,ih1,id2,ig2,ih2,igroup
+-------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1748): remark #7712: This variable has not been used.   [ID2]
+  integer::ncache,igrid,ngrid,idim,id1,ig1,ih1,id2,ig2,ih2,igroup
+-----------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1748): remark #7712: This variable has not been used.   [IG2]
+  integer::ncache,igrid,ngrid,idim,id1,ig1,ih1,id2,ig2,ih2,igroup
+---------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1748): remark #7712: This variable has not been used.   [IH2]
+  integer::ncache,igrid,ngrid,idim,id1,ig1,ih1,id2,ig2,ih2,igroup
+-------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1748): remark #7712: This variable has not been used.   [IGROUP]
+  integer::ncache,igrid,ngrid,idim,id1,ig1,ih1,id2,ig2,ih2,igroup
+-----------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1750): remark #7712: This variable has not been used.   [USQUARE]
+  real(dp)::dx_loc,surf_loc,vol_loc,usquare,emag,erad_loc,ekin,eps,cv,pp_eos
+------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1750): remark #7712: This variable has not been used.   [EMAG]
+  real(dp)::dx_loc,surf_loc,vol_loc,usquare,emag,erad_loc,ekin,eps,cv,pp_eos
+--------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1750): remark #7712: This variable has not been used.   [ERAD_LOC]
+  real(dp)::dx_loc,surf_loc,vol_loc,usquare,emag,erad_loc,ekin,eps,cv,pp_eos
+-------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1750): remark #7712: This variable has not been used.   [EKIN]
+  real(dp)::dx_loc,surf_loc,vol_loc,usquare,emag,erad_loc,ekin,eps,cv,pp_eos
+----------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1750): remark #7712: This variable has not been used.   [EPS]
+  real(dp)::dx_loc,surf_loc,vol_loc,usquare,emag,erad_loc,ekin,eps,cv,pp_eos
+---------------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1750): remark #7712: This variable has not been used.   [CV]
+  real(dp)::dx_loc,surf_loc,vol_loc,usquare,emag,erad_loc,ekin,eps,cv,pp_eos
+-------------------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1750): remark #7712: This variable has not been used.   [PP_EOS]
+  real(dp)::dx_loc,surf_loc,vol_loc,usquare,emag,erad_loc,ekin,eps,cv,pp_eos
+----------------------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1751): remark #7712: This variable has not been used.   [KAPPA_R]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1751): remark #7712: This variable has not been used.   [GRADER_NORM]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+--------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1751): remark #7712: This variable has not been used.   [GRADER_NORM2]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+--------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1751): remark #7712: This variable has not been used.   [R]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+---------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1751): remark #7712: This variable has not been used.   [LAMBDA]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+-----------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1751): remark #7712: This variable has not been used.   [LAMBDA_FLD]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1751): remark #7712: This variable has not been used.   [CHI]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+-----------------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1751): remark #7712: This variable has not been used.   [PGMERDIVU]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+---------------------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1751): remark #7712: This variable has not been used.   [GRADERU]
+  real(dp)::kappa_R,gradEr_norm,gradEr_norm2,R,lambda,lambda_fld,chi,PgmErdivu,gradEru
+-------------------------------------------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1753): remark #7712: This variable has not been used.   [GRADER]
+  real(dp) ,dimension(1:ndim,1:ngrp)::gradEr
+--------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1754): remark #7712: This variable has not been used.   [DIVU_LOC]
+  real(dp) ,dimension(1:ndim,1:ndim)::divu_loc
+--------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1755): remark #7712: This variable has not been used.   [PG]
+  real(dp) ,dimension(1:ndim,1:ndim,1:ngrp)::Pg
+---------------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1756): remark #7712: This variable has not been used.   [U_LOC]
+  real(dp) ,dimension(1:ndim       )::u_loc
+--------------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1757): remark #7712: This variable has not been used.   [NUPRDIVU]
+  real(dp) :: nuPrDivu,nuPr,nuPl,Pr_nu
+--------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1757): remark #7712: This variable has not been used.   [NUPR]
+  real(dp) :: nuPrDivu,nuPr,nuPl,Pr_nu
+-----------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1757): remark #7712: This variable has not been used.   [NUPL]
+  real(dp) :: nuPrDivu,nuPr,nuPl,Pr_nu
+----------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1757): remark #7712: This variable has not been used.   [PR_NU]
+  real(dp) :: nuPrDivu,nuPr,nuPl,Pr_nu
+---------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1758): remark #7712: This variable has not been used.   [PR_TEMP]
+  real(dp), dimension(1:5) :: Pr_temp
+------------------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1761): remark #7712: This variable has not been used.   [DD]
+  real(dp) :: dd,ee,cmp_Cv_eos
+--------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1761): remark #7712: This variable has not been used.   [EE]
+  real(dp) :: dd,ee,cmp_Cv_eos
+-----------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1761): remark #7712: This variable has not been used.   [CMP_CV_EOS]
+  real(dp) :: dd,ee,cmp_Cv_eos
+--------------------^
+../patch/rt/old_frig_main/godunov_fine.f90(1762): remark #7712: This variable has not been used.   [HT]
+  integer  :: ht 
+--------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/uplmde.f90 -o uplmde.o 
+../mhd/uplmde.f90(655): remark #7712: This variable has not been used.   [BUFFER]
+subroutine cmp_current(Bx,By,Bz,Ex_arete,Ey_arete,Ez_arete,buffer, &
+-----------------------------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/umuscl.f90 -o umuscl.o 
+../mhd/umuscl.f90(35): remark #7712: This variable has not been used.   [IND_GRID]
+subroutine mag_unsplit(uin,gravin,flux,emfx,emfy,emfz,tmp,dx,dy,dz,dt,ngrid,ind_grid,jcell)
+----------------------------------------------------------------------------^
+../mhd/umuscl.f90(35): remark #7712: This variable has not been used.   [JCELL]
+subroutine mag_unsplit(uin,gravin,flux,emfx,emfy,emfz,tmp,dx,dy,dz,dt,ngrid,ind_grid,jcell)
+-------------------------------------------------------------------------------------^
+../mhd/umuscl.f90(1202): remark #7712: This variable has not been used.   [DAX]
+  REAL(dp)::drx, dux, dvx, dwx, dpx, dAx, dBx, dCx
+-------------------------------------^
+../mhd/umuscl.f90(1203): remark #7712: This variable has not been used.   [DBY]
+  REAL(dp)::dry, duy, dvy, dwy, dpy, dAy, dbY, dCy
+------------------------------------------^
+../mhd/umuscl.f90(1204): remark #7712: This variable has not been used.   [DCZ]
+  REAL(dp)::drz, duz, dvz, dwz, dpz, dAz, dBz, dCz
+-----------------------------------------------^
+../mhd/umuscl.f90(1205): remark #7712: This variable has not been used.   [SA0]
+  REAL(dp)::sr0, su0=0, sv0=0, sw0=0, sp0, sA0, sB0, sC0
+-------------------------------------------^
+../mhd/umuscl.f90(1205): remark #7712: This variable has not been used.   [SB0]
+  REAL(dp)::sr0, su0=0, sv0=0, sw0=0, sp0, sA0, sB0, sC0
+------------------------------------------------^
+../mhd/umuscl.f90(1205): remark #7712: This variable has not been used.   [SC0]
+  REAL(dp)::sr0, su0=0, sv0=0, sw0=0, sp0, sA0, sB0, sC0
+-----------------------------------------------------^
+../mhd/umuscl.f90(1808): remark #7712: This variable has not been used.   [IDIM]
+  integer ::i, j, k, l, idim, xdim
+------------------------^
+../mhd/umuscl.f90(1956): remark #7712: This variable has not been used.   [N]
+  INTEGER ::i, j, k, n, l, idim, xdim, m
+---------------------^
+../mhd/umuscl.f90(1956): remark #7712: This variable has not been used.   [IDIM]
+  INTEGER ::i, j, k, n, l, idim, xdim, m
+---------------------------^
+../mhd/umuscl.f90(1956): remark #7712: This variable has not been used.   [M]
+  INTEGER ::i, j, k, n, l, idim, xdim, m
+---------------------------------------^
+../mhd/umuscl.f90(2671): remark #7712: This variable has not been used.   [DX]
+subroutine uslope(bf,q,dq,dbf,dx,dt,ngrid)
+------------------------------^
+../mhd/umuscl.f90(2671): remark #7712: This variable has not been used.   [DT]
+subroutine uslope(bf,q,dq,dbf,dx,dt,ngrid)
+---------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/interpol_hydro.f90 -o interpol_hydro.o 
+../mhd/interpol_hydro.f90(1224): remark #7712: This variable has not been used.   [B1]
+subroutine copy_from_refined_faces(b1,ind1,u,v,w,nn)
+-----------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/godunov_utils.f90 -o godunov_utils.o 
+../mhd/godunov_utils.f90(19): remark #7712: This variable has not been used.   [HT]
+  integer::ncell,ht
+-----------------^
+../mhd/godunov_utils.f90(217): remark #7712: This variable has not been used.   [FG]
+  real(dp)::dg,dm,dd,pg,pm,pd,vg,vm,vd,cg,cm,cd,error,emag_loc,ethres,Eg,Em,Ed,Fg,Fm,Fd
+-------------------------------------------------------------------------------^
+../mhd/godunov_utils.f90(217): remark #7712: This variable has not been used.   [FM]
+  real(dp)::dg,dm,dd,pg,pm,pd,vg,vm,vd,cg,cm,cd,error,emag_loc,ethres,Eg,Em,Ed,Fg,Fm,Fd
+----------------------------------------------------------------------------------^
+../mhd/godunov_utils.f90(217): remark #7712: This variable has not been used.   [FD]
+  real(dp)::dg,dm,dd,pg,pm,pd,vg,vm,vd,cg,cm,cd,error,emag_loc,ethres,Eg,Em,Ed,Fg,Fm,Fd
+-------------------------------------------------------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../patch/rt/old_frig_main/condinit.f90 -o condinit.o 
+../patch/rt/old_frig_main/condinit.f90(47): remark #7712: This variable has not been used.   [XX]
+  real(dp)::xl,yl,zl,xx,yy,zz,bx,by,bz,dxmin
+---------------------^
+../patch/rt/old_frig_main/condinit.f90(47): remark #7712: This variable has not been used.   [BX]
+  real(dp)::xl,yl,zl,xx,yy,zz,bx,by,bz,dxmin
+------------------------------^
+../patch/rt/old_frig_main/condinit.f90(47): remark #7712: This variable has not been used.   [BY]
+  real(dp)::xl,yl,zl,xx,yy,zz,bx,by,bz,dxmin
+---------------------------------^
+../patch/rt/old_frig_main/condinit.f90(47): remark #7712: This variable has not been used.   [BZ]
+  real(dp)::xl,yl,zl,xx,yy,zz,bx,by,bz,dxmin
+------------------------------------^
+../patch/rt/old_frig_main/condinit.f90(48): remark #7712: This variable has not been used.   [II]
+  integer:: ii,jj,kk,nticks
+------------^
+../patch/rt/old_frig_main/condinit.f90(478): remark #7712: This variable has not been used.   [DX]
+subroutine velana(x,v,dx,t,ncell)
+----------------------^
+../patch/rt/old_frig_main/condinit.f90(478): remark #7712: This variable has not been used.   [T]
+subroutine velana(x,v,dx,t,ncell)
+-------------------------^
+../patch/rt/old_frig_main/condinit.f90(493): remark #7712: This variable has not been used.   [RR]
+  real(dp)::xx,yy,zz,vx,vy,vz,rr,tt,omega,aa,twopi
+------------------------------^
+../patch/rt/old_frig_main/condinit.f90(493): remark #7712: This variable has not been used.   [TT]
+  real(dp)::xx,yy,zz,vx,vy,vz,rr,tt,omega,aa,twopi
+---------------------------------^
+../patch/rt/old_frig_main/condinit.f90(493): remark #7712: This variable has not been used.   [OMEGA]
+  real(dp)::xx,yy,zz,vx,vy,vz,rr,tt,omega,aa,twopi
+------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/hydro_flag.f90 -o hydro_flag.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/hydro_boundary.f90 -o hydro_boundary.o 
+../mhd/hydro_boundary.f90(15): remark #7712: This variable has not been used.   [IGRP]
+  integer::i,ncache,ivar,igrid,ngrid,ind,iperp1=7,iperp2=8,iplane,icell,igrp
+------------------------------------------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/boundana.f90 -o boundana.o 
+../mhd/boundana.f90(5): remark #7712: This variable has not been used.   [X]
+subroutine boundana(x,u,dx,ibound,ncell)
+--------------------^
+../mhd/boundana.f90(5): remark #7712: This variable has not been used.   [DX]
+subroutine boundana(x,u,dx,ibound,ncell)
+------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/read_hydro_params.f90 -o read_hydro_params.o 
+../mhd/read_hydro_params.f90(18): remark #7712: This variable has not been used.   [J]
+  integer::i,j,irad,nboundary_true=0,ht
+-------------^
+../mhd/read_hydro_params.f90(18): remark #7712: This variable has not been used.   [IRAD]
+  integer::i,j,irad,nboundary_true=0,ht
+---------------^
+../mhd/read_hydro_params.f90(18): remark #7712: This variable has not been used.   [HT]
+  integer::i,j,irad,nboundary_true=0,ht
+-------------------------------------^
+../mhd/read_hydro_params.f90(21): remark #7712: This variable has not been used.   [RADIATION_SOURCE]
+  real(dp)::radiation_source
+------------^
+../mhd/read_hydro_params.f90(657): remark #7712: This variable has not been used.   [ITYPE]
+subroutine DDPDD (dda, ddb, len, itype)
+---------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../mhd/synchro_hydro_fine.f90 -o synchro_hydro_fine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../fld/multigroup.f90 -o multigroup.o 
+../fld/multigroup.f90(193): remark #7712: This variable has not been used.   [NU]
+  real(dp)             :: xi,deriv_xi,deriv_artheta4,nu,dnu,Div_BPlanck
+-----------------------------------------------------^
+../fld/multigroup.f90(193): remark #7712: This variable has not been used.   [DNU]
+  real(dp)             :: xi,deriv_xi,deriv_artheta4,nu,dnu,Div_BPlanck
+--------------------------------------------------------^
+../fld/multigroup.f90(601): remark #7712: This variable has not been used.   [J]
+  integer  :: i,igrp,j
+---------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../fld/m1_utils.f90 -o m1_utils.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../fld/radiative_transfer_bicg.f90 -o radiative_transfer_bicg.o 
+../fld/radiative_transfer_bicg.f90(1): remark #7712: This variable has not been used.   [NSUB]
+subroutine diffusion_cg (ilevel,Nsub)
+--------------------------------^
+../fld/radiative_transfer_bicg.f90(47): remark #7712: This variable has not been used.   [CV]
+  real(dp)::Cv,told,rho,dt_exp,wdtB,wdtE,Tr,Trold,cal_Teg
+------------^
+../fld/radiative_transfer_bicg.f90(47): remark #7712: This variable has not been used.   [TOLD]
+  real(dp)::Cv,told,rho,dt_exp,wdtB,wdtE,Tr,Trold,cal_Teg
+---------------^
+../fld/radiative_transfer_bicg.f90(47): remark #7712: This variable has not been used.   [RHO]
+  real(dp)::Cv,told,rho,dt_exp,wdtB,wdtE,Tr,Trold,cal_Teg
+--------------------^
+../fld/radiative_transfer_bicg.f90(47): remark #7712: This variable has not been used.   [WDTB]
+  real(dp)::Cv,told,rho,dt_exp,wdtB,wdtE,Tr,Trold,cal_Teg
+-------------------------------^
+../fld/radiative_transfer_bicg.f90(47): remark #7712: This variable has not been used.   [WDTE]
+  real(dp)::Cv,told,rho,dt_exp,wdtB,wdtE,Tr,Trold,cal_Teg
+------------------------------------^
+../fld/radiative_transfer_bicg.f90(47): remark #7712: This variable has not been used.   [TR]
+  real(dp)::Cv,told,rho,dt_exp,wdtB,wdtE,Tr,Trold,cal_Teg
+-----------------------------------------^
+../fld/radiative_transfer_bicg.f90(47): remark #7712: This variable has not been used.   [TROLD]
+  real(dp)::Cv,told,rho,dt_exp,wdtB,wdtE,Tr,Trold,cal_Teg
+--------------------------------------------^
+../fld/radiative_transfer_bicg.f90(47): remark #7712: This variable has not been used.   [CAL_TEG]
+  real(dp)::Cv,told,rho,dt_exp,wdtB,wdtE,Tr,Trold,cal_Teg
+--------------------------------------------------^
+../fld/radiative_transfer_bicg.f90(49): remark #7712: This variable has not been used.   [TEMP]
+  real(dp)::temp,density,planck_ana,rosseland_ana
+------------^
+../fld/radiative_transfer_bicg.f90(49): remark #7712: This variable has not been used.   [DENSITY]
+  real(dp)::temp,density,planck_ana,rosseland_ana
+-----------------^
+../fld/radiative_transfer_bicg.f90(49): remark #7712: This variable has not been used.   [PLANCK_ANA]
+  real(dp)::temp,density,planck_ana,rosseland_ana
+-------------------------^
+../fld/radiative_transfer_bicg.f90(49): remark #7712: This variable has not been used.   [ROSSELAND_ANA]
+  real(dp)::temp,density,planck_ana,rosseland_ana
+------------------------------------^
+../fld/radiative_transfer_bicg.f90(50): remark #7712: This variable has not been used.   [IGROUP]
+  integer::i,ind,iter,iskip,itermax,icpu,igroup,igrp,irad,jrad,ivar
+-----------------------------------------^
+../fld/radiative_transfer_bicg.f90(50): remark #7712: This variable has not been used.   [IGRP]
+  integer::i,ind,iter,iskip,itermax,icpu,igroup,igrp,irad,jrad,ivar
+------------------------------------------------^
+../fld/radiative_transfer_bicg.f90(52): remark #7712: This variable has not been used.   [RADIATION_SOURCE]
+  real(dp)::radiation_source,deriv_radiation_source,rhs,lhs
+------------^
+../fld/radiative_transfer_bicg.f90(52): remark #7712: This variable has not been used.   [DERIV_RADIATION_SOURCE]
+  real(dp)::radiation_source,deriv_radiation_source,rhs,lhs
+-----------------------------^
+../fld/radiative_transfer_bicg.f90(52): remark #7712: This variable has not been used.   [RHS]
+  real(dp)::radiation_source,deriv_radiation_source,rhs,lhs
+----------------------------------------------------^
+../fld/radiative_transfer_bicg.f90(52): remark #7712: This variable has not been used.   [LHS]
+  real(dp)::radiation_source,deriv_radiation_source,rhs,lhs
+--------------------------------------------------------^
+../fld/radiative_transfer_bicg.f90(987): warning #6717: This name has not been given an explicit type.   [ILEVEL]
+subroutine cmp_matrix_and_vector_coeff_m1(ilevel)
+------------------------------------------^
+../fld/radiative_transfer_bicg.f90(987): remark #7712: This variable has not been used.   [ILEVEL]
+subroutine cmp_matrix_and_vector_coeff_m1(ilevel)
+------------------------------------------^
+../fld/radiative_transfer_bicg.f90(1777): remark #7712: This variable has not been used.   [PHI_C]
+  real(dp),dimension(1:nvector  ,1:  nvar_bicg),save:: phi_g,phi_c,phi_d,val_g,val_d
+-------------------------------------------------------------^
+../fld/radiative_transfer_bicg.f90(2338): remark #7712: This variable has not been used.   [IND1]
+function nu_surf(Er1,Er2,ind1,ind2,dx)
+-------------------------^
+../fld/radiative_transfer_bicg.f90(2338): remark #7712: This variable has not been used.   [IND2]
+function nu_surf(Er1,Er2,ind1,ind2,dx)
+------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../fld/radiation_boundary.f90 -o radiation_boundary.o 
+../fld/radiation_boundary.f90(29): remark #7712: This variable has not been used.   [CV]
+  real(dp)::dd,t2,t2r,cal_Teg,usquare,emag,erad_loc,eps,ekin,Cv,rho
+-------------------------------------------------------------^
+../fld/radiation_boundary.f90(221): remark #7712: This variable has not been used.   [IGROUP]
+  integer::ibound,boundary_dir,idim,inbor,igroup,ht
+------------------------------------------^
+../fld/radiation_boundary.f90(223): remark #7712: This variable has not been used.   [GDIM]
+  integer::iskip,iskip_ref,gdim,nx_loc,ix,iy,iz,igrp,irad
+---------------------------^
+../fld/radiation_boundary.f90(229): remark #7712: This variable has not been used.   [ROSSELAND_ANA]
+  real(dp)::rosseland_ana,planck_ana
+------------^
+../fld/radiation_boundary.f90(229): remark #7712: This variable has not been used.   [PLANCK_ANA]
+  real(dp)::rosseland_ana,planck_ana
+--------------------------^
+../fld/radiation_boundary.f90(234): remark #7712: This variable has not been used.   [COND]
+  real(dp),dimension(1:nvector)::cond,relax
+---------------------------------^
+../fld/radiation_boundary.f90(234): remark #7712: This variable has not been used.   [RELAX]
+  real(dp),dimension(1:nvector)::cond,relax
+--------------------------------------^
+../fld/radiation_boundary.f90(235): remark #7712: This variable has not been used.   [T2R]
+  real(dp)::dd,t2,t2r,cal_Teg,usquare,emag,erad_loc,eps,ekin,Cv,rho
+------------------^
+../fld/radiation_boundary.f90(235): remark #7712: This variable has not been used.   [CAL_TEG]
+  real(dp)::dd,t2,t2r,cal_Teg,usquare,emag,erad_loc,eps,ekin,Cv,rho
+----------------------^
+../fld/radiation_boundary.f90(235): remark #7712: This variable has not been used.   [CV]
+  real(dp)::dd,t2,t2r,cal_Teg,usquare,emag,erad_loc,eps,ekin,Cv,rho
+-------------------------------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../hydro/cooling_module_frig.f90 -o cooling_module_frig.o 
+../hydro/cooling_module_frig.f90(5): remark #7712: This variable has not been used.   [ZSOLAR]
+subroutine solve_cooling_frig(nH,T2,zsolar,boost,dt,deltaT2,ncell)
+------------------------------------^
+../hydro/cooling_module_frig.f90(5): remark #7712: This variable has not been used.   [BOOST]
+subroutine solve_cooling_frig(nH,T2,zsolar,boost,dt,deltaT2,ncell)
+-------------------------------------------^
+../hydro/cooling_module_frig.f90(52): remark #7712: This variable has not been used.   [N]
+    integer :: n,i,j,k,idim, iter, itermax,ii
+---------------^
+../hydro/cooling_module_frig.f90(52): remark #7712: This variable has not been used.   [I]
+    integer :: n,i,j,k,idim, iter, itermax,ii
+-----------------^
+../hydro/cooling_module_frig.f90(52): remark #7712: This variable has not been used.   [J]
+    integer :: n,i,j,k,idim, iter, itermax,ii
+-------------------^
+../hydro/cooling_module_frig.f90(52): remark #7712: This variable has not been used.   [K]
+    integer :: n,i,j,k,idim, iter, itermax,ii
+---------------------^
+../hydro/cooling_module_frig.f90(52): remark #7712: This variable has not been used.   [IDIM]
+    integer :: n,i,j,k,idim, iter, itermax,ii
+-----------------------^
+../hydro/cooling_module_frig.f90(52): remark #7712: This variable has not been used.   [II]
+    integer :: n,i,j,k,idim, iter, itermax,ii
+-------------------------------------------^
+../hydro/cooling_module_frig.f90(55): remark #7712: This variable has not been used.   [TEMP]
+    real(dp) :: rho,temp,dt_tot_unicode
+--------------------^
+../hydro/cooling_module_frig.f90(58): remark #7712: This variable has not been used.   [MM]
+    real(dp) :: mm,uma, kb, alpha_ct,mu,kb_mm
+----------------^
+../hydro/cooling_module_frig.f90(58): remark #7712: This variable has not been used.   [UMA]
+    real(dp) :: mm,uma, kb, alpha_ct,mu,kb_mm
+-------------------^
+../hydro/cooling_module_frig.f90(58): remark #7712: This variable has not been used.   [KB_MM]
+    real(dp) :: mm,uma, kb, alpha_ct,mu,kb_mm
+----------------------------------------^
+../hydro/cooling_module_frig.f90(60): remark #7712: This variable has not been used.   [RHOUTOT2]
+    real(dp) :: rhoutot2
+----------------^
+../hydro/cooling_module_frig.f90(197): remark #7712: This variable has not been used.   [NE]
+    real(dp) :: T,P,N,x,ne                    !x est le taux d'ionisation
+------------------------^
+../hydro/cooling_module_frig.f90(197): remark #7712: This variable has not been used.   [P]
+    real(dp) :: T,P,N,x,ne                    !x est le taux d'ionisation
+------------------^
+../hydro/cooling_module_frig.f90(197): remark #7712: This variable has not been used.   [X]
+    real(dp) :: T,P,N,x,ne                    !x est le taux d'ionisation
+----------------------^
+../hydro/cooling_module_frig.f90(198): remark #7712: This variable has not been used.   [T2]
+    real(dp) :: T2, ref2
+----------------^
+../hydro/cooling_module_frig.f90(198): remark #7712: This variable has not been used.   [REF2]
+    real(dp) :: T2, ref2
+--------------------^
+../hydro/cooling_module_frig.f90(199): remark #7712: This variable has not been used.   [NC]
+    real(dp) :: froid,chaud,ref,nc, froidc
+--------------------------------^
+../hydro/cooling_module_frig.f90(199): remark #7712: This variable has not been used.   [FROIDC]
+    real(dp) :: froid,chaud,ref,nc, froidc
+------------------------------------^
+../hydro/cooling_module_frig.f90(200): remark #7712: This variable has not been used.   [FROIDCII]
+    real(dp) :: froidcII, froido, froidh
+----------------^
+../hydro/cooling_module_frig.f90(200): remark #7712: This variable has not been used.   [FROIDO]
+    real(dp) :: froidcII, froido, froidh
+--------------------------^
+../hydro/cooling_module_frig.f90(200): remark #7712: This variable has not been used.   [FROIDH]
+    real(dp) :: froidcII, froido, froidh
+----------------------------------^
+../hydro/cooling_module_frig.f90(201): remark #7712: This variable has not been used.   [FROIDC_M]
+    real(dp) :: froidc_m,froidcII_m,froido_m
+----------------^
+../hydro/cooling_module_frig.f90(201): remark #7712: This variable has not been used.   [FROIDCII_M]
+    real(dp) :: froidc_m,froidcII_m,froido_m
+-------------------------^
+../hydro/cooling_module_frig.f90(201): remark #7712: This variable has not been used.   [FROIDO_M]
+    real(dp) :: froidc_m,froidcII_m,froido_m
+------------------------------------^
+../hydro/cooling_module_frig.f90(202): remark #7712: This variable has not been used.   [PARAM]
+    real(dp) :: param, G0, epsilon,k1,k2,bet,froidrec
+----------------^
+../hydro/cooling_module_frig.f90(202): remark #7712: This variable has not been used.   [G0]
+    real(dp) :: param, G0, epsilon,k1,k2,bet,froidrec
+-----------------------^
+../hydro/cooling_module_frig.f90(202): remark #7712: This variable has not been used.   [EPSILON]
+    real(dp) :: param, G0, epsilon,k1,k2,bet,froidrec
+---------------------------^
+../hydro/cooling_module_frig.f90(202): remark #7712: This variable has not been used.   [K1]
+    real(dp) :: param, G0, epsilon,k1,k2,bet,froidrec
+-----------------------------------^
+../hydro/cooling_module_frig.f90(202): remark #7712: This variable has not been used.   [K2]
+    real(dp) :: param, G0, epsilon,k1,k2,bet,froidrec
+--------------------------------------^
+../hydro/cooling_module_frig.f90(202): remark #7712: This variable has not been used.   [BET]
+    real(dp) :: param, G0, epsilon,k1,k2,bet,froidrec
+-----------------------------------------^
+../hydro/cooling_module_frig.f90(202): remark #7712: This variable has not been used.   [FROIDREC]
+    real(dp) :: param, G0, epsilon,k1,k2,bet,froidrec
+---------------------------------------------^
+../hydro/cooling_module_frig.f90(203): remark #7712: This variable has not been used.   [EPS]
+    real(dp) :: eps
+----------------^
+../hydro/cooling_module_frig.f90(205): remark #7712: This variable has not been used.   [INTCST]
+    real(dp) :: logT, intcst, logT2
+----------------------^
+../hydro/cooling_module_frig.f90(205): remark #7712: This variable has not been used.   [LOGT2]
+    real(dp) :: logT, intcst, logT2
+------------------------------^
+../hydro/cooling_module_frig.f90(206): remark #7712: This variable has not been used.   [ION]
+    real(dp) :: ion, neut
+----------------^
+../hydro/cooling_module_frig.f90(206): remark #7712: This variable has not been used.   [NEUT]
+    real(dp) :: ion, neut
+---------------------^
+../hydro/cooling_module_frig.f90(207): remark #7712: This variable has not been used.   [REFION]
+    real(dp) :: refion
+----------------^
+../hydro/cooling_module_frig.f90(251): remark #7712: This variable has not been used.   [P]
+  real(dp) :: T,P,N,x,ne,x_ana                 !x est le taux d'ionisation
+----------------^
+../hydro/cooling_module_frig.f90(252): remark #7712: This variable has not been used.   [NC]
+  real(dp) :: froid,chaud,ref,nc, froidc
+------------------------------^
+../hydro/cooling_module_frig.f90(252): remark #7712: This variable has not been used.   [FROIDC]
+  real(dp) :: froid,chaud,ref,nc, froidc
+----------------------------------^
+../hydro/cooling_module_frig.f90(254): remark #7712: This variable has not been used.   [FROIDC_M]
+  real(dp) :: froidc_m,froidcII_m,froido_m
+--------------^
+../hydro/cooling_module_frig.f90(255): remark #7712: This variable has not been used.   [K1]
+  real(dp) :: param, G0, epsilon,k1,k2,bet,froidrec
+---------------------------------^
+../hydro/cooling_module_frig.f90(255): remark #7712: This variable has not been used.   [K2]
+  real(dp) :: param, G0, epsilon,k1,k2,bet,froidrec
+------------------------------------^
+../hydro/cooling_module_frig.f90(512): remark #7712: This variable has not been used.   [NX_LOC]
+  integer                                               :: nx_loc,pos_son,ind_father
+-----------------------------------------------------------^
+../hydro/cooling_module_frig.f90(515): remark #7712: This variable has not been used.   [XX]
+  real(dp),dimension(1:nvector,1:ndim)                  :: xx,xx_check
+-----------------------------------------------------------^
+../hydro/cooling_module_frig.f90(886): remark #7712: This variable has not been used.   [H2COLUMN_DENS]
+subroutine contribution(ind_grid, ngrid, ilevel, il, ind_lim1, ind_lim2, column_dens, H2column_dens)
+--------------------------------------------------------------------------------------^
+../hydro/cooling_module_frig.f90(898): remark #7712: This variable has not been used.   [NEULS]
+  integer                                               :: neulS=8+nrad+nextinct
+-----------------------------------------------------------^
+../hydro/cooling_module_frig.f90(1110): remark #7712: This variable has not been used.   [N]
+  integer             :: n,i,j,k,idim, iter, itermax               
+-------------------------^
+../hydro/cooling_module_frig.f90(1110): remark #7712: This variable has not been used.   [I]
+  integer             :: n,i,j,k,idim, iter, itermax               
+---------------------------^
+../hydro/cooling_module_frig.f90(1110): remark #7712: This variable has not been used.   [J]
+  integer             :: n,i,j,k,idim, iter, itermax               
+-----------------------------^
+../hydro/cooling_module_frig.f90(1110): remark #7712: This variable has not been used.   [K]
+  integer             :: n,i,j,k,idim, iter, itermax               
+-------------------------------^
+../hydro/cooling_module_frig.f90(1110): remark #7712: This variable has not been used.   [IDIM]
+  integer             :: n,i,j,k,idim, iter, itermax               
+---------------------------------^
+../hydro/cooling_module_frig.f90(1111): remark #7712: This variable has not been used.   [EXTINCT]
+  real(dp)            :: dt, dt_tot, temps, dt_max, itermoy,extinct
+------------------------------------------------------------^
+../hydro/cooling_module_frig.f90(1112): remark #7712: This variable has not been used.   [TEMP]
+  real(dp)            :: rho,temp
+-----------------------------^
+../hydro/cooling_module_frig.f90(1113): remark #7712: This variable has not been used.   [MM]
+  real(dp)            :: mm,uma, kb, alpha1,mu,kb_mm
+-------------------------^
+../hydro/cooling_module_frig.f90(1113): remark #7712: This variable has not been used.   [UMA]
+  real(dp)            :: mm,uma, kb, alpha1,mu,kb_mm
+----------------------------^
+../hydro/cooling_module_frig.f90(1113): remark #7712: This variable has not been used.   [MU]
+  real(dp)            :: mm,uma, kb, alpha1,mu,kb_mm
+--------------------------------------------^
+../hydro/cooling_module_frig.f90(1113): remark #7712: This variable has not been used.   [KB_MM]
+  real(dp)            :: mm,uma, kb, alpha1,mu,kb_mm
+-----------------------------------------------^
+../hydro/cooling_module_frig.f90(1115): remark #7712: This variable has not been used.   [RHOUTOT2]
+  real(dp)            :: rhoutot2
+-------------------------^
+../hydro/cooling_module_frig.f90(1387): remark #7712: This variable has not been used.   [COS_THETA2]
+  real(dp)                            :: phi, cos_theta, sin_theta, cos_phi, sin_phi, cos_theta2
+--------------------------------------------------------------------------------------^
+../hydro/cooling_module_frig.f90(1594): remark #7712: This variable has not been used.   [NNN]
+  integer                :: nnn,index_m,index_n          
+----------------------------^
+../hydro/cooling_module_frig.f90(1595): remark #7712: This variable has not been used.   [P]
+  real(dp)               :: P,x,ne,extinct,coef             !x est le taux d'ionisation
+----------------------------^
+../hydro/cooling_module_frig.f90(1597): remark #7712: This variable has not been used.   [NC]
+  real(dp)               :: froid,chaud,nc, froidc    
+----------------------------------------^
+../hydro/cooling_module_frig.f90(1597): remark #7712: This variable has not been used.   [FROIDC]
+  real(dp)               :: froid,chaud,nc, froidc    
+--------------------------------------------^
+../hydro/cooling_module_frig.f90(1599): remark #7712: This variable has not been used.   [FROIDC_M]
+  real(dp)               :: froidc_m,froidcII_m,froido_m
+----------------------------^
+../hydro/cooling_module_frig.f90(1599): remark #7712: This variable has not been used.   [FROIDCII_M]
+  real(dp)               :: froidc_m,froidcII_m,froido_m
+-------------------------------------^
+../hydro/cooling_module_frig.f90(1599): remark #7712: This variable has not been used.   [FROIDO_M]
+  real(dp)               :: froidc_m,froidcII_m,froido_m
+------------------------------------------------^
+../hydro/cooling_module_frig.f90(1600): remark #7712: This variable has not been used.   [K1]
+  real(dp)               :: param, G0, epsilon,k1,k2,bet,froidrec
+-----------------------------------------------^
+../hydro/cooling_module_frig.f90(1600): remark #7712: This variable has not been used.   [K2]
+  real(dp)               :: param, G0, epsilon,k1,k2,bet,froidrec
+--------------------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../cr/crdiffusion.f90 -o crdiffusion.o 
+../cr/crdiffusion.f90(24): remark #7712: This variable has not been used.   [EPSILON]
+  real(dp)::error,error_ini,epsilon,error_nr,error_nrm1,error_nrm2,error_nrm3
+----------------------------^
+../cr/crdiffusion.f90(24): remark #7712: This variable has not been used.   [ERROR_NR]
+  real(dp)::error,error_ini,epsilon,error_nr,error_nrm1,error_nrm2,error_nrm3
+------------------------------------^
+../cr/crdiffusion.f90(24): remark #7712: This variable has not been used.   [ERROR_NRM1]
+  real(dp)::error,error_ini,epsilon,error_nr,error_nrm1,error_nrm2,error_nrm3
+---------------------------------------------^
+../cr/crdiffusion.f90(24): remark #7712: This variable has not been used.   [ERROR_NRM2]
+  real(dp)::error,error_ini,epsilon,error_nr,error_nrm1,error_nrm2,error_nrm3
+--------------------------------------------------------^
+../cr/crdiffusion.f90(24): remark #7712: This variable has not been used.   [ERROR_NRM3]
+  real(dp)::error,error_ini,epsilon,error_nr,error_nrm1,error_nrm2,error_nrm3
+-------------------------------------------------------------------^
+../cr/crdiffusion.f90(25): remark #7712: This variable has not been used.   [ERROR_NR_LOC]
+  real(dp)::error_nr_loc,error_nr_all,error_cg_loc,error_cg_all
+------------^
+../cr/crdiffusion.f90(25): remark #7712: This variable has not been used.   [ERROR_NR_ALL]
+  real(dp)::error_nr_loc,error_nr_all,error_cg_loc,error_cg_all
+-------------------------^
+../cr/crdiffusion.f90(26): remark #7712: This variable has not been used.   [CV]
+  real(dp)::alpha_cg,beta_cg,Cv,told,tnew,wdt,rho,dt_exp
+-----------------------------^
+../cr/crdiffusion.f90(26): remark #7712: This variable has not been used.   [TOLD]
+  real(dp)::alpha_cg,beta_cg,Cv,told,tnew,wdt,rho,dt_exp
+--------------------------------^
+../cr/crdiffusion.f90(26): remark #7712: This variable has not been used.   [TNEW]
+  real(dp)::alpha_cg,beta_cg,Cv,told,tnew,wdt,rho,dt_exp
+-------------------------------------^
+../cr/crdiffusion.f90(26): remark #7712: This variable has not been used.   [WDT]
+  real(dp)::alpha_cg,beta_cg,Cv,told,tnew,wdt,rho,dt_exp
+------------------------------------------^
+../cr/crdiffusion.f90(26): remark #7712: This variable has not been used.   [RHO]
+  real(dp)::alpha_cg,beta_cg,Cv,told,tnew,wdt,rho,dt_exp
+----------------------------------------------^
+../cr/crdiffusion.f90(28): remark #7712: This variable has not been used.   [DENSITY]
+  real(dp)::density,kpara_ana,kperp_ana,norm_Eth,temp
+------------^
+../cr/crdiffusion.f90(28): remark #7712: This variable has not been used.   [KPARA_ANA]
+  real(dp)::density,kpara_ana,kperp_ana,norm_Eth,temp
+--------------------^
+../cr/crdiffusion.f90(28): remark #7712: This variable has not been used.   [KPERP_ANA]
+  real(dp)::density,kpara_ana,kperp_ana,norm_Eth,temp
+------------------------------^
+../cr/crdiffusion.f90(28): remark #7712: This variable has not been used.   [NORM_ETH]
+  real(dp)::density,kpara_ana,kperp_ana,norm_Eth,temp
+----------------------------------------^
+../cr/crdiffusion.f90(28): remark #7712: This variable has not been used.   [TEMP]
+  real(dp)::density,kpara_ana,kperp_ana,norm_Eth,temp
+-------------------------------------------------^
+../cr/crdiffusion.f90(29): remark #7712: This variable has not been used.   [ICPU]
+  integer :: i,info,ind,iter,iskip,itermax,icpu,igroup,igrp
+-------------------------------------------^
+../cr/crdiffusion.f90(29): remark #7712: This variable has not been used.   [IGROUP]
+  integer :: i,info,ind,iter,iskip,itermax,icpu,igroup,igrp
+------------------------------------------------^
+../cr/crdiffusion.f90(29): remark #7712: This variable has not been used.   [IGRP]
+  integer :: i,info,ind,iter,iskip,itermax,icpu,igroup,igrp
+-------------------------------------------------------^
+../cr/crdiffusion.f90(30): remark #7712: This variable has not been used.   [ITER_NR]
+  integer :: this,iter_nr,nx_loc,nsub_imp,isub
+------------------^
+../cr/crdiffusion.f90(32): remark #7712: This variable has not been used.   [RHS]
+  real(dp)::rhs,lhs,scale_kappa
+------------^
+../cr/crdiffusion.f90(32): remark #7712: This variable has not been used.   [LHS]
+  real(dp)::rhs,lhs,scale_kappa
+----------------^
+../cr/crdiffusion.f90(38): remark #7712: This variable has not been used.   [OMEGA]
+  real(dp)::omega,scale_omega,Ti_new,Ti_old,T_new
+------------^
+../cr/crdiffusion.f90(38): remark #7712: This variable has not been used.   [TI_NEW]
+  real(dp)::omega,scale_omega,Ti_new,Ti_old,T_new
+------------------------------^
+../cr/crdiffusion.f90(38): remark #7712: This variable has not been used.   [TI_OLD]
+  real(dp)::omega,scale_omega,Ti_new,Ti_old,T_new
+-------------------------------------^
+../cr/crdiffusion.f90(38): remark #7712: This variable has not been used.   [T_NEW]
+  real(dp)::omega,scale_omega,Ti_new,Ti_old,T_new
+--------------------------------------------^
+../cr/crdiffusion.f90(39): remark #7712: This variable has not been used.   [N_ELECTRON]
+  real(dp)::n_electron,n_ion
+------------^
+../cr/crdiffusion.f90(39): remark #7712: This variable has not been used.   [N_ION]
+  real(dp)::n_electron,n_ion
+-----------------------^
+../cr/crdiffusion.f90(400): remark #7712: This variable has not been used.   [NSUB]
+subroutine cmp_matrixA_crdiffusion (ilevel,Nsub,compute,igroup)
+-------------------------------------------^
+../cr/crdiffusion.f90(415): remark #7712: This variable has not been used.   [IGRIDN]
+integer ,dimension(1:nvector,0:2*ndim),save::  igridn
+-----------------------------------------------^
+../cr/crdiffusion.f90(416): remark #7712: This variable has not been used.   [IND_CELL]
+integer ,dimension(1:nvector),save ::          ind_cell , ind_grid
+-----------------------------------------------^
+../cr/crdiffusion.f90(418): remark #7712: This variable has not been used.   [IDIM]
+integer :: i,idim,ind,igrid,ngrid,ncache,iskip
+-------------^
+../cr/crdiffusion.f90(418): remark #7712: This variable has not been used.   [IND]
+integer :: i,idim,ind,igrid,ngrid,ncache,iskip
+------------------^
+../cr/crdiffusion.f90(418): remark #7712: This variable has not been used.   [ISKIP]
+integer :: i,idim,ind,igrid,ngrid,ncache,iskip
+-----------------------------------------^
+../cr/crdiffusion.f90(451): remark #7712: This variable has not been used.   [IPLANE]
+integer::i,ncache,ivar,igrid,ngrid,ind,iperp1,iperp2,iplane,icell
+-----------------------------------------------------^
+../cr/crdiffusion.f90(451): remark #7712: This variable has not been used.   [ICELL]
+integer::i,ncache,ivar,igrid,ngrid,ind,iperp1,iperp2,iplane,icell
+------------------------------------------------------------^
+../cr/crdiffusion.f90(452): remark #7712: This variable has not been used.   [IGRP]
+integer::iskip,iskip_ref,nx_loc,ix,iy,iz,igrp,gdim
+-----------------------------------------^
+../cr/crdiffusion.f90(458): remark #7712: This variable has not been used.   [SWITCH]
+real(dp)::dx,dx_loc,scale,switch
+--------------------------^
+../cr/crdiffusion.f90(459): remark #7712: This variable has not been used.   [ROSSELAND_ANA]
+real(dp)::rosseland_ana
+----------^
+../cr/crdiffusion.f90(464): remark #7712: This variable has not been used.   [DD]
+real(dp)::dd,t2,usquare,emag,erad_loc,eps,ekin,Cv,rho
+----------^
+../cr/crdiffusion.f90(464): remark #7712: This variable has not been used.   [T2]
+real(dp)::dd,t2,usquare,emag,erad_loc,eps,ekin,Cv,rho
+-------------^
+../cr/crdiffusion.f90(464): remark #7712: This variable has not been used.   [USQUARE]
+real(dp)::dd,t2,usquare,emag,erad_loc,eps,ekin,Cv,rho
+----------------^
+../cr/crdiffusion.f90(464): remark #7712: This variable has not been used.   [EMAG]
+real(dp)::dd,t2,usquare,emag,erad_loc,eps,ekin,Cv,rho
+------------------------^
+../cr/crdiffusion.f90(464): remark #7712: This variable has not been used.   [ERAD_LOC]
+real(dp)::dd,t2,usquare,emag,erad_loc,eps,ekin,Cv,rho
+-----------------------------^
+../cr/crdiffusion.f90(464): remark #7712: This variable has not been used.   [EPS]
+real(dp)::dd,t2,usquare,emag,erad_loc,eps,ekin,Cv,rho
+--------------------------------------^
+../cr/crdiffusion.f90(464): remark #7712: This variable has not been used.   [EKIN]
+real(dp)::dd,t2,usquare,emag,erad_loc,eps,ekin,Cv,rho
+------------------------------------------^
+../cr/crdiffusion.f90(464): remark #7712: This variable has not been used.   [CV]
+real(dp)::dd,t2,usquare,emag,erad_loc,eps,ekin,Cv,rho
+-----------------------------------------------^
+../cr/crdiffusion.f90(464): remark #7712: This variable has not been used.   [RHO]
+real(dp)::dd,t2,usquare,emag,erad_loc,eps,ekin,Cv,rho
+--------------------------------------------------^
+../cr/crdiffusion.f90(467): remark #7712: This variable has not been used.   [A_R]
+real(dp)::a_R,radiation_Source,kpara_ana
+----------^
+../cr/crdiffusion.f90(467): remark #7712: This variable has not been used.   [RADIATION_SOURCE]
+real(dp)::a_R,radiation_Source,kpara_ana
+--------------^
+../cr/crdiffusion.f90(467): remark #7712: This variable has not been used.   [KPARA_ANA]
+real(dp)::a_R,radiation_Source,kpara_ana
+-------------------------------^
+../cr/crdiffusion.f90(664): remark #7712: This variable has not been used.   [IDIM]
+integer ::i,idim,this,mvar,igroup
+------------^
+../cr/crdiffusion.f90(664): remark #7712: This variable has not been used.   [MVAR]
+integer ::i,idim,this,mvar,igroup
+----------------------^
+../cr/crdiffusion.f90(665): remark #7712: This variable has not been used.   [USQUARE]
+real(dp)::usquare,Cv,eps,rho,ecr
+----------^
+../cr/crdiffusion.f90(665): remark #7712: This variable has not been used.   [CV]
+real(dp)::usquare,Cv,eps,rho,ecr
+------------------^
+../cr/crdiffusion.f90(665): remark #7712: This variable has not been used.   [EPS]
+real(dp)::usquare,Cv,eps,rho,ecr
+---------------------^
+../cr/crdiffusion.f90(669): remark #7712: This variable has not been used.   [DD]
+real(dp) :: dd,ee
+------------^
+../cr/crdiffusion.f90(669): remark #7712: This variable has not been used.   [EE]
+real(dp) :: dd,ee
+---------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../cr/crdiff_split.f90 -o crdiff_split.o 
+../cr/crdiff_split.f90(53): remark #7712: This variable has not been used.   [TEMP_K]
+  real(dp)::Temp_K,bx,by,bz,dTdx,dTdy,dTdz,fx
+------------^
+../cr/crdiff_split.f90(53): remark #7712: This variable has not been used.   [BX]
+  real(dp)::Temp_K,bx,by,bz,dTdx,dTdy,dTdz,fx
+-------------------^
+../cr/crdiff_split.f90(53): remark #7712: This variable has not been used.   [BY]
+  real(dp)::Temp_K,bx,by,bz,dTdx,dTdy,dTdz,fx
+----------------------^
+../cr/crdiff_split.f90(53): remark #7712: This variable has not been used.   [BZ]
+  real(dp)::Temp_K,bx,by,bz,dTdx,dTdy,dTdz,fx
+-------------------------^
+../cr/crdiff_split.f90(53): remark #7712: This variable has not been used.   [DTDX]
+  real(dp)::Temp_K,bx,by,bz,dTdx,dTdy,dTdz,fx
+----------------------------^
+../cr/crdiff_split.f90(53): remark #7712: This variable has not been used.   [DTDY]
+  real(dp)::Temp_K,bx,by,bz,dTdx,dTdy,dTdz,fx
+---------------------------------^
+../cr/crdiff_split.f90(53): remark #7712: This variable has not been used.   [DTDZ]
+  real(dp)::Temp_K,bx,by,bz,dTdx,dTdy,dTdz,fx
+--------------------------------------^
+../cr/crdiff_split.f90(53): remark #7712: This variable has not been used.   [FX]
+  real(dp)::Temp_K,bx,by,bz,dTdx,dTdy,dTdz,fx
+-------------------------------------------^
+../cr/crdiff_split.f90(56): remark #7712: This variable has not been used.   [IVAR]
+  integer::i,j,k,l,ivar
+-------------------^
+../cr/crdiff_split.f90(59): remark #7712: This variable has not been used.   [SCALE_NH]
+  real(dp)::scale_nH,scale_T2,scale_l,scale_d,scale_t,scale_v
+------------^
+../cr/crdiff_split.f90(59): remark #7712: This variable has not been used.   [SCALE_T2]
+  real(dp)::scale_nH,scale_T2,scale_l,scale_d,scale_t,scale_v
+---------------------^
+../cr/crdiff_split.f90(59): remark #7712: This variable has not been used.   [SCALE_L]
+  real(dp)::scale_nH,scale_T2,scale_l,scale_d,scale_t,scale_v
+------------------------------^
+../cr/crdiff_split.f90(59): remark #7712: This variable has not been used.   [SCALE_D]
+  real(dp)::scale_nH,scale_T2,scale_l,scale_d,scale_t,scale_v
+--------------------------------------^
+../cr/crdiff_split.f90(59): remark #7712: This variable has not been used.   [SCALE_T]
+  real(dp)::scale_nH,scale_T2,scale_l,scale_d,scale_t,scale_v
+----------------------------------------------^
+../cr/crdiff_split.f90(59): remark #7712: This variable has not been used.   [SCALE_V]
+  real(dp)::scale_nH,scale_T2,scale_l,scale_d,scale_t,scale_v
+------------------------------------------------------^
+../cr/crdiff_split.f90(60): remark #7712: This variable has not been used.   [MU]
+  real(dp)::mu,scale_TK,scale_kspitzer,kappa_coef,Cvm,Cv
+------------^
+../cr/crdiff_split.f90(60): remark #7712: This variable has not been used.   [SCALE_TK]
+  real(dp)::mu,scale_TK,scale_kspitzer,kappa_coef,Cvm,Cv
+---------------^
+../cr/crdiff_split.f90(60): remark #7712: This variable has not been used.   [SCALE_KSPITZER]
+  real(dp)::mu,scale_TK,scale_kspitzer,kappa_coef,Cvm,Cv
+------------------------^
+../cr/crdiff_split.f90(60): remark #7712: This variable has not been used.   [KAPPA_COEF]
+  real(dp)::mu,scale_TK,scale_kspitzer,kappa_coef,Cvm,Cv
+---------------------------------------^
+../cr/crdiff_split.f90(60): remark #7712: This variable has not been used.   [CVM]
+  real(dp)::mu,scale_TK,scale_kspitzer,kappa_coef,Cvm,Cv
+--------------------------------------------------^
+../cr/crdiff_split.f90(60): remark #7712: This variable has not been used.   [CV]
+  real(dp)::mu,scale_TK,scale_kspitzer,kappa_coef,Cvm,Cv
+------------------------------------------------------^
+../cr/crdiff_split.f90(61): remark #7712: This variable has not been used.   [EPS]
+  real(dp)::eps,Tp_loc,rho,scale_kappa,kpar
+------------^
+../cr/crdiff_split.f90(61): remark #7712: This variable has not been used.   [TP_LOC]
+  real(dp)::eps,Tp_loc,rho,scale_kappa,kpar
+----------------^
+../cr/crdiff_split.f90(61): remark #7712: This variable has not been used.   [RHO]
+  real(dp)::eps,Tp_loc,rho,scale_kappa,kpar
+-----------------------^
+../cr/crdiff_split.f90(61): remark #7712: This variable has not been used.   [SCALE_KAPPA]
+  real(dp)::eps,Tp_loc,rho,scale_kappa,kpar
+---------------------------^
+../cr/crdiff_split.f90(61): remark #7712: This variable has not been used.   [KPAR]
+  real(dp)::eps,Tp_loc,rho,scale_kappa,kpar
+---------------------------------------^
+../cr/crdiff_split.f90(63): remark #7712: This variable has not been used.   [JSAT]
+  real(dp),dimension(1:nvector,iu1:iu2,ju1:ju2,ku1:ku2),save::jsat
+--------------------------------------------------------------^
+../cr/crdiff_split.f90(141): remark #7712: This variable has not been used.   [DY]
+subroutine cmpXcrflx(Temp,bf,myflux,dx,dy,dz,dt,ngrid,compute,ffdx,Dpara,kperp)
+---------------------------------------^
+../cr/crdiff_split.f90(141): remark #7712: This variable has not been used.   [DZ]
+subroutine cmpXcrflx(Temp,bf,myflux,dx,dy,dz,dt,ngrid,compute,ffdx,Dpara,kperp)
+------------------------------------------^
+../cr/crdiff_split.f90(170): remark #7712: This variable has not been used.   [SCALE_L]
+  real(dp)::scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2,scale_kappa
+------------^
+../cr/crdiff_split.f90(170): remark #7712: This variable has not been used.   [SCALE_T]
+  real(dp)::scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2,scale_kappa
+--------------------^
+../cr/crdiff_split.f90(170): remark #7712: This variable has not been used.   [SCALE_D]
+  real(dp)::scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2,scale_kappa
+----------------------------^
+../cr/crdiff_split.f90(170): remark #7712: This variable has not been used.   [SCALE_V]
+  real(dp)::scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2,scale_kappa
+------------------------------------^
+../cr/crdiff_split.f90(170): remark #7712: This variable has not been used.   [SCALE_NH]
+  real(dp)::scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2,scale_kappa
+--------------------------------------------^
+../cr/crdiff_split.f90(170): remark #7712: This variable has not been used.   [SCALE_T2]
+  real(dp)::scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2,scale_kappa
+-----------------------------------------------------^
+../cr/crdiff_split.f90(170): remark #7712: This variable has not been used.   [SCALE_KAPPA]
+  real(dp)::scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2,scale_kappa
+--------------------------------------------------------------^
+../cr/crdiff_split.f90(173): remark #7712: This variable has not been used.   [IVAR]
+  integer::i,j,k,l,ivar
+-------------------^
+../cr/crdiff_split.f90(450): remark #7712: This variable has not been used.   [DY]
+subroutine cmpYcrflx(Temp,bf,myflux,dx,dy,dz,dt,ngrid,compute,ffdx,Dpara,kperp)
+---------------------------------------^
+../cr/crdiff_split.f90(450): remark #7712: This variable has not been used.   [DZ]
+subroutine cmpYcrflx(Temp,bf,myflux,dx,dy,dz,dt,ngrid,compute,ffdx,Dpara,kperp)
+------------------------------------------^
+../cr/crdiff_split.f90(481): remark #7712: This variable has not been used.   [IVAR]
+  integer::i,j,k,l,ivar
+-------------------^
+../cr/crdiff_split.f90(482): remark #7712: This variable has not been used.   [JLO]
+  integer::ilo,ihi,jlo,jhi,klo,khi
+-------------------^
+../cr/crdiff_split.f90(482): remark #7712: This variable has not been used.   [JHI]
+  integer::ilo,ihi,jlo,jhi,klo,khi
+-----------------------^
+../cr/crdiff_split.f90(765): remark #7712: This variable has not been used.   [DY]
+subroutine cmpZcrflx(Temp,bf,myflux,dx,dy,dz,dt,ngrid,compute,ffdx,Dpara,kperp)
+---------------------------------------^
+../cr/crdiff_split.f90(765): remark #7712: This variable has not been used.   [DZ]
+subroutine cmpZcrflx(Temp,bf,myflux,dx,dy,dz,dt,ngrid,compute,ffdx,Dpara,kperp)
+------------------------------------------^
+../cr/crdiff_split.f90(796): remark #7712: This variable has not been used.   [IVAR]
+  integer::i,j,k,l,ivar
+-------------------^
+../cr/crdiff_split.f90(797): remark #7712: This variable has not been used.   [KLO]
+  integer::ilo,ihi,jlo,jhi,klo,khi
+---------------------------^
+../cr/crdiff_split.f90(797): remark #7712: This variable has not been used.   [KHI]
+  integer::ilo,ihi,jlo,jhi,klo,khi
+-------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../cr/crdiffusion_fine.f90 -o crdiffusion_fine.o 
+../cr/crdiffusion_fine.f90(16): remark #7712: This variable has not been used.   [IVAR]
+  integer::i,ivar,igrid,ncache,ngrid,ind,iskip,icpu,compute,igroup
+-------------^
+../cr/crdiffusion_fine.f90(16): remark #7712: This variable has not been used.   [IND]
+  integer::i,ivar,igrid,ncache,ngrid,ind,iskip,icpu,compute,igroup
+-------------------------------------^
+../cr/crdiffusion_fine.f90(16): remark #7712: This variable has not been used.   [ISKIP]
+  integer::i,ivar,igrid,ncache,ngrid,ind,iskip,icpu,compute,igroup
+-----------------------------------------^
+../cr/crdiffusion_fine.f90(16): remark #7712: This variable has not been used.   [ICPU]
+  integer::i,ivar,igrid,ncache,ngrid,ind,iskip,icpu,compute,igroup
+-----------------------------------------------^
+../cr/crdiffusion_fine.f90(68): remark #7712: This variable has not been used.   [TMP]
+  real(dp),dimension(1:nvector,if1:if2,jf1:jf2,kf1:kf2,1:2,1:ndim),save::tmp
+-------------------------------------------------------------------------^
+../cr/crdiffusion_fine.f90(76): remark #7712: This variable has not been used.   [NEUL]
+  integer::neul=5
+-----------^
+../cr/crdiffusion_fine.f90(77): remark #7712: This variable has not been used.   [IND_BUFFER1]
+  integer::ind_buffer1,ind_buffer2,ind_buffer3
+-----------^
+../cr/crdiffusion_fine.f90(77): remark #7712: This variable has not been used.   [IND_BUFFER2]
+  integer::ind_buffer1,ind_buffer2,ind_buffer3
+-----------------------^
+../cr/crdiffusion_fine.f90(77): remark #7712: This variable has not been used.   [IND_BUFFER3]
+  integer::ind_buffer1,ind_buffer2,ind_buffer3
+-----------------------------------^
+../cr/crdiffusion_fine.f90(78): remark #7712: This variable has not been used.   [IND_FATHER1]
+  integer::ind_father1,ind_father2,ind_father3
+-----------^
+../cr/crdiffusion_fine.f90(78): remark #7712: This variable has not been used.   [IND_FATHER2]
+  integer::ind_father1,ind_father2,ind_father3
+-----------------------^
+../cr/crdiffusion_fine.f90(78): remark #7712: This variable has not been used.   [IND_FATHER3]
+  integer::ind_father1,ind_father2,ind_father3
+-----------------------------------^
+../cr/crdiffusion_fine.f90(79): remark #7712: This variable has not been used.   [IRAD]
+  integer::i,j,ivar,idim,irad,ind_son,ind_father,iskip,nbuffer,ibuffer
+-------------------------^
+../cr/crdiffusion_fine.f90(79): remark #7712: This variable has not been used.   [IBUFFER]
+  integer::i,j,ivar,idim,irad,ind_son,ind_father,iskip,nbuffer,ibuffer
+---------------------------------------------------------------^
+../cr/crdiffusion_fine.f90(80): remark #7712: This variable has not been used.   [NB_NONEIGH]
+  integer::i0,j0,k0,i1,j1,k1,i2,j2,k2,i3,j3,k3,nx_loc,nb_noneigh,nexist
+------------------------------------------------------^
+../cr/crdiffusion_fine.f90(84): remark #7712: This variable has not been used.   [DFLUX_X]
+  real(dp)::dflux_x,dflux_y,dflux_z
+------------^
+../cr/crdiffusion_fine.f90(84): remark #7712: This variable has not been used.   [DFLUX_Y]
+  real(dp)::dflux_x,dflux_y,dflux_z
+--------------------^
+../cr/crdiffusion_fine.f90(84): remark #7712: This variable has not been used.   [DFLUX_Z]
+  real(dp)::dflux_x,dflux_y,dflux_z
+----------------------------^
+../cr/crdiffusion_fine.f90(86): remark #7712: This variable has not been used.   [DFLUX]
+  real(dp)::dflux,weight
+------------^
+../cr/crdiffusion_fine.f90(86): remark #7712: This variable has not been used.   [WEIGHT]
+  real(dp)::dflux,weight
+------------------^
+../cr/crdiffusion_fine.f90(88): remark #7712: This variable has not been used.   [SCALE_OMEGA]
+  real(dp)::scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2,scale_omega,scale_tau,scale_kappa
+--------------------------------------------------------------^
+../cr/crdiffusion_fine.f90(88): remark #7712: This variable has not been used.   [SCALE_TAU]
+  real(dp)::scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2,scale_omega,scale_tau,scale_kappa
+--------------------------------------------------------------------------^
+../cr/crdiffusion_fine.f90(423): remark #7712: This variable has not been used.   [IRAD]
+  integer::i,j,ivar,idim,ind,ix,iy,iz,neul=5,irad
+---------------------------------------------^
+../cr/crdiffusion_fine.f90(604): remark #7712: This variable has not been used.   [IDIM]
+  integer::i,j,k,ind,l,idim,imax,jmax,kmax
+-----------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/init_part.f90 -o init_part.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/output_part.f90 -o output_part.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/rho_fine.f90 -o rho_fine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/synchro_fine.f90 -o synchro_fine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/move_fine.f90 -o move_fine.o 
+../pm/move_fine.f90(184): remark #7712: This variable has not been used.   [JR]
+  integer::i,j,ind,idim,nx_loc,isink,jr,ht
+-------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/newdt_fine.f90 -o newdt_fine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/particle_tree.f90 -o particle_tree.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/add_list.f90 -o add_list.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/remove_list.f90 -o remove_list.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/star_formation.f90 -o star_formation.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/sink_particle.f90 -o sink_particle.o 
+../pm/sink_particle.f90(745): remark #7712: This variable has not been used.   [HT]
+  integer::i,j,nx_loc,isink,ivar,idim,ind,ht
+------------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/feedback.f90 -o feedback.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/clump_finder.f90 -o clump_finder.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/clump_merger.f90 -o clump_merger.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/flag_formation_sites.f90 -o flag_formation_sites.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/init_sink.f90 -o init_sink.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/output_sink.f90 -o output_sink.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../patch/rt/old_frig_main/stellar_particle.f90 -o stellar_particle.o 
+../patch/rt/old_frig_main/stellar_particle.f90(95): remark #7712: This variable has not been used.   [IDIM]
+  integer:: idim
+------------^
+../patch/rt/old_frig_main/stellar_particle.f90(101): remark #7712: This variable has not been used.   [MARK_DEL]
+  logical, dimension(1:nstellarmax):: mark_del
+--------------------------------------^
+../patch/rt/old_frig_main/stellar_particle.f90(145): remark #7712: This variable has not been used.   [IDIM]
+  integer:: idim
+------------^
+../patch/rt/old_frig_main/stellar_particle.f90(151): remark #7712: This variable has not been used.   [MARK_DEL]
+  logical, dimension(1:nstellarmax):: mark_del
+--------------------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/init_stellar.f90 -o init_stellar.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/output_stellar.f90 -o output_stellar.o 
+../pm/output_stellar.f90(111): remark #7712: This variable has not been used.   [ICPU]
+  integer::ilun,icpu,istellar
+----------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/sink_RT_feedback.f90 -o sink_RT_feedback.o 
+../pm/sink_RT_feedback.f90(2): remark #7712: This variable has not been used.   [ILEVEL]
+SUBROUTINE update_sink_RT_feedback(ilevel)
+-----------------------------------^
+../pm/sink_RT_feedback.f90(14): remark #7712: This variable has not been used.   [GROUPPROPS_INIT]
+  logical,save::groupProps_init=.false.  
+----------------^
+../pm/sink_RT_feedback.f90(37): remark #7712: This variable has not been used.   [I]
+  integer:: i, ig, ip, npart1, npart2, icpu
+------------^
+../pm/sink_RT_feedback.f90(233): remark #7712: This variable has not been used.   [ERROR]
+  logical::error
+-----------^
+../pm/sink_RT_feedback.f90(229): remark #7712: This variable has not been used.   [SOURCEMASS]
+  real(dp)::dt, sourcemass
+----------------^
+../pm/sink_RT_feedback.f90(231): remark #7712: This variable has not been used.   [IP]
+  integer::i,j,idim,nx_loc,ip,isink,ig
+---------------------------^
+../pm/sink_RT_feedback.f90(240): remark #7712: This variable has not been used.   [IGRID_SON]
+  integer,dimension(1:nvector),save::igrid_son,ind_son
+-------------------------------------^
+../pm/sink_RT_feedback.f90(240): remark #7712: This variable has not been used.   [IND_SON]
+  integer,dimension(1:nvector),save::igrid_son,ind_son
+-----------------------------------------------^
+../pm/sink_RT_feedback.f90(247): remark #7712: This variable has not been used.   [EP2NP]
+  real(dp)::Ep2Np
+------------^
+../pm/sink_RT_feedback.f90(250): remark #7712: This variable has not been used.   [AGE]
+            , scale_Fp, age, z, scale_inp, scale_Nphot, dt_Gyr           &
+------------------------^
+../pm/sink_RT_feedback.f90(250): remark #7712: This variable has not been used.   [Z]
+            , scale_Fp, age, z, scale_inp, scale_Nphot, dt_Gyr           &
+-----------------------------^
+../pm/sink_RT_feedback.f90(251): remark #7712: This variable has not been used.   [DT_LOC_GYR]
+            , dt_loc_Gyr, scale_msun
+--------------^
+../pm/sink_RT_feedback.f90(251): remark #7712: This variable has not been used.   [SCALE_MSUN]
+            , dt_loc_Gyr, scale_msun
+--------------------------^
+../pm/sink_RT_feedback.f90(254): remark #7712: This variable has not been used.   [DN]
+  real(dp),dimension(1:nvector),save::dn
+--------------------------------------^
+../pm/sink_RT_feedback.f90(255): remark #7712: This variable has not been used.   [HNU]
+  real(dp)::hnu,scale_energy,ener
+------------^
+../pm/sink_RT_feedback.f90(255): remark #7712: This variable has not been used.   [SCALE_ENERGY]
+  real(dp)::hnu,scale_energy,ener
+----------------^
+../pm/sink_RT_feedback.f90(255): remark #7712: This variable has not been used.   [ENER]
+  real(dp)::hnu,scale_energy,ener
+-----------------------------^
+../pm/sink_RT_feedback.f90(425): remark #7712: This variable has not been used.   [ERROR]
+  logical::error
+-----------^
+../pm/sink_RT_feedback.f90(421): remark #7712: This variable has not been used.   [SOURCEMASS]
+  real(dp)::dt, sourcemass
+----------------^
+../pm/sink_RT_feedback.f90(423): remark #7712: This variable has not been used.   [IP]
+  integer::i,j,idim,nx_loc,ip,isink
+---------------------------^
+../pm/sink_RT_feedback.f90(432): remark #7712: This variable has not been used.   [IGRID_SON]
+  integer,dimension(1:nvector),save::igrid_son,ind_son
+-------------------------------------^
+../pm/sink_RT_feedback.f90(432): remark #7712: This variable has not been used.   [IND_SON]
+  integer,dimension(1:nvector),save::igrid_son,ind_son
+-----------------------------------------------^
+../pm/sink_RT_feedback.f90(434): remark #7712: This variable has not been used.   [PART_NPINP]
+  real(dp),dimension(1:nvector,ngroups),save::part_NpInp
+----------------------------------------------^
+../pm/sink_RT_feedback.f90(439): remark #7712: This variable has not been used.   [EP2NP]
+  real(dp)::Ep2Np
+------------^
+../pm/sink_RT_feedback.f90(442): remark #7712: This variable has not been used.   [AGE]
+            , scale_Fp, age, z, scale_inp, scale_Nphot, dt_Gyr           &
+------------------------^
+../pm/sink_RT_feedback.f90(442): remark #7712: This variable has not been used.   [Z]
+            , scale_Fp, age, z, scale_inp, scale_Nphot, dt_Gyr           &
+-----------------------------^
+../pm/sink_RT_feedback.f90(443): remark #7712: This variable has not been used.   [DT_LOC_GYR]
+            , dt_loc_Gyr, scale_msun
+--------------^
+../pm/sink_RT_feedback.f90(447): remark #7712: This variable has not been used.   [HNU]
+  real(dp)::hnu,scale_energy,ener
+------------^
+../pm/sink_RT_feedback.f90(447): remark #7712: This variable has not been used.   [SCALE_ENERGY]
+  real(dp)::hnu,scale_energy,ener
+----------------^
+../pm/sink_RT_feedback.f90(447): remark #7712: This variable has not been used.   [ENER]
+  real(dp)::hnu,scale_energy,ener
+-----------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../pm/output_clumps.f90 -o output_clumps.o 
+../pm/output_clumps.f90(12): remark #7712: This variable has not been used.   [SOUTPUT]
+  character(LEN=5)::soutput,scpu,nchar
+--------------------^
+../pm/output_clumps.f90(84): remark #7712: This variable has not been used.   [N_REL_TOT]
+  integer::i,j,jj,ilun,n_rel,n_rel_tot,info,nx_loc
+-----------------------------^
+../pm/output_clumps.f90(85): remark #7712: This variable has not been used.   [REL_MASS_TOT]
+  real(dp)::rel_mass,rel_mass_tot,scale,particle_mass,particle_mass_tot
+---------------------^
+../pm/output_clumps.f90(87): remark #7712: This variable has not been used.   [NCHARCPU]
+  character(LEN=5)::nchar,ncharcpu
+--------------------------^
+../pm/output_clumps.f90(190): remark #7712: This variable has not been used.   [ICPU]
+  integer::ilun,icpu,isink
+----------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/init_poisson.f90 -o init_poisson.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/phi_fine_cg.f90 -o phi_fine_cg.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/interpol_phi.f90 -o interpol_phi.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/force_fine.f90 -o force_fine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/multigrid_coarse.f90 -o multigrid_coarse.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/multigrid_fine_commons.f90 -o multigrid_fine_commons.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/multigrid_fine_fine.f90 -o multigrid_fine_fine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/multigrid_fine_coarse.f90 -o multigrid_fine_coarse.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/gravana.f90 -o gravana.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/boundary_potential.f90 -o boundary_potential.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/rho_ana.f90 -o rho_ana.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../poisson/output_poisson.f90 -o output_poisson.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_init_hydro.f90 -o rt_init_hydro.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_init_xion.f90 -o rt_init_xion.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_init.f90 -o rt_init.o 
+../rt/rt_init.f90(17): remark #7712: This variable has not been used.   [NVAR_COUNT]
+  integer:: i, nvar_count
+---------------^
+../rt/rt_init.f90(217): warning #5479: Subscript #1 of the array GAMMA_RAD has value 1 which is greater than the upper bound of 0
+  if(rt_isIRtrap) gamma_rad(1) = rt_c_fraction / 3d0 + 1d0
+------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_init_flow_fine.f90 -o rt_init_flow_fine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_output_hydro.f90 -o rt_output_hydro.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_godunov_fine.f90 -o rt_godunov_fine.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_interpol_hydro.f90 -o rt_interpol_hydro.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_godunov_utils.f90 -o rt_godunov_utils.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_condinit.f90 -o rt_condinit.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_hydro_flag.f90 -o rt_hydro_flag.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_hydro_boundary.f90 -o rt_hydro_boundary.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_boundana.f90 -o rt_boundana.o 
+../rt/rt_boundana.f90(5): remark #7712: This variable has not been used.   [X]
+subroutine rt_boundana(x,u,dx,ibound,ncell)
+-----------------------^
+../rt/rt_boundana.f90(5): remark #7712: This variable has not been used.   [DX]
+subroutine rt_boundana(x,u,dx,ibound,ncell)
+---------------------------^
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_read_hydro_params.f90 -o rt_read_hydro_params.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../rt/rt_units.f90 -o rt_units.o 
+mpif90 -cpp -DNVECTOR=32 -DNDIM=3 -DNPRE=8 -DNVAR=8+0+0+0+0+0+3+1  -DNENER=0+0+0 -DSOLVERmhd -DNGRP=0 -DNPSCAL=0+3+1  -DNIMHD=0 -DNEXTINCT=0 -DNCR=0 -DUSE_TURB=0  -DRT -DNIONS=3 -DNGROUPS=3 -DNOSYSTEM -warn all -O0 -g -traceback -fpe0 -ftrapuv -check bounds -c ../amr/ramses.f90 -o ramses.o 
+mpif90 amr_parameters.o amr_commons.o random.o pm_parameters.o pm_commons.o poisson_parameters.o  poisson_commons.o hydro_parameters.o hydro_commons.o cooling_module.o bisection.o sparse_mat.o clfind_commons.o gadgetreadfile.o  write_makefile.o write_patch.o write_gitinfo.o radiation_parameters.o rt_parameters.o rt_hydro_commons.o coolrates_module.o rt_spectra.o  rt_metal_cooling_module.o rt_cooling_module.o rt_flux_module.o table_1d_module.o singlestar_module.o feedback_module.o cloud_module.o read_params.o init_amr.o init_time.o init_refine.o adaptive_loop.o amr_step.o update_time.o output_amr.o flag_utils.o physical_boundaries.o virtual_boundaries.o refine_utils.o nbors_utils.o hilbert.o load_balance.o title.o sort.o cooling_fine.o units.o light_cone.o movie.o init_hydro.o init_flow_fine.o write_screen.o output_hydro.o courant_fine.o godunov_fine.o uplmde.o umuscl.o interpol_hydro.o godunov_utils.o condinit.o hydro_flag.o hydro_boundary.o boundana.o read_hydro_params.o synchro_hydro_fine.o multigroup.o m1_utils.o radiative_transfer_bicg.o radiation_boundary.o cooling_module_frig.o crdiffusion.o crdiff_split.o crdiffusion_fine.o	 init_part.o output_part.o rho_fine.o synchro_fine.o move_fine.o newdt_fine.o particle_tree.o add_list.o remove_list.o star_formation.o sink_particle.o feedback.o clump_finder.o clump_merger.o flag_formation_sites.o init_sink.o output_sink.o stellar_particle.o init_stellar.o output_stellar.o sink_RT_feedback.o output_clumps.o init_poisson.o phi_fine_cg.o interpol_phi.o force_fine.o multigrid_coarse.o multigrid_fine_commons.o multigrid_fine_fine.o multigrid_fine_coarse.o gravana.o boundary_potential.o rho_ana.o output_poisson.o rt_init_hydro.o rt_init_xion.o rt_init.o rt_init_flow_fine.o rt_output_hydro.o rt_godunov_fine.o rt_interpol_hydro.o rt_godunov_utils.o rt_condinit.o rt_hydro_flag.o rt_hydro_boundary.o rt_boundana.o rt_read_hydro_params.o rt_units.o  ramses.o -o ramses3d  
+rm write_makefile.f90
+rm write_patch.f90
+make[1]: quittant le répertoire « /home/users/phennebe/ramses_ism/old_bin_ph_rt_frig »

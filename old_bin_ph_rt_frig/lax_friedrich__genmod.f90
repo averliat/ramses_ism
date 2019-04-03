@@ -1,0 +1,11 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:14:58 2017
+        MODULE LAX_FRIEDRICH__genmod
+          INTERFACE 
+            SUBROUTINE LAX_FRIEDRICH(QLEFT,QRIGHT,FGDNV,ZERO_FLUX)
+              REAL(KIND=8) :: QLEFT(1:)
+              REAL(KIND=8) :: QRIGHT(1:)
+              REAL(KIND=8) :: FGDNV(1:)
+              REAL(KIND=8) :: ZERO_FLUX
+            END SUBROUTINE LAX_FRIEDRICH
+          END INTERFACE 
+        END MODULE LAX_FRIEDRICH__genmod

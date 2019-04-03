@@ -1,0 +1,8 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:12 2017
+        MODULE RHO_ONLY__genmod
+          INTERFACE 
+            SUBROUTINE RHO_ONLY(ILEVEL)
+              INTEGER(KIND=4) :: ILEVEL
+            END SUBROUTINE RHO_ONLY
+          END INTERFACE 
+        END MODULE RHO_ONLY__genmod

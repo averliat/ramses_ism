@@ -1,0 +1,9 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:00 2017
+        MODULE BUBBLE_SORT__genmod
+          INTERFACE 
+            SUBROUTINE BUBBLE_SORT(N,ARR)
+              INTEGER(KIND=4) :: N
+              REAL(KIND=8) :: ARR(N)
+            END SUBROUTINE BUBBLE_SORT
+          END INTERFACE 
+        END MODULE BUBBLE_SORT__genmod

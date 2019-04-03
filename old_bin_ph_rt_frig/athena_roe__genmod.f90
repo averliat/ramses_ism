@@ -1,0 +1,11 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:14:58 2017
+        MODULE ATHENA_ROE__genmod
+          INTERFACE 
+            SUBROUTINE ATHENA_ROE(QLEFT,QRIGHT,FMEAN,ZERO_FLUX)
+              REAL(KIND=8) :: QLEFT(1:)
+              REAL(KIND=8) :: QRIGHT(1:)
+              REAL(KIND=8) :: FMEAN(1:)
+              REAL(KIND=8) :: ZERO_FLUX
+            END SUBROUTINE ATHENA_ROE
+          END INTERFACE 
+        END MODULE ATHENA_ROE__genmod

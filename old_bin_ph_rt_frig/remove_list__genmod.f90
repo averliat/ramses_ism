@@ -1,0 +1,11 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:08 2017
+        MODULE REMOVE_LIST__genmod
+          INTERFACE 
+            SUBROUTINE REMOVE_LIST(IND_PART,LIST1,OK,NP)
+              INTEGER(KIND=4) :: IND_PART(1:)
+              INTEGER(KIND=4) :: LIST1(1:)
+              LOGICAL(KIND=4) :: OK(1:)
+              INTEGER(KIND=4) :: NP
+            END SUBROUTINE REMOVE_LIST
+          END INTERFACE 
+        END MODULE REMOVE_LIST__genmod

@@ -1,0 +1,11 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:14:46 2017
+        MODULE GEOMETRY_REFINE__genmod
+          INTERFACE 
+            SUBROUTINE GEOMETRY_REFINE(XX,OK,NCELL,ILEVEL)
+              REAL(KIND=8) :: XX(1:,1:)
+              LOGICAL(KIND=4) :: OK(1:)
+              INTEGER(KIND=4) :: NCELL
+              INTEGER(KIND=4) :: ILEVEL
+            END SUBROUTINE GEOMETRY_REFINE
+          END INTERFACE 
+        END MODULE GEOMETRY_REFINE__genmod

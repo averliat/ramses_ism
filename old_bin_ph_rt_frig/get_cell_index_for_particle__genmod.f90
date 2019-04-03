@@ -1,0 +1,18 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:10 2017
+        MODULE GET_CELL_INDEX_FOR_PARTICLE__genmod
+          INTERFACE 
+            SUBROUTINE GET_CELL_INDEX_FOR_PARTICLE(INDP,XX,CELL_LEV,    &
+     &IND_GRID,XPART,IND_GRID_PART,NG,NP,ILEVEL,OK)
+              INTEGER(KIND=4) :: INDP(1:)
+              REAL(KIND=8) :: XX(1:,1:)
+              INTEGER(KIND=4) :: CELL_LEV(1:)
+              INTEGER(KIND=4) :: IND_GRID(1:)
+              REAL(KIND=8) :: XPART(1:,1:)
+              INTEGER(KIND=4) :: IND_GRID_PART(1:)
+              INTEGER(KIND=4) :: NG
+              INTEGER(KIND=4) :: NP
+              INTEGER(KIND=4) :: ILEVEL
+              LOGICAL(KIND=4) :: OK(1:)
+            END SUBROUTINE GET_CELL_INDEX_FOR_PARTICLE
+          END INTERFACE 
+        END MODULE GET_CELL_INDEX_FOR_PARTICLE__genmod

@@ -1,0 +1,11 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:21 2017
+        MODULE RT_GODFINE1__genmod
+          INTERFACE 
+            SUBROUTINE RT_GODFINE1(IND_GRID,NCACHE,ILEVEL,DT)
+              INTEGER(KIND=4) :: IND_GRID(1:)
+              INTEGER(KIND=4) :: NCACHE
+              INTEGER(KIND=4) :: ILEVEL
+              REAL(KIND=8) :: DT
+            END SUBROUTINE RT_GODFINE1
+          END INTERFACE 
+        END MODULE RT_GODFINE1__genmod

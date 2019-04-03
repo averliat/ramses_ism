@@ -1,0 +1,8 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:14:43 2017
+        MODULE CALC_DMIN__genmod
+          INTERFACE 
+            SUBROUTINE CALC_DMIN(D_C)
+              REAL(KIND=8) :: D_C
+            END SUBROUTINE CALC_DMIN
+          END INTERFACE 
+        END MODULE CALC_DMIN__genmod

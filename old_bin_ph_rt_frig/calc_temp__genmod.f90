@@ -1,0 +1,10 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:01 2017
+        MODULE CALC_TEMP__genmod
+          INTERFACE 
+            SUBROUTINE CALC_TEMP(NN,TT,DT_TOT_UNICODE)
+              REAL(KIND=8) :: NN
+              REAL(KIND=8) :: TT
+              REAL(KIND=8) :: DT_TOT_UNICODE
+            END SUBROUTINE CALC_TEMP
+          END INTERFACE 
+        END MODULE CALC_TEMP__genmod

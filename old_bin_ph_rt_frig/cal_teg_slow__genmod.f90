@@ -1,0 +1,10 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:00 2017
+        MODULE CAL_TEG_SLOW__genmod
+          INTERFACE 
+            FUNCTION CAL_TEG_SLOW(EG,IGRP)
+              REAL(KIND=8), INTENT(IN) :: EG
+              INTEGER(KIND=4), INTENT(IN) :: IGRP
+              REAL(KIND=8) :: CAL_TEG_SLOW
+            END FUNCTION CAL_TEG_SLOW
+          END INTERFACE 
+        END MODULE CAL_TEG_SLOW__genmod

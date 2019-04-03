@@ -1,0 +1,9 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:00 2017
+        MODULE CMP_TEMP__genmod
+          INTERFACE 
+            FUNCTION CMP_TEMP(THIS)
+              INTEGER(KIND=4), INTENT(IN) :: THIS
+              REAL(KIND=8) :: CMP_TEMP
+            END FUNCTION CMP_TEMP
+          END INTERFACE 
+        END MODULE CMP_TEMP__genmod

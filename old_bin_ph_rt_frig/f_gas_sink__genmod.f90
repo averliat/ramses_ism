@@ -1,0 +1,8 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:10 2017
+        MODULE F_GAS_SINK__genmod
+          INTERFACE 
+            SUBROUTINE F_GAS_SINK(ILEVEL)
+              INTEGER(KIND=4) :: ILEVEL
+            END SUBROUTINE F_GAS_SINK
+          END INTERFACE 
+        END MODULE F_GAS_SINK__genmod

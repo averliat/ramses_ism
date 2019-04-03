@@ -1,0 +1,15 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:01 2017
+        MODULE SOLVE_COOLING_FRIG__genmod
+          INTERFACE 
+            SUBROUTINE SOLVE_COOLING_FRIG(NH,T2,ZSOLAR,BOOST,DT,DELTAT2,&
+     &NCELL)
+              INTEGER(KIND=4) :: NCELL
+              REAL(KIND=8) :: NH(1:NCELL)
+              REAL(KIND=8) :: T2(1:NCELL)
+              REAL(KIND=8) :: ZSOLAR(1:NCELL)
+              REAL(KIND=8) :: BOOST(1:NCELL)
+              REAL(KIND=8) :: DT
+              REAL(KIND=8) :: DELTAT2(1:NCELL)
+            END SUBROUTINE SOLVE_COOLING_FRIG
+          END INTERFACE 
+        END MODULE SOLVE_COOLING_FRIG__genmod

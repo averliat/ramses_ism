@@ -1,0 +1,7 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:14:48 2017
+        MODULE REFINE__genmod
+          INTERFACE 
+            SUBROUTINE REFINE
+            END SUBROUTINE REFINE
+          END INTERFACE 
+        END MODULE REFINE__genmod

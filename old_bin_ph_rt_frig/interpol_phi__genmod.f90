@@ -1,0 +1,13 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:16 2017
+        MODULE INTERPOL_PHI__genmod
+          INTERFACE 
+            SUBROUTINE INTERPOL_PHI(IND_CELL,PHI_INT,NCELL,ILEVEL,ICOUNT&
+     &)
+              INTEGER(KIND=4) :: IND_CELL(1:)
+              REAL(KIND=8) :: PHI_INT(1:,1:)
+              INTEGER(KIND=4) :: NCELL
+              INTEGER(KIND=4) :: ILEVEL
+              INTEGER(KIND=4) :: ICOUNT
+            END SUBROUTINE INTERPOL_PHI
+          END INTERFACE 
+        END MODULE INTERPOL_PHI__genmod

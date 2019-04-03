@@ -1,0 +1,10 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:05 2017
+        MODULE TSC_CELL__genmod
+          INTERFACE 
+            SUBROUTINE TSC_CELL(IND_GRID,NGRID,ILEVEL)
+              INTEGER(KIND=4) :: IND_GRID(1:)
+              INTEGER(KIND=4) :: NGRID
+              INTEGER(KIND=4) :: ILEVEL
+            END SUBROUTINE TSC_CELL
+          END INTERFACE 
+        END MODULE TSC_CELL__genmod

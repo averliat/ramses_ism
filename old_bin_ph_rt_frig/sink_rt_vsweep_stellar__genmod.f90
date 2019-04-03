@@ -1,0 +1,17 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:15 2017
+        MODULE SINK_RT_VSWEEP_STELLAR__genmod
+          INTERFACE 
+            SUBROUTINE SINK_RT_VSWEEP_STELLAR(IND_GRID,IND_PART,        &
+     &IND_GRID_PART,NG,NP,DT,ILEVEL,SINK_IONI_FLUX)
+              USE PM_COMMONS
+              INTEGER(KIND=4) :: IND_GRID(1:)
+              INTEGER(KIND=4) :: IND_PART(1:)
+              INTEGER(KIND=4) :: IND_GRID_PART(1:)
+              INTEGER(KIND=4) :: NG
+              INTEGER(KIND=4) :: NP
+              REAL(KIND=8) :: DT
+              INTEGER(KIND=4) :: ILEVEL
+              REAL(KIND=8) :: SINK_IONI_FLUX(1:NSINK,1:)
+            END SUBROUTINE SINK_RT_VSWEEP_STELLAR
+          END INTERFACE 
+        END MODULE SINK_RT_VSWEEP_STELLAR__genmod

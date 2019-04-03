@@ -1,0 +1,8 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:14:53 2017
+        MODULE SET_UNEW__genmod
+          INTERFACE 
+            SUBROUTINE SET_UNEW(ILEVEL)
+              INTEGER(KIND=4) :: ILEVEL
+            END SUBROUTINE SET_UNEW
+          END INTERFACE 
+        END MODULE SET_UNEW__genmod

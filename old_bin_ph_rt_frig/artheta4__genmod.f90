@@ -1,0 +1,10 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:00 2017
+        MODULE ARTHETA4__genmod
+          INTERFACE 
+            FUNCTION ARTHETA4(TRAY,IGRP)
+              REAL(KIND=8), INTENT(IN) :: TRAY
+              INTEGER(KIND=4), INTENT(IN) :: IGRP
+              REAL(KIND=8) :: ARTHETA4
+            END FUNCTION ARTHETA4
+          END INTERFACE 
+        END MODULE ARTHETA4__genmod

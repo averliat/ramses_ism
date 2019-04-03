@@ -1,0 +1,13 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:01 2017
+        MODULE GET_CELL_INDEX3__genmod
+          INTERFACE 
+            SUBROUTINE GET_CELL_INDEX3(CELL_INDEX,CELL_LEVL,XPART,ILEVEL&
+     &,NP)
+              INTEGER(KIND=4) :: CELL_INDEX(1:)
+              INTEGER(KIND=4) :: CELL_LEVL(1:)
+              REAL(KIND=8) :: XPART(1:,1:)
+              INTEGER(KIND=4) :: ILEVEL
+              INTEGER(KIND=4) :: NP
+            END SUBROUTINE GET_CELL_INDEX3
+          END INTERFACE 
+        END MODULE GET_CELL_INDEX3__genmod

@@ -1,0 +1,10 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:12 2017
+        MODULE COUNT_PEAKS__genmod
+          INTERFACE 
+            SUBROUTINE COUNT_PEAKS(XX,N)
+              USE AMR_COMMONS
+              REAL(KIND=8) :: XX(1:NCOARSE+NGRIDMAX*8)
+              INTEGER(KIND=4) :: N
+            END SUBROUTINE COUNT_PEAKS
+          END INTERFACE 
+        END MODULE COUNT_PEAKS__genmod

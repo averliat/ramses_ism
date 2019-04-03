@@ -1,0 +1,9 @@
+        !COMPILER-GENERATED INTERFACE MODULE: Fri Dec 22 21:15:21 2017
+        MODULE RT_UPL__genmod
+          INTERFACE 
+            SUBROUTINE RT_UPL(IND_CELL,NCELL)
+              INTEGER(KIND=4) :: IND_CELL(1:)
+              INTEGER(KIND=4) :: NCELL
+            END SUBROUTINE RT_UPL
+          END INTERFACE 
+        END MODULE RT_UPL__genmod
