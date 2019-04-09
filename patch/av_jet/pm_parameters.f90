@@ -40,13 +40,14 @@ module pm_parameters
   real(dp)::acc_sink_boost=1.0               ! Boost coefficient for accretion
   real(dp)::mass_merger_vel_check_AGN=0.0    ! Threshold for velocity check in  merging; in Msun; default: always check
 
-  character(LEN=15)::feedback_scheme='mass_and_momentum' ! AGN feedback scheme; options: 'energy' or 'momentum' or 'mass_and_momentum' (added by AV on 27/02/2019)
+  character(LEN=15)::feedback_scheme='protostel_jets' ! AGN feedback scheme; options: 'energy' or 'momentum' or 'protostellar_jets' (added by AV on 27/02/2019)
   real(dp)::T2_min=1.d7                      ! Minimum temperature of the gas to trigger AGN blast; in K
   real(dp)::T2_max=1.d9                      ! Maximum allowed temperature of the AGN blast; in K
   real(dp)::T2_AGN=1.d12                     ! AGN blast temperature; in K
 
   real(dp)::v_max=5.d4                       ! Maximum allowed velocity of the AGN blast; in km/s
   real(dp)::v_AGN=1.d4                       ! AGN blast velocity; in km/s
+  real(dp)::v_jets=30.                       ! protostellar jets velocity; in km/s
   real(dp)::cone_opening=20. !180.                ! Outflow cone opening angle; in deg
 
   real(dp)::mass_halo_AGN=1.d10              ! Minimum mass of the halo for sink creation

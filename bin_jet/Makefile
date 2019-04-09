@@ -31,7 +31,7 @@ NIONS = 0
 PATCH = ../patch/av_jet
 
 GRACKLE = 0
-EXEC = ramses_jet_test_forceAGN_
+EXEC = ramses_jet_test4_
 
 MPI = 1
 #COMP = "GNU"

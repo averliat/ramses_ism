@@ -737,6 +737,318 @@ end subroutine grow_sink
 !################################################################
 !################################################################
 !################################################################
+subroutine protostellar_jets_feedback_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation)
+  use amr_commons
+  use pm_commons
+  use hydro_commons
+  implicit none
+  integer::ng,np,ilevel
+  integer,dimension(1:nvector)::ind_grid
+  integer,dimension(1:nvector)::ind_grid_part,ind_part
+  logical::on_creation
+
+  !-----------------------------------------------------------------------
+  ! Added by AV on 05-04-2019 (based on accrete_sink subroutine)
+  ! This routine is called by subroutine grow_sink, just after accrete_sink have
+  ! ben called. It performs protostellar jets feedback calculation. Routine
+  ! might not be very efficient, optimize if taking too long...
+  !-----------------------------------------------------------------------
+
+  integer::i,j,nx_loc,isink,ivar,idim,ind,ht
+  real(dp)::d,e,d_floor,density,volume,eint
+#ifdef SOLVERmhd
+  real(dp)::bx1,bx2,by1,by2,bz1,bz2
+#endif
+#if NENER>0
+  integer::irad
+#endif
+  real(dp)::factG,scale_nH,scale_T2,scale_l,scale_d,scale_t,scale_v,c2
+  real(dp)::dx,dx_loc,dx_min,scale,vol_min,vol_loc,weight,m_acc=0.,d_jeans
+  ! Grid based arrays
+  real(dp),dimension(1:nvector,1:ndim)::xpart
+  real(dp),dimension(1:nvector,1:ndim,1:twotondim)::xx
+  real(dp),dimension(1:nvector,1:twotondim)::vol
+  ! Particle based arrays
+  logical,dimension(1:nvector,1:twotondim)::ok
+  integer ,dimension(1:nvector,1:twotondim)::indp
+  real(dp),dimension(1:3)::vv,v_mom
+
+  real(dp),dimension(1:3)::r_rel,v_rel,x_acc,p_acc,l_acc
+  real(dp)::fbk_ener_AGN,fbk_mom_AGN,fbk_mass_jets,fbk_mom_jets
+  logical,dimension(1:ndim)::period
+
+  real(dp)::tan_theta,cone_dist,orth_dist,rr2
+  real(dp),dimension(1:3)::cone_dir
+
+#if NDIM==3
+
+  ! Conversion factor from user units to cgs units
+  call units(scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2)
+
+  period(1)=(nx==1)
+  period(2)=(ny==1)
+  period(3)=(nz==1)
+
+  ! Gravitational constant
+  factG=1d0
+  if(cosmo)factG=3d0/8d0/3.1415926*omega_m*aexp
+
+  ! Mesh spacing in that level
+  dx=0.5D0**ilevel
+  nx_loc=(icoarse_max-icoarse_min+1)
+  scale=boxlen/dble(nx_loc)
+  dx_loc=dx*scale
+  vol_loc=dx_loc**ndim
+  dx_min=scale*0.5D0**nlevelmax/aexp
+  vol_min=dx_min**ndim
+
+  ! Jet geometry safety net
+  cone_opening = max(tiny(0.0),cone_opening)
+  cone_opening = min(cone_opening, 180.d0)
+  tan_theta = tan(3.1415926/180.*cone_opening/2) ! tangent of half of the opening angle
+
+  ! Get cloud particle CIC weights
+  do idim=1,ndim
+     do j=1,np
+        xpart(j,idim)=xp(ind_part(j),idim)
+     end do
+  end do
+  call cic_get_cells(indp,xx,vol,ok,ind_grid,xpart,ind_grid_part,ng,np,ilevel)
+
+  ! Loop over eight CIC volumes
+  do ind=1,twotondim
+     do j=1,np
+        if(ok(j,ind))then ! Only volumes at the current level
+
+           ! Convert uold to primitive variables
+           d=max(uold(indp(j,ind),1),smallr)
+           vv(1)=uold(indp(j,ind),2)/d
+           vv(2)=uold(indp(j,ind),3)/d
+           vv(3)=uold(indp(j,ind),4)/d
+
+           ! Compute the gas total specific energy (kinetic plus thermal)
+           ! removing all the other energies, if any.
+           e=uold(indp(j,ind),5)
+
+
+           !PH retrieve the kinetic energy as well
+           !we change the velocity of the gas to conserve angular momentum
+           e = e - 0.5*(uold(indp(j,ind),2)**2+uold(indp(j,ind),3)**2+uold(indp(j,ind),4)**2)/uold(indp(j,ind),1)
+
+
+#ifdef SOLVERmhd
+           bx1=uold(indp(j,ind),6)
+           by1=uold(indp(j,ind),7)
+           bz1=uold(indp(j,ind),8)
+           bx2=uold(indp(j,ind),nvar+1)
+           by2=uold(indp(j,ind),nvar+2)
+           bz2=uold(indp(j,ind),nvar+3)
+           e=e-0.125d0*((bx1+bx2)**2+(by1+by2)**2+(bz1+bz2)**2)
+#endif
+
+#if NENER>0
+           do irad=1,nener
+              e=e-uold(indp(j,ind),inener-1+irad)
+           end do
+#endif
+           e=e/d ! Specific energy
+           if(energy_fix)e=uold(indp(j,ind),nvar)/d
+           eint=e*d
+
+           ! Get sink index
+           isink=-idp(ind_part(j))
+
+           ! Reference frame relative to the sink position
+           r_rel(1:3)=xx(j,1:3,ind)-xsink(isink,1:3)
+           do idim=1,ndim
+              if (period(idim) .and. r_rel(idim)>boxlen*0.5)r_rel(idim)=r_rel(idim)-boxlen
+              if (period(idim) .and. r_rel(idim)<boxlen*(-0.5))r_rel(idim)=r_rel(idim)+boxlen
+           end do
+
+           ! Reference frame relative to the sink velocity
+           v_rel(1:3)=vv(1:3)-vsink(isink,1:3)
+
+           ! Cloud particle CIC weight
+           weight=weightp(ind_part(j),ind)
+
+           ! Get sink average density
+           density=rho_gas(isink)
+           volume=volume_gas(isink)
+           !!PH 5/2/2017 when threshold_accretion is used "weight" can be 0
+           if (volume==0. .or. density==0. .and. .not. threshold_accretion )print*,'something might be going wrong here...',weight,volume,density,ilevel,xsink(isink,1),xsink(isink,2),xsink(isink,3),isink
+
+           ! Compute accreted mass
+           if (on_creation)then
+              if (new_born(isink))then
+                 ! on sink creation, new sinks
+                 m_acc=mseed(isink)*weight/volume*d/density
+              else
+                 ! on sink creation, preexisting sinks
+                 m_acc=0.0
+              end if
+           else
+              if (bondi_accretion)then
+                 m_acc=dMsink_overdt(isink)*dtnew(ilevel)*weight/volume*d/density
+              end if
+
+              if (threshold_accretion.and.d_sink>0.0)then
+                 d_floor=d_sink ! User defined density threshold
+                 ! Jeans length related density threshold  
+                 if(jeans_accretion)then
+                    call soundspeed_eos(d,eint,c2)
+                    c2=c2**2
+                    d_jeans=c2*3.1415926/(4.0*dx_loc)**2/factG
+                    d_floor=d_jeans
+                 endif
+                 m_acc=c_acc*weight*(d-d_floor)
+              end if
+           end if
+           m_acc=max(m_acc,0.0_dp)
+
+           ! Accreted relative center of mass
+           x_acc(1:3)=m_acc*r_rel(1:3)
+
+
+           ! PH compute the part of the velocity associated to the momentum
+           ! then the gas keeps its momentum and is not accreted onto the sink
+           rr2 = r_rel(1)**2+r_rel(2)**2+r_rel(3)**2
+           v_mom(1:3) = v_rel(1:3) - (v_rel(1)*r_rel(1)+v_rel(2)*r_rel(2)+v_rel(3)*r_rel(3))/rr2*r_rel(1:3)
+
+
+           ! Accreted relative momentum
+!           p_acc(1:3)=m_acc*(v_rel(1:3))
+           p_acc(1:3)=m_acc*(v_rel(1:3)-v_mom(1:3))
+
+           ! Accreted relative angular momentum
+           l_acc(1:3)=m_acc*cross(r_rel(1:3),v_rel(1:3))
+
+           ! Add accreted properties to sink variables
+           msink_new(isink)=msink_new(isink)+m_acc
+           xsink_new(isink,1:3)=xsink_new(isink,1:3)+x_acc(1:3)
+           vsink_new(isink,1:3)=vsink_new(isink,1:3)+p_acc(1:3)
+           lsink_new(isink,1:3)=lsink_new(isink,1:3)+l_acc(1:3)
+           delta_mass_new(isink)=delta_mass_new(isink)+m_acc
+
+            ! Check for neg density inside sink accretion radius
+           if (8*m_acc/vol_loc>d .and. (.not. on_creation))then 
+              write(*,*)'====================================================='
+              write(*,*)'DANGER of neg density :-( at location'
+              write(*,*)xx(j,1:3,ind)
+              write(*,*)'due to',isink
+              write(*,*)m_acc/vol_loc,d/d_sink,density/d_sink
+              write(*,*)indp(j,ind),myid
+              write(*,*)'nol_accretion: ',nol_accretion
+              do i=1,nsink
+                 write(*,*)i,' distance ',sum((xx(j,1:3,ind)-xsink(i,1:3))**2)**0.5/dx_min
+              end do
+              write(*,*)'try to decrease c_acc in SINK_PARAMS'
+              write(*,*)'====================================================='
+              !           call clean_stop
+           end if
+
+           ! Accrete mass, momentum and gas total energy
+           unew(indp(j,ind),1)=unew(indp(j,ind),1)-m_acc/vol_loc
+! do not retrieve any angular momentum
+!           unew(indp(j,ind),2:4)=unew(indp(j,ind),2:4)-m_acc*vv(1:3)/vol_loc
+           unew(indp(j,ind),2:4)=unew(indp(j,ind),2:4)-m_acc*(vv(1:3)-v_mom(1:3))/vol_loc
+
+           !add the new specific kinetic energy
+           e = e + 0.5* ( (vv(1)-v_mom(1))**2 + (vv(2)-v_mom(2))**2 + (vv(3)-v_mom(3))**2 )
+           unew(indp(j,ind),5)=unew(indp(j,ind),5)-m_acc*e/vol_loc
+           ! Note that we do not accrete magnetic fields and non-thermal energies.
+
+           ! Accrete passive scalars
+           do ivar=imetal,lastindex_pscal
+              unew(indp(j,ind),ivar)=unew(indp(j,ind),ivar)-m_acc*uold(indp(j,ind),ivar)/d/vol_loc
+           end do
+
+           ! AGN feedback
+           if( .not. on_creation)then
+              if(agn)then
+                 if(ok_blast_agn(isink).and.delta_mass(isink)>0.0)then
+                    if(feedback_scheme=='energy')then
+                       fbk_ener_AGN=min(delta_mass(isink)*T2_AGN/scale_T2*weight/volume*d/density,T2_max/scale_T2*weight*d)
+                       unew(indp(j,ind),5)=unew(indp(j,ind),5)+fbk_ener_AGN/vol_loc
+                    end if
+                    if(feedback_scheme=='momentum')then
+                       fbk_mom_AGN=min(delta_mass(isink)*v_AGN*(180./cone_opening)*1.e5/scale_v*weight/volume*d/density,v_max*1.e5/scale_v*weight*d)
+                       ! checking if particle is in cone
+                       cone_dir(1:3)=lsink(isink,1:3)/sqrt(sum(lsink(isink,1:3)**2))
+                       cone_dist=sum(r_rel(1:3)*cone_dir(1:3))
+                       orth_dist=sqrt(sum((r_rel(1:3)-cone_dist*cone_dir(1:3))**2))
+                       if (orth_dist.le.abs(cone_dist)*tan_theta)then
+                          unew(indp(j,ind),2:4)=unew(indp(j,ind),2:4)+fbk_mom_AGN*r_rel(1:3)/(ir_cloud*dx_min)/vol_loc
+                          unew(indp(j,ind),5)=unew(indp(j,ind),5)+sum(fbk_mom_AGN*r_rel(1:3)/(ir_cloud*dx_min)*vv(1:3))/vol_loc
+                       end if
+                    end if
+
+                 end if
+              end if
+           end if
+
+
+
+           !---------------------------------
+           ! AV tries to set protostellar jet
+           !---------------------------------
+           !if (0.ne.0) then
+           !write(*,*)'on_creation = ',on_creation
+           if( .not. on_creation)then
+               !write(*,*)'delta_mass(i_sink) = ',delta_mass(isink)
+               if(delta_mass(isink)>0.0)then
+                   !write(*,*)'feedback_scheme = ',feedback_scheme
+                   if(feedback_scheme=='protostel_jets')then
+                       write(*,*)'Computing jets feedback',delta_mass(isink)
+                       !fbk_mass_jets=delta_mass(isink)/3.0d0
+                       fbk_mass_jets=delta_mass_new(isink)/3.0d0
+                       !fbk_mass_jets=m_acc/3.0d0
+                       !  /!\On doit prendre m_acc ou delta_mass(isink)?
+                       !J'ai l'impression de prendre une quantité en train
+                       !d'être actualiser si on prend delta_mass, et donc de pas
+                       !calculer le feedback de la bonne façon...
+                       !Ha non, en fait delta_mass_new est en train d'etre
+                       !actualiser, mais nous on se base sur delta_mass, donc la
+                       !masse accrete au pas de temps precedent
+                       fbk_mom_jets=fbk_mass_jets*v_jets*1.e5/scale_v  !  *weight/volume*d/density
+                       !  /!\ verifier la valeur de scale_v 
+                       !Ce que j'ai compris : weight~volume d'une part. CIC
+                       ! volume~volume de la sink; density~density de la sink 
+
+                       !checking if particle is in cone
+                       !cone_dir(1:3)=lsink(isink,1:3)/sqrt(sum(lsink(isink,1:3)**2))
+                       cone_dir(1:3)=[0,0,1]  !Test : axe du jet = z
+                       cone_dist=sum(r_rel(1:3)*cone_dir(1:3))
+                       orth_dist=sqrt(sum((r_rel(1:3)-cone_dist*cone_dir(1:3))**2))
+                       if (orth_dist.le.abs(cone_dist)*tan_theta)then
+                          unew(indp(j,ind),2:4)=unew(indp(j,ind),2:4)+fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)/vol_loc
+                          unew(indp(j,ind),5)=unew(indp(j,ind),5)+sum(fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)*vv(1:3))/vol_loc
+                          unew(indp(j,ind),1)=unew(indp(j,ind),1)+fbk_mass_jets*sqrt(sum(r_rel(1:3)**2))/(ir_cloud*dx_min)/vol_loc
+                          !  /!\ rho n'est pas extensive !
+                       end if
+
+                       delta_mass_new(isink)=delta_mass_new(isink)-fbk_mass_jets
+                       !Par contre ici j'enlève 1/3 de la masse acrete de la
+                       !sink a chaque particule CIC balayée?
+                    endif
+                    !il reste a enlever la mass et le moment a la sink
+                    !(ou deja pris en compte dans unew?)
+                    !et verifier la tete du moment
+                endif
+            endif   
+            !---------------------------------
+            !---------------------------------
+            !endif
+
+
+        endif
+     end do
+  end do
+#endif
+end subroutine accrete_sink
+!################################################################
+!################################################################
+!################################################################
+!################################################################
 subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation)
   use amr_commons
   use pm_commons
@@ -989,12 +1301,17 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
            !---------------------------------
            ! AV tries to set protostellar jet
            !---------------------------------
+           !if (0.ne.0) then
+           !write(*,*)'on_creation = ',on_creation
            if( .not. on_creation)then
+               !write(*,*)'delta_mass(i_sink) = ',delta_mass(isink)
                if(delta_mass(isink)>0.0)then
+                   !write(*,*)'feedback_scheme = ',feedback_scheme
                    if(feedback_scheme=='protostel_jets')then
-                       !write(*,*)'Computing jets feedback: m_acc = ',m_acc
+                       write(*,*)'Computing jets feedback',delta_mass(isink)
                        !fbk_mass_jets=delta_mass(isink)/3.0d0
-                       fbk_mass_jets=m_acc/3.0d0
+                       fbk_mass_jets=delta_mass_new(isink)/3.0d0
+                       !fbk_mass_jets=m_acc/3.0d0
                        !  /!\On doit prendre m_acc ou delta_mass(isink)?
                        !J'ai l'impression de prendre une quantité en train
                        !d'être actualiser si on prend delta_mass, et donc de pas
@@ -1002,14 +1319,8 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
                        !Ha non, en fait delta_mass_new est en train d'etre
                        !actualiser, mais nous on se base sur delta_mass, donc la
                        !masse accrete au pas de temps precedent
-                       !A priori il faut se baser plutot sur m_acc, a chaque
-                       !fois on calcul la petite contribution de m_acc au jet
                        fbk_mom_jets=fbk_mass_jets*v_jets*1.e5/scale_v  !  *weight/volume*d/density
-                       !write(*,*)'Verifying momentum: mom_jets = ',fbk_mom_jets
-                       !write(*,*)'Verifying cone_opening = ',cone_opening
-                       !write(*,*)'Verifying v_jets = ',v_jets
-                       !write(*,*)'Verifying velocity: vel_jets = ',v_jets*1e5/scale_v
-                       
+                       !  /!\ verifier la valeur de scale_v 
                        !Ce que j'ai compris : weight~volume d'une part. CIC
                        ! volume~volume de la sink; density~density de la sink 
 
@@ -1019,25 +1330,15 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
                        cone_dist=sum(r_rel(1:3)*cone_dir(1:3))
                        orth_dist=sqrt(sum((r_rel(1:3)-cone_dist*cone_dir(1:3))**2))
                        if (orth_dist.le.abs(cone_dist)*tan_theta)then
-                          !unew(indp(j,ind),2:4)=unew(indp(j,ind),2:4)+fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)/vol_loc
-                          !unew(indp(j,ind),5)=unew(indp(j,ind),5)+sum(fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)*vv(1:3))/vol_loc
-                          !unew(indp(j,ind),1)=unew(indp(j,ind),1)+fbk_mass_jets*sqrt(sum(r_rel(1:3)**2))/(ir_cloud*dx_min)/vol_loc
-                          unew(indp(j,ind),1)=unew(indp(j,ind),1)+fbk_mass_jets/vol_loc 
-                          if (r_rel(3) .ge. 0.) then
-                              unew(indp(j,ind),4)=unew(indp(j,ind),4)+fbk_mom_jets/vol_loc
-                          else
-                              unew(indp(j,ind),4)=unew(indp(j,ind),4)-fbk_mom_jets/vol_loc
-                          endif
-                          unew(indp(j,ind),5)=unew(indp(j,ind),5)+fbk_mass_jets*e/vol_loc  !e est defini plus haut
-                          !unew(indp(j,ind),5)=unew(indp(j,ind),5)+sum(fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)*vv(1:3))/vol_loc
+                          unew(indp(j,ind),2:4)=unew(indp(j,ind),2:4)+fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)/vol_loc
+                          unew(indp(j,ind),5)=unew(indp(j,ind),5)+sum(fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)*vv(1:3))/vol_loc
+                          unew(indp(j,ind),1)=unew(indp(j,ind),1)+fbk_mass_jets*sqrt(sum(r_rel(1:3)**2))/(ir_cloud*dx_min)/vol_loc
+                          !  /!\ rho n'est pas extensive !
                        end if
 
-                       msink_new(isink)=msink_new(isink)-fbk_mass_jets
                        delta_mass_new(isink)=delta_mass_new(isink)-fbk_mass_jets
                        !Par contre ici j'enlève 1/3 de la masse acrete de la
                        !sink a chaque particule CIC balayée?
-                       !Maintenant non puisque m_acc a remplacée
-                       !delta_mass(isink)
                     endif
                     !il reste a enlever la mass et le moment a la sink
                     !(ou deja pris en compte dans unew?)

@@ -83,7 +83,9 @@ subroutine flag_formation_sites
         end do
         dist2=sum(rrel**2)
 !PH modifies this number to prevent close fragmentation
-        if (dist2<(20.*ir_cloud*dx_min/aexp)**2)then
+!AV modifies this number to prevent close fragmentation
+        !if (dist2<(20.*ir_cloud*dx_min/aexp)**2)then
+        if (dist2<boxlen/2.)then
            occupied(i)=1
            if(clinfo)write(*,*)'CPU # ',myid,'blocked clump # ',i+ipeak_start(myid),' for sink production because of sink # ',idsink(j)
         end if
@@ -167,7 +169,7 @@ subroutine flag_formation_sites
         ok=ok.and.relevance(jj)>0.
         ! Clump has to contain at least one cell
         ok=ok.and.n_cells(jj)>0.
-        ! Clmup must have no existing sink
+        ! Clump must have no existing sink
         ok=ok.and.occupied(jj)==0
         ! Peak has to be dense enough
         ok=ok.and.max_dens(jj)>d_sink

@@ -147,7 +147,6 @@ std = sqrt(var)
 
 mean_pert_abs = sum( abs(q_idl(1,:,:,:)) ) /size(q_idl(1,:,:,:))    /(1.01*abs(mean_tab_pert_aleat-std_tab_pert_aleat))
 !min_pert = minval(q)
-
 !write(*,*) mean, std
 !write(*,*) minval(q), maxval(q), mean_pert_abs
 write(*,*) 'Densite moyenne = ', q_mean

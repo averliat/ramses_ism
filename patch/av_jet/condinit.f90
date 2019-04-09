@@ -36,11 +36,10 @@ subroutine condinit(x,u,dx,nn)
 
   integer :: i,j,k,id,iu,iv,iw,ip,igroup
   real(dp):: x0,y0,z0,rc,rs,xx,yy,zz,pi,r0,d0,B0,p0,omega0,radiation_source,mass
-  real(dp), save:: xx_max, yy_max, zz_max
   integer :: np
   real(dp)::Temp
   
-  logical,save:: first=.true. , first2=.true.
+  logical,save:: first=.true.
   real(dp),dimension(1:3,1:100,1:100,1:100),save::q_idl
   real(dp),save::vx_tot,vy_tot,vz_tot,vx2_tot,vy2_tot,vz2_tot
   integer,save:: n_size
@@ -55,15 +54,11 @@ subroutine condinit(x,u,dx,nn)
   real(dp),dimension(1000):: mass_rad    
   real(dp),dimension(1:3,1:3):: rot_M,rot_invM,rot_tilde
 
-  real(dp), save:: max_tab_pert_aleat, var_tab_pert_aleat, mean_tab_pert_aleat, std_tab_pert_aleat, q_idl_mean, pourcent_pert, q_idl_mean_norm, q_idl_mean_coeur, count_cell_coeur, pourcent_pert_coeur
-!Stockage de la valeur max de la colonne du fichier 'init_turb.data' utilisee pour generer la perturbation en densite
   integer:: taille_boite
 
 
 
   taille_boite=2 !ATTENTION, A CHANGER AUSSI DANS calc_boxlen, 1 pour taille normale, 2 pour bigbox, 3 pour hugebox
-
-
   small_er=eray_min/(scale_d*scale_v**2)
 
   id=1; iu=2; iv=3; iw=4; ip=5
@@ -130,7 +125,7 @@ subroutine condinit(x,u,dx,nn)
                     yi = boxlen*((j-0.5)/n_size)-y0
                     zi = boxlen*((k-0.5)/n_size)-z0
                     rs=sqrt(xi**2+yi**2+zi**2)
-        
+
                     IF(rs .le. r0) THEN 
                        !                    print*, vx_tot,vy_tot,vz_tot,vx2_tot,vy2_tot,vz2_tot
                        vx_tot = vx_tot + vx
@@ -154,141 +149,6 @@ subroutine condinit(x,u,dx,nn)
            if (myid == 1) print *, 'correction factor for turbulent field =',v_rms
         end if
 
-
-     !====================================================================
-     !DEBUT DU CALCUL DES PERTURBATIONS
-     !====================================================================
-     !Lecture de 'init_turb.data' dans le cas ou Mach=0 (car il n'as pas ete lu avant), commentable si la perturbation aleatoire n'est pas utilisee
-     if(Mach .eq. 0) then  
-         write(*,*) 'Read the file which contains the initial turbulent velocity field to compute the perturbate density field'
-         open(20,file='init_turb.data',form='formatted')
-         read(20,*) n_size, ind, seed1,seed2,seed3
-         if(n_size .ne. 100) then
-            write(*,*) 'Unextected field size'
-            stop
-         endif
-         do k=1,n_size
-            do j=1,n_size
-               do i=1,n_size
-                  read(20,*)xi,yi,zi,vx,vy,vz
-                    q_idl(1,i,j,k) = vx
-                    !q_idl(2,i,j,k) = vy
-                    !q_idl(3,i,j,k) = vz
-               end do
-            end do
-         end do
-         close(20)
-         endif
-         max_tab_pert_aleat = max( abs(maxval(q_idl(1,:,:,:))), abs(minval(q_idl(1,:,:,:))) ) !Calcul possible dans tous les cas puisque le fichier 'init_turb.data' a ete lu
-     mean_tab_pert_aleat = sum(q_idl(1,:,:,:)) / size(q_idl(1,:,:,:))
-     var_tab_pert_aleat = sum( (q_idl(1,:,:,:) - mean_tab_pert_aleat)**2 ) /size(q_idl(1,:,:,:))
-     std_tab_pert_aleat = sqrt(var_tab_pert_aleat)
-
-     !Coupure basse dans le niveau de perturbation (doit etre > -1)
-         do k=1,n_size
-            do j=1,n_size
-               do i=1,n_size
-           if (q_idl(1,i,j,k) .lt. (mean_tab_pert_aleat - std_tab_pert_aleat)) then
-            q_idl(1,i,j,k) = mean_tab_pert_aleat - std_tab_pert_aleat
-           endif
-           q_idl(1,i,j,k) = d0* (1.0 + delta_rho * (q_idl(1,i,j,k)/(1.01*abs(mean_tab_pert_aleat-std_tab_pert_aleat))) )
-               end do
-            end do
-         end do
-
-     !Renormalisation pour avoir la moyenne toujours a d0
-     q_idl_mean = sum(q_idl(1,:,:,:)) / size(q_idl(1,:,:,:))
-     q_idl(1,:,:,:) = q_idl(1,:,:,:)/q_idl_mean *d0
-
-     !Calcul de la nouvelle moyenne (normalement d0) et de la valeur RMS des perturbations et sorties pour verifications
-     q_idl_mean_norm = sum(q_idl(1,:,:,:)) / size(q_idl(1,:,:,:))
-     pourcent_pert = sqrt( sum( (q_idl(1,:,:,:)-q_idl_mean_norm)**2 )/size(q_idl(1,:,:,:)) ) /q_idl_mean_norm
-
-
-     q_idl_mean_coeur = 0.d0
-     count_cell_coeur = 0.d0
-     pourcent_pert_coeur = 0.d0
-     do k=1,n_size
-        do j=1,n_size
-           do i=1,n_size
-               if ((i**2+j**2+k**2) .lt. (n_size/4)**2) then
-                   q_idl_mean_coeur = q_idl_mean_coeur + q_idl(1,i,j,k)
-                   count_cell_coeur = count_cell_coeur + 1
-               end if
-           enddo
-        enddo
-     enddo
-
-      q_idl_mean_coeur = q_idl_mean_coeur / count_cell_coeur
-
-     do k=1,n_size
-        do j=1,n_size
-           do i=1,n_size
-               if ((i**2+j**2+k**2) .lt. (n_size/4)**2) then
-                   q_idl(1,i,j,k) = q_idl(1,i,j,k)/q_idl_mean_coeur *d0
-               end if
-           enddo
-        enddo
-     enddo
-
-
-     q_idl_mean_coeur = 0.d0
-     count_cell_coeur = 0.d0
-     pourcent_pert_coeur = 0.d0
-     do k=1,n_size
-        do j=1,n_size
-           do i=1,n_size
-               if ((i**2+j**2+k**2) .lt. (n_size/4)**2) then
-                   q_idl_mean_coeur = q_idl_mean_coeur + q_idl(1,i,j,k)
-                   count_cell_coeur = count_cell_coeur + 1
-               end if
-           enddo
-        enddo
-     enddo
-
-      q_idl_mean_coeur = q_idl_mean_coeur / count_cell_coeur
-     
-     do k=1,n_size
-        do j=1,n_size
-           do i=1,n_size
-               if ((i**2+j**2+k**2) .lt. (n_size/4)**2) then
-                   pourcent_pert_coeur =  pourcent_pert_coeur + (q_idl(1,i,j,k)-q_idl_mean_coeur)**2
-               end if
-           enddo
-        enddo
-     enddo
-
-     pourcent_pert_coeur = sqrt( pourcent_pert_coeur / count_cell_coeur ) /q_idl_mean_coeur
-
-
-     write(*,*)
-     write(*,*)
-     write(*,*) '=============================================================================='
-     write(*,*) 'Dans le coeur:'
-     write(*,*) 'Valeur de d0 : ', d0
-     write(*,*) 'Valeur moyenne finale de la densite dans le coeur : ', q_idl_mean_coeur
-     write(*,*) 'Niveau de perturbation RMS par rapport a la densite moyenne dans le coeur : ', pourcent_pert_coeur
-     write(*,*) '=============================================================================='
-     write(*,*)
-     write(*,*)
-
-
-     write(*,*)
-     write(*,*)
-     write(*,*) '=============================================================================='
-     write(*,*) 'Verification des caracteristiques de densite:'
-     write(*,*) 'Valeur de d0 : ', d0
-     write(*,*) 'Valeur moyenne finale de la densite : ', q_idl_mean_norm
-     write(*,*) 'Niveau de perturbation RMS par rapport a la densite moyenne : ', pourcent_pert
-     write(*,*) '=============================================================================='
-     write(*,*)
-     write(*,*)
-     !====================================================================
-     !FIN DU CALCUL DES PERTURBATIONS, SUITE LIGNE 391
-     !====================================================================
-        
-
-
         if(myid==1)then
            print*,'alpha_dense_core=',alpha_dense_core
            print*,'beta_dense_core=',beta_dense_core
@@ -297,19 +157,11 @@ subroutine condinit(x,u,dx,nn)
            print*,'Turbulent Mach=',Mach
            print*,r0,boxlen
         endif
-
-
-        !Definition de xx_max, yy_max et zz_max necessaire dans la definition de la perturbation asymetrique "a la main"
-        !xx_max = maxval(x(:,1)) -x0
-        !yy_max = maxval(x(:,2)) -y0
-        !zz_max = maxval(x(:,3)) -z0
-
         first = .false.
      end if
 
      ! vertical magnetic field
      B0 = sqrt(4.*pi/5.)/0.53*(crit*d0*r0) ! Remember G=1 in code units
-
 
      DO i=1,nn
         xx=x(i,1)-x0
@@ -335,60 +187,12 @@ subroutine condinit(x,u,dx,nn)
         rc=sqrt(xx**2+yy**2)
         rs=sqrt(xx**2+yy**2+zz**2)
 
-        IF(rs .le. r0) THEN 
-           ! Perturbation symetrique a la main:
-           !q(i,id) = d0*(1.0+delta_rho*cos(2.*atan(yy/(cos(theta_mag_radians)*xx-sin(theta_mag_radians)*zz))))
-
-
-           !Tentative perturbation asymetrique a la main:
-           !Commenter la definition de xx_max, yy_max et zz_max quelques lignes plus haut si cette forme de perturbation n'est pas utilisee
-           !q(i,id) = d0*(1.0+delta_rho*( cos(2.*atan(yy/(cos(theta_mag_radians)*xx-sin(theta_mag_radians)*zz))) + xx/xx_max + yy/yy_max + zz/zz_max ))
-
-
-       !Tentative perturbation asymetrique avec fichier 'init_turb.data':
-       !ATTENTION, marche jusqu'a levelmin=6, car taille de q_idl(1,:,:,:)=10**6 et que 2**(3*6)=262144. Si levelmin > 7, alors nn (= nombre cellules) > 2097152 (=2**(3*7)), il faudrait generer un fichier plus grand ou prendre q_idl(1,:,:,:) et q_idl(2,:,:,:) et q_idl(3,:,:,:).
-       !Le fichier 'init_turb.data' a ete lu avant (j'ai rajoute la lecture dans le cas ou Mach=0, a enleve si cette perturbation n'est pas utilisee, a verifier qu'elle soit active si cette perturbation est utilisee)
-       if(Mach .eq. 0)then
-             !Calcul des indices i,j,k correspondant a la cellule en cours de traitement (tableau de cellule = tableau 1D) car pas encore fait si Mach = 0
-             !make a zero order interpolation (should be improved)
-             
-             if (taille_boite==1) then
-                ind_i = int((x(i,1)/boxlen)*n_size)+1  
-                ind_j = int((x(i,2)/boxlen)*n_size)+1
-                ind_k = int((x(i,3)/boxlen)*n_size)+1
-             elseif (taille_boite==2) then
-                !MODIF BY P.HENNEBELLE AND A.VERLIAT ON 14/12/2018 
-                !FOR BIGBOX PERTURBATIONS
-                ind_i = int( n_size*(4*x(i,1)-boxlen)/(2*boxlen) )+1 
-                ind_j = int( n_size*(4*x(i,2)-boxlen)/(2*boxlen) )+1 
-                ind_k = int( n_size*(4*x(i,3)-boxlen)/(2*boxlen) )+1 
-             elseif (taille_boite==3) then
-                !MODIF BY A.VERLIAT ON 28/01/2019 
-                !FOR HUGEBOX PERTURBATIONS
-                ind_i = int( n_size*(8*x(i,1)-3*boxlen)/(2*boxlen) )+1 
-                ind_j = int( n_size*(8*x(i,2)-3*boxlen)/(2*boxlen) )+1 
-                ind_k = int( n_size*(8*x(i,3)-3*boxlen)/(2*boxlen) )+1 
-             endif
-
-             ! safe check  !DESACTIVEE LE 14/12/2018
-             !if( ind_i .lt. 1 .or. ind_i .gt. n_size) write(*,*) 'ind_i ',ind_i,(x(i,1)/boxlen)*n_size+1,n_size
-             !if( ind_j .lt. 1 .or. ind_j .gt. n_size) write(*,*) 'ind_j ',ind_j
-             !if( ind_k .lt. 1 .or. ind_k .gt. n_size) write(*,*) 'ind_k ',ind_k
-           endif
-       
-       !if(q_idl(1,ind_i,ind_j,ind_k) .gt. (mean_tab_pert_aleat + std_tab_pert_aleat)) then
-        !q_idl(1,ind_i,ind_j,ind_k) = mean_tab_pert_aleat + std_tab_pert_aleat
-       !elseif (q_idl(1,ind_i,ind_j,ind_k) .lt. (mean_tab_pert_aleat - std_tab_pert_aleat)) then
-       !if (q_idl(1,ind_i,ind_j,ind_k) .lt. (mean_tab_pert_aleat - std_tab_pert_aleat)) then
-       !    q_idl(1,ind_i,ind_j,ind_k) = mean_tab_pert_aleat - std_tab_pert_aleat
-       !endif
-
-           !q(i,id) = d0* (1.0 + delta_rho * (q_idl(1,ind_i,ind_j,ind_k)/(1.01*abs(mean_tab_pert_aleat-std_tab_pert_aleat))) )
-       q(i,id) = q_idl(1,ind_i,ind_j,ind_k)
-
-
-
-
+        !IF(rs .le. r0) THEN  
+        IF(rs .le. 4*r0) THEN  !Added by AV on 08/02/2019 to have density
+                               !increasing toward the center
+           !q(i,id) = d0*exp(-rs**2/r0**2)
+           !modifies by AV on 05/03/2019 to be have higher central density than sink threshold :
+           q(i,id) = d0*exp(-rs**2/r0**2) 
            if(Mach .ne. 0)then
               q(i,iu) =  v_rms*(q_idl(1,ind_i,ind_j,ind_k)-vx_tot/dble(count_vrms))
               q(i,iv) =  v_rms*(q_idl(2,ind_i,ind_j,ind_k)-vy_tot/dble(count_vrms))
@@ -402,7 +206,9 @@ subroutine condinit(x,u,dx,nn)
            enddo
 #endif
         ELSE
-           q(i,id) = d0/contrast
+           !q(i,id) = d0/contrast
+           !q(i,id) = d0 * exp(-4.0d0**2) !Added by AV on 08/02/2019
+           q(i,id) = d0 * exp(-4.0d0**2) !Added by AV on 08/02/2019
            xx = r0 * xx / rc
            yy = r0 * yy / rc
            if(Mach .ne. 0)then
@@ -453,104 +259,6 @@ subroutine condinit(x,u,dx,nn)
            q(i,nvar) = q(i,5)
         endif
      ENDDO
-
-
-     
-
-     !===========================================
-     !DEBUT NORMALISATION PERTURBATION EN DENSITE
-     !===========================================
-!     if (first2) then 
-!         q_idl_mean_coeur = 0.d0
-!         count_cell_coeur = 0.d0
-!         pourcent_pert_coeur = 0.d0
-!
-!         DO i=1,nn
-!            xx=x(i,1)-x0
-!            yy=x(i,2)-y0
-!            zz=x(i,3)-z0
-!
-!            rs=sqrt(xx**2+yy**2+zz**2)
-!
-!            IF(rs .le. r0) THEN 
-!                q_idl_mean_coeur = q_idl_mean_coeur + q(i,id)
-!                count_cell_coeur = count_cell_coeur + 1
-!            END IF
-!         ENDDO
-!
-!         q_idl_mean_coeur = q_idl_mean_coeur / count_cell_coeur
-!
-!
-!
-!         DO i=1,nn
-!            xx=x(i,1)-x0
-!            yy=x(i,2)-y0
-!            zz=x(i,3)-z0
-!
-!            rs=sqrt(xx**2+yy**2+zz**2)
-!
-!            IF(rs .le. r0) THEN 
-!                q(i,id) = q(i,id)/q_idl_mean_coeur *d0
-!            END IF
-!         ENDDO
-!
-!
-!         q_idl_mean_coeur = 0.d0
-!         count_cell_coeur = 0.d0
-!         DO i=1,nn
-!            xx=x(i,1)-x0
-!            yy=x(i,2)-y0
-!            zz=x(i,3)-z0
-!
-!            rs=sqrt(xx**2+yy**2+zz**2)
-!
-!            IF(rs .le. r0) THEN 
-!                q_idl_mean_coeur = q_idl_mean_coeur + q(i,id)
-!                count_cell_coeur = count_cell_coeur + 1
-!            END IF
-!         ENDDO
-!
-!         q_idl_mean_coeur = q_idl_mean_coeur / count_cell_coeur
-!         
-!
-!         DO i=1,nn
-!            xx=x(i,1)-x0
-!            yy=x(i,2)-y0
-!            zz=x(i,3)-z0
-!
-!            rs=sqrt(xx**2+yy**2+zz**2)
-!
-!            IF(rs .le. r0) THEN 
-!                pourcent_pert_coeur =  pourcent_pert_coeur + (q(i,id)-q_idl_mean_coeur)**2
-!            END IF
-!         ENDDO
-!
-!         
-!         pourcent_pert_coeur = sqrt( pourcent_pert_coeur / count_cell_coeur ) /q_idl_mean_coeur
-!
-!
-!         write(*,*)
-!         write(*,*)
-!         write(*,*) '=============================================================================='
-!         write(*,*) 'Dans le coeur:'
-!         write(*,*) 'Valeur de d0 : ', d0
-!         write(*,*) 'Valeur moyenne finale de la densite dans le coeur : ', q_idl_mean_coeur
-!         write(*,*) 'Niveau de perturbation RMS par rapport a la densite moyenne dans le coeur : ', pourcent_pert_coeur
-!         write(*,*) '=============================================================================='
-!         write(*,*)
-!         write(*,*)
-!
-!         first2=.false.
-!     endif
-!
-     !=========================================
-     !FIN NORMALISATION PERTURBATION EN DENSITE
-     !=========================================
-
-
-
-
-
 
   else
 
@@ -1167,8 +875,8 @@ subroutine calc_boxlen
        elseif (taille_boite==3) then
            boxlen = r_0 * r0_box * 4. !*4. modif by averliat to have hugebox
        endif
-
-
+       
+       
        if (myid == 1) then 
           write(*,*) '** Cloud parameters estimated in calc-boxlen **' 
           write(*,*) 'inner radius (pc) ', r_0
