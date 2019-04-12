@@ -993,7 +993,6 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
                if(delta_mass(isink)>0.0)then
                    if(feedback_scheme=='protostel_jets')then
                        !write(*,*)'Computing jets feedback: m_acc = ',m_acc
-                       !fbk_mass_jets=delta_mass(isink)/3.0d0
                        fbk_mass_jets=m_acc/3.0d0
                        !  /!\On doit prendre m_acc ou delta_mass(isink)?
                        !J'ai l'impression de prendre une quantité en train
@@ -1005,11 +1004,6 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
                        !A priori il faut se baser plutot sur m_acc, a chaque
                        !fois on calcul la petite contribution de m_acc au jet
                        fbk_mom_jets=fbk_mass_jets*v_jets*1.e5/scale_v  !  *weight/volume*d/density
-                       !write(*,*)'Verifying momentum: mom_jets = ',fbk_mom_jets
-                       !write(*,*)'Verifying cone_opening = ',cone_opening
-                       !write(*,*)'Verifying v_jets = ',v_jets
-                       !write(*,*)'Verifying velocity: vel_jets = ',v_jets*1e5/scale_v
-                       
                        !Ce que j'ai compris : weight~volume d'une part. CIC
                        ! volume~volume de la sink; density~density de la sink 
 
@@ -1019,17 +1013,11 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
                        cone_dist=sum(r_rel(1:3)*cone_dir(1:3))
                        orth_dist=sqrt(sum((r_rel(1:3)-cone_dist*cone_dir(1:3))**2))
                        if (orth_dist.le.abs(cone_dist)*tan_theta)then
-                          !unew(indp(j,ind),2:4)=unew(indp(j,ind),2:4)+fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)/vol_loc
-                          !unew(indp(j,ind),5)=unew(indp(j,ind),5)+sum(fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)*vv(1:3))/vol_loc
-                          !unew(indp(j,ind),1)=unew(indp(j,ind),1)+fbk_mass_jets*sqrt(sum(r_rel(1:3)**2))/(ir_cloud*dx_min)/vol_loc
                           unew(indp(j,ind),1)=unew(indp(j,ind),1)+fbk_mass_jets/vol_loc 
-                          if (r_rel(3) .ge. 0.) then
-                              unew(indp(j,ind),4)=unew(indp(j,ind),4)+fbk_mom_jets/vol_loc
-                          else
-                              unew(indp(j,ind),4)=unew(indp(j,ind),4)-fbk_mom_jets/vol_loc
-                          endif
+
+                          unew(indp(j,ind),2:4)=unew(indp(j,ind),2:4)+fbk_mom_jets/vol_loc *r_rel(1:3)/sqrt(sum(r_rel(1:3)**2))
+
                           unew(indp(j,ind),5)=unew(indp(j,ind),5)+fbk_mass_jets*e/vol_loc  !e est defini plus haut
-                          !unew(indp(j,ind),5)=unew(indp(j,ind),5)+sum(fbk_mom_jets*r_rel(1:3)/(ir_cloud*dx_min)*vv(1:3))/vol_loc
                        end if
 
                        msink_new(isink)=msink_new(isink)-fbk_mass_jets
@@ -1039,9 +1027,6 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
                        !Maintenant non puisque m_acc a remplacée
                        !delta_mass(isink)
                     endif
-                    !il reste a enlever la mass et le moment a la sink
-                    !(ou deja pris en compte dans unew?)
-                    !et verifier la tete du moment
                 endif
             endif   
             !---------------------------------
