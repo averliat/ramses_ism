@@ -614,7 +614,7 @@ subroutine grow_sink(ilevel,on_creation)
   call compute_accretion_rate(.false.)
 
   ! Reset new sink variables
-  msink_new=0d0; xsink_new=0.d0; vsink_new=0d0; delta_mass_new=0d0; lsink_new=0d0
+  msink_new=0d0; xsink_new=0.d0; vsink_new=0d0; delta_mass_new=0d0; lsink_new=0d0; M_jet_new=0d0
 
   ! Loop over cpus
   do icpu=1,ncpu
@@ -679,12 +679,14 @@ subroutine grow_sink(ilevel,on_creation)
      call MPI_ALLREDUCE(xsink_new,xsink_all,nsinkmax*ndim,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,info)
      call MPI_ALLREDUCE(vsink_new,vsink_all,nsinkmax*ndim,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,info)
      call MPI_ALLREDUCE(lsink_new,lsink_all,nsinkmax*3,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,info)
+     call MPI_ALLREDUCE(M_jet_new,M_jet_all,nsinkmax,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,info)
 #else
      msink_all=msink_new
      delta_mass_all=delta_mass_new
      xsink_all=xsink_new
      vsink_all=vsink_new
      lsink_all=lsink_new
+     M_jet_all=M_jet_new
 #endif
   endif
 
@@ -703,6 +705,7 @@ subroutine grow_sink(ilevel,on_creation)
 
      ! Accrete to sink variables in the frame of the initial sink position
      msink(isink)=msink(isink)+msink_all(isink)
+     M_jet(isink)=M_jet(isink)+M_jet_all(isink)
      !PH tries to prevent sinks escaping their native grid 22/01/2018
      if(msink(isink) .gt. 10.*msink_all(isink)) xsink(isink,1:ndim)=xsink(isink,1:ndim)+xsink_all(isink,1:ndim)/msink(isink)
 !     xsink(isink,1:ndim)=xsink(isink,1:ndim)+xsink_all(isink,1:ndim)/msink(isink)
@@ -990,7 +993,7 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
            ! AV tries to set protostellar jet
            !---------------------------------
            if( .not. on_creation)then
-               if(delta_mass(isink)>0.0)then
+               if(delta_mass(isink)>0.0 .and. msink(isink)>0.5*Msun/(scale_d*scale_l**3))then
                    if(feedback_scheme=='protostel_jets')then
                        !write(*,*)'Computing jets feedback: m_acc = ',m_acc
                        fbk_mass_jets=m_acc/3.0d0
@@ -1008,8 +1011,10 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
                        ! volume~volume de la sink; density~density de la sink 
 
                        !checking if particle is in cone
+                       cone_dir(1:3)=[0,0,1]
                        !cone_dir(1:3)=lsink(isink,1:3)/sqrt(sum(lsink(isink,1:3)**2))
-                       cone_dir(1:3)=[0,0,1]  !Test : axe du jet = z
+                       !write(*,*)'Direction du cone : cone_dir(1:3) = ',cone_dir(1:3)
+                       !cone_dir(1:3)=[0,0,1]  !Test : axe du jet = z
                        cone_dist=sum(r_rel(1:3)*cone_dir(1:3))
                        orth_dist=sqrt(sum((r_rel(1:3)-cone_dist*cone_dir(1:3))**2))
                        if (orth_dist.le.abs(cone_dist)*tan_theta)then
@@ -1018,6 +1023,8 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
                           unew(indp(j,ind),2:4)=unew(indp(j,ind),2:4)+fbk_mom_jets/vol_loc *r_rel(1:3)/sqrt(sum(r_rel(1:3)**2))
 
                           unew(indp(j,ind),5)=unew(indp(j,ind),5)+fbk_mass_jets*e/vol_loc  !e est defini plus haut
+
+                          M_jet_new(isink)=M_jet_new(isink)+fbk_mass_jets
                        end if
 
                        msink_new(isink)=msink_new(isink)-fbk_mass_jets
@@ -1700,7 +1707,7 @@ subroutine make_sink_from_clump(ilevel)
 
   ! Set new sink variables to zero
   msink_new=0d0; mseed_new=0d0; tsink_new=0d0; delta_mass_new=0d0; xsink_new=0d0; vsink_new=0d0
-  oksink_new=0d0; idsink_new=0; new_born_new=.false.
+  oksink_new=0d0; idsink_new=0; new_born_new=.false.; M_jet_new=0d0
   dmfsink_new=0d0
 
 #if NDIM==3
@@ -1934,10 +1941,12 @@ subroutine make_sink_from_clump(ilevel)
   call MPI_ALLREDUCE(vsink_new ,vsink_all ,nsinkmax*ndim,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,info)
   call MPI_ALLREDUCE(delta_mass_new,delta_mass_all,nsinkmax,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,info)
   call MPI_ALLREDUCE(new_born_new,new_born_all,nsinkmax,MPI_LOGICAL,MPI_LOR,MPI_COMM_WORLD,info)
+  call MPI_ALLREDUCE(M_jet_new ,M_jet_all ,nsinkmax,MPI_DOUBLE_PRECISION,MPI_SUM,MPI_COMM_WORLD,info)
 #else
   oksink_all=oksink_new
   idsink_all=idsink_new
   msink_all=msink_new
+  M_jet_all=M_jet_new
   mseed_all=mseed_new
 
   !introduced by PH 09/2013 to compute the feedback from sink
@@ -1954,6 +1963,7 @@ subroutine make_sink_from_clump(ilevel)
      if(oksink_all(isink)==1)then
         idsink(isink)=idsink_all(isink)
         msink(isink)=msink_all(isink)
+        M_jet(isink)=M_jet_all(isink)
         mseed(isink)=mseed_all(isink)
 
         !introduced by PH 09/2013 to follow the feedback from the sinks
@@ -2423,11 +2433,13 @@ subroutine merge_star_sink
                    &    msink(jsink)*cross((xsink(jsink,1:3)-xcom(1:3)),vsink(jsink,1:3)-vcom(1:3))
               ! Compute merged quantities
               msink(isink)    =mcom
+              M_jet(isink)    =(M_jet(isink)+M_jet(jsink))
               xsink(isink,1:3)=xcom(1:3)
               vsink(isink,1:3)=vcom(1:3)
               lsink(isink,1:3)=lcom(1:3)+lsink(isink,1:3)+lsink(jsink,1:3)
               ! Update final remaining quantities
               msink(jsink)=-10.
+              M_jet(jsink)=0.
               tsink(isink)=min(tsink(isink),tsink(jsink))
               idsink(isink)=min(idsink(isink),idsink(jsink))
            endif
@@ -2460,6 +2472,7 @@ subroutine merge_star_sink
            new_born(j)=new_born(j+1)
            tsink(j)=tsink(j+1)
            idsink(j)=idsink(j+1)
+           M_jet(j)=M_jet(j+1)
         end do
 
         !whipe last position in the sink list
@@ -2476,6 +2489,7 @@ subroutine merge_star_sink
         new_born(nsink+1)=.false.
         tsink(nsink+1)=0.
         idsink(nsink+1)=0
+        M_jet(nsink+1)=0.
 
      else
         i=i+1
@@ -2559,10 +2573,12 @@ subroutine merge_smbh_sink
 
               !introduced by PH 09/2013 to follow the feedback from the sinks
               dmfsink(isink)=dmfsink(isink)+dmfsink(jsink)
+              M_jet(isink)  =M_jet(isink)+M_jet(jsink)
 
               ! Update final remaining quantities
               delta_mass(isink)=delta_mass(isink)+delta_mass(jsink)
               msink(jsink)=-10.
+              M_jet(jsink)=0.
               tsink(isink)=min(tsink(isink),tsink(jsink))
               idsink(isink)=min(idsink(isink),idsink(jsink))
            endif
@@ -2587,6 +2603,7 @@ subroutine merge_smbh_sink
            vsink(j,1:3)=vsink(j+1,1:3)
            lsink(j,1:3)=lsink(j+1,1:3)
            msink(j)=msink(j+1)
+           M_jet(j)=M_jet(j+1)
            mseed(j)=mseed(j+1)
            new_born(j)=new_born(j+1)
            tsink(j)=tsink(j+1)
@@ -2599,6 +2616,7 @@ subroutine merge_smbh_sink
         vsink(nsink+1,1:3)=0.
         lsink(nsink+1,1:3)=0.
         msink(nsink+1)=0.
+        M_jet(nsink+1)=0.
         mseed(nsink+1)=0.
         new_born(nsink+1)=.false.
         tsink(nsink+1)=0.

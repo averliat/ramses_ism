@@ -3,3 +3,11 @@
 *~
 bin*/
 *.log
+*.swp
+
+patch/av_collapse/test_condinit
+patch/av_collapse/test_condinit2
+patch/av_collapse/test_condinit_dans_coeur
+old_bin_ph_rt_frig/ramses3d
+old_bin_ism/ramses3d
+old_bin_ism/libfftw3.a
