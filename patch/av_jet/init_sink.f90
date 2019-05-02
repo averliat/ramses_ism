@@ -81,6 +81,11 @@ subroutine init_sink
 
   !introduced by AV 18/04/2019 to follow feedback from protostellar jets
   allocate(M_jet_new(1:nsinkmax))
+  !introduced by AV 18/04/2019 to compute feedback from protostellar jets
+  allocate(M_for_jets(1:nsinkmax))
+  allocate(M_for_jets_all(1:nsinkmax))
+  allocate(vol_tot_for_jets(1:nsinkmax))
+  allocate(vol_tot_for_jets_all(1:nsinkmax))
 
   !introduced by PH 09/2013 to compute feedback around sink
   allocate(dmfsink_new(1:nsinkmax))

@@ -53,6 +53,7 @@ subroutine condinit(x,u,dx,nn)
   real(dp)::ener_rot,ener_grav,ener_therm,ener_grav2,ener_turb,dd,ee,theta_mag_radians
   real(dp),dimension(1000):: mass_rad    
   real(dp),dimension(1:3,1:3):: rot_M,rot_invM,rot_tilde
+  real(dp):: costheta, sintheta, vel 
 
   integer:: taille_boite
   real(dp)::R_shu, A_shu
@@ -92,6 +93,9 @@ subroutine condinit(x,u,dx,nn)
      rot_tilde(1,1:3) = (/0.0d0,1.0d0,0.0d0/)
      rot_tilde(2,1:3) = (/-1.0d0,0.0d0,0.0d0/)
      rot_tilde(3,1:3) = (/0.0d0,0.0d0,0.0d0/)
+
+     costheta=cos(theta_mag_radians)
+     sintheta=sin(theta_mag_radians)
 
      ! sound speed
      Temp = Tr_floor
@@ -209,7 +213,19 @@ subroutine condinit(x,u,dx,nn)
               q(i,iv) =  v_rms*(q_idl(2,ind_i,ind_j,ind_k)-vy_tot/dble(count_vrms))
               q(i,iw) =  v_rms*(q_idl(3,ind_i,ind_j,ind_k)-vz_tot/dble(count_vrms))
            end if
-           q(i,iu:iw) = q(i,iu:iw)+matmul(rot_invM,omega0*matmul(rot_tilde,matmul(rot_M,(/xx,yy,zz/))))
+           !q(i,iu:iw) = q(i,iu:iw)+matmul(rot_invM,omega0*matmul(rot_tilde,matmul(rot_M,(/xx,yy,zz/))))
+           !Modified by AV on 15/04/2019 to have same amount of specific
+           !momentum with the r^-2 density profile rather than the flat one
+           !q(i,iu) = q(i,iu) + omega0 * R0**2 * R_shu**(-2.d0/3.d0) * rc**(-4.d0/3.d0) * (-yy)
+           !q(i,iv) = q(i,iv) + omega0 * R0**2 * R_shu**(-2.d0/3.d0) * rc**(-4.d0/3.d0) * (xx)
+
+           vel = omega0 * R0**2 * R_shu**(-2.d0/3.d0) * (sqrt(xx**2+(yy*costheta-zz*sintheta)**2))**(-4./3.)
+
+           q(i,iu) = q(i,iu) + vel*(-(yy*costheta-zz*sintheta))
+           q(i,iv) = q(i,iv) + vel*(xx*costheta)
+           q(i,iw) = q(i,iw) + vel*(-xx*sintheta)
+
+
 
 #if NGRP>0
            do igroup=1,ngrp

@@ -10,6 +10,9 @@ module pm_commons
 
   !introduced by av 04/2019 to follow protostellar jets feedback
   real(kind=8),allocatable,dimension(:)::M_jet,M_jet_new,M_jet_all
+  !introduced by av 04/2019 to compute protostellar jets feedback
+  real(kind=8),allocatable,dimension(:)::M_for_jets,M_for_jets_all
+  real(kind=8),allocatable,dimension(:)::vol_tot_for_jets,vol_tot_for_jets_all
 
   !introduced by PH 07/2016 to record the feedback from the sink
   real(kind=8),allocatable,dimension(:)::Eioni

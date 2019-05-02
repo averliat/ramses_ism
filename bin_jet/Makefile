@@ -31,7 +31,7 @@ NIONS = 0
 PATCH = ../patch/av_jet
 
 GRACKLE = 0
-EXEC = ramses_jet_writejet_rotsol_
+EXEC = ramses_jet_rotNS_dirJ_theta_retrJetP_
 
 MPI = 1
 #COMP = "GNU"

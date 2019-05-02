@@ -31,7 +31,7 @@ NIONS = 0
 PATCH = ../patch/av_collapse
 
 GRACKLE = 0
-EXEC = ramses_perturbation_aleatoire_propre_RMS_alfven_niMHD
+EXEC = ramses_perturbation_aleatoire_propre_RMS_dans_coeur_bigbox_niMHD_
 
 MPI = 1
 #COMP = "GNU"
