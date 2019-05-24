@@ -1158,6 +1158,7 @@ subroutine protostellar_jets_feedback(ind_grid,ind_part,ind_grid_part,ng,np,ilev
 
   real(dp)::tan_theta,cone_dist,orth_dist,rr2
   real(dp),dimension(1:3)::cone_dir
+  real(dp)::v_jets
 
 #if NDIM==3
 
@@ -1270,14 +1271,15 @@ subroutine protostellar_jets_feedback(ind_grid,ind_part,ind_grid_part,ng,np,ilev
              ! AV tries to set protostellar jets
              !----------------------------------
              if(M_for_jets_all(isink)>0.0 .and. vol_tot_for_jets_all(isink)>0.0)then
-                 !fbk_mass_jets=m_acc/3.0d0
-                 fbk_mom_jets=M_for_jets_all(isink)*v_jets*1.e5/scale_v !*weight/volume*d/density
+
+                 v_jets = v_jets_frac * sqrt( msink(isink) / (10*Rsun/scale_l) )  ! G=1, fraction de la vitesse de liberation
+
+                 fbk_mom_jets=M_for_jets_all(isink)*v_jets !*1.e5/scale_v !*weight/volume*d/density
                  !Ce que j'ai compris : weight~volume d'une part. CIC
                  ! volume~volume de la sink; density~density de la sink 
 
                  !checking if particle is in cone
                  cone_dir(1:3)=lsink(isink,1:3)/sqrt(sum(lsink(isink,1:3)**2))
-                 !write(*,*)'Direction du cone : cone_dir(1:3) = ',cone_dir(1:3)
                  !cone_dir(1:3)=[0,0,1]  !Test : axe du jet = z
                  cone_dist=sum(r_rel(1:3)*cone_dir(1:3))
                  orth_dist=sqrt(sum((r_rel(1:3)-cone_dist*cone_dir(1:3))**2))
@@ -1304,6 +1306,8 @@ subroutine protostellar_jets_feedback(ind_grid,ind_part,ind_grid_part,ng,np,ilev
                      ! Il faudra enlever a la sink la qté de mvt et le moment cinétique mis dans le jet
                      vsink_new(isink,1:3)=vsink_new(isink,1:3)-fbk_mom_jets*vol_loc/vol_tot_for_jets_all(isink) *r_rel(1:3)/sqrt(sum(r_rel(1:3)**2))
                      lsink_new(isink,1:3)=lsink_new(isink,1:3)-cross(r_rel(1:3),fbk_mom_jets/vol_tot_for_jets_all(isink) *r_rel(1:3)/sqrt(sum(r_rel(1:3)**2)) *vol_loc)
+                     ! Ici pas de moment enlevé à la sink étant donné que r_rel
+                     ! et le moment mis dans le jet sont colinéaires
 
                  end if
 
@@ -3200,7 +3204,7 @@ subroutine read_sink_params()
   namelist/sink_params/n_sink,rho_sink,d_sink,accretion_scheme,merging_timescale,jeans_accretion,&
        ir_cloud_massive,sink_soft,mass_sink_direct_force,ir_cloud,nsinkmax,c_acc,create_sinks,mass_sink_seed,&
        eddington_limit,sink_drag,acc_sink_boost,mass_merger_vel_check_AGN,&
-       clump_core,verbose_AGN,T2_AGN,v_AGN,v_jets,cone_opening,mass_halo_AGN,mass_clump_AGN,feedback_scheme
+       clump_core,verbose_AGN,T2_AGN,v_AGN,v_jets_frac,cone_opening,mass_halo_AGN,mass_clump_AGN,feedback_scheme
   real(dp)::scale_nH,scale_T2,scale_l,scale_d,scale_t,scale_v
 
   if(.not.cosmo) call units(scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2)

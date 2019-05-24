@@ -47,7 +47,8 @@ module pm_parameters
 
   real(dp)::v_max=5.d4                       ! Maximum allowed velocity of the AGN blast; in km/s
   real(dp)::v_AGN=1.d4                       ! AGN blast velocity; in km/s
-  real(dp)::v_jets=30.                       ! protostellar jets velocity; in km/s
+  !real(dp)::v_jets=30.                       ! protostellar jets velocity; in km/s
+  real(dp)::v_jets_frac=0.333                ! fraction of liberation velocity for protostellar jets
   real(dp)::cone_opening=20. !180.                ! Outflow cone opening angle; in deg
 
   real(dp)::mass_halo_AGN=1.d10              ! Minimum mass of the halo for sink creation
