@@ -57,11 +57,11 @@ subroutine condinit(x,u,dx,nn)
 
   real(dp), save:: max_tab_pert_aleat, var_tab_pert_aleat, mean_tab_pert_aleat, std_tab_pert_aleat, q_idl_mean, pourcent_pert, q_idl_mean_norm, q_idl_mean_coeur, count_cell_coeur, pourcent_pert_coeur
 !Stockage de la valeur max de la colonne du fichier 'init_turb.data' utilisee pour generer la perturbation en densite
-  integer:: taille_boite
+  integer:: taille_boite, perturb
 
 
 
-  taille_boite=2 !ATTENTION, A CHANGER AUSSI DANS calc_boxlen, 1 pour taille normale, 2 pour bigbox, 3 pour hugebox
+  taille_boite=1 !ATTENTION, A CHANGER AUSSI DANS calc_boxlen, 1 pour taille normale, 2 pour bigbox, 3 pour hugebox
 
 
   small_er=eray_min/(scale_d*scale_v**2)
@@ -114,6 +114,7 @@ subroutine condinit(x,u,dx,nn)
         if(Mach .ne. 0)then
            if (myid==1) write(*,*) 'Read the file which contains the initial turbulent velocity field'
            open(20,file='init_turb.data',form='formatted')
+           if (myid==1) write(*,*) 'File opened'
            read(20,*) n_size, ind, seed1,seed2,seed3
            if(n_size .ne. 100) then
               write(*,*) 'Unextected field size'
@@ -146,6 +147,7 @@ subroutine condinit(x,u,dx,nn)
                  end do
               end do
            end do
+           if (myid==1) write(*,*) 'Ok here'
            close(20)
            v_rms=sqrt((vx2_tot+vy2_tot+vz2_tot)/dble(count_vrms)-((vx_tot+vy_tot+vz_tot)/dble(count_vrms))**2)
            if (myid == 1) print *, 'v_rms for given seed =',v_rms
@@ -159,6 +161,9 @@ subroutine condinit(x,u,dx,nn)
      !DEBUT DU CALCUL DES PERTURBATIONS
      !====================================================================
      !Lecture de 'init_turb.data' dans le cas ou Mach=0 (car il n'as pas ete lu avant), commentable si la perturbation aleatoire n'est pas utilisee
+     perturb=0
+     if(perturb .ne. 0) then
+
      if(Mach .eq. 0) then  
          write(*,*) 'Read the file which contains the initial turbulent velocity field to compute the perturbate density field'
          open(20,file='init_turb.data',form='formatted')
@@ -283,6 +288,8 @@ subroutine condinit(x,u,dx,nn)
      write(*,*) '=============================================================================='
      write(*,*)
      write(*,*)
+
+     endif
      !====================================================================
      !FIN DU CALCUL DES PERTURBATIONS, SUITE LIGNE 391
      !====================================================================
@@ -321,15 +328,23 @@ subroutine condinit(x,u,dx,nn)
         q(i,iw) = 0.0d0
 
         if(Mach .ne. 0)then
-           !initialise the turbulent velocity field
-           !make a zero order interpolation (should be improved)
-           ind_i = int((x(i,1)/boxlen)*n_size)+1
-           ind_j = int((x(i,2)/boxlen)*n_size)+1
-           ind_k = int((x(i,3)/boxlen)*n_size)+1
-           ! safe check
-           if( ind_i .lt. 1 .or. ind_i .gt. n_size) write(*,*) 'ind_i ',ind_i,(x(i,1)/boxlen)*n_size+1,n_size
-           if( ind_j .lt. 1 .or. ind_j .gt. n_size) write(*,*) 'ind_j ',ind_j
-           if( ind_k .lt. 1 .or. ind_k .gt. n_size) write(*,*) 'ind_k ',ind_k
+             if (taille_boite==1) then
+                ind_i = int((x(i,1)/boxlen)*n_size)+1  
+                ind_j = int((x(i,2)/boxlen)*n_size)+1
+                ind_k = int((x(i,3)/boxlen)*n_size)+1
+             elseif (taille_boite==2) then
+                !MODIF BY P.HENNEBELLE AND A.VERLIAT ON 14/12/2018 
+                !FOR BIGBOX PERTURBATIONS
+                ind_i = int( n_size*(4*x(i,1)-boxlen)/(2*boxlen) )+1 
+                ind_j = int( n_size*(4*x(i,2)-boxlen)/(2*boxlen) )+1 
+                ind_k = int( n_size*(4*x(i,3)-boxlen)/(2*boxlen) )+1 
+             elseif (taille_boite==3) then
+                !MODIF BY A.VERLIAT ON 28/01/2019 
+                !FOR HUGEBOX PERTURBATIONS
+                ind_i = int( n_size*(8*x(i,1)-3*boxlen)/(2*boxlen) )+1 
+                ind_j = int( n_size*(8*x(i,2)-3*boxlen)/(2*boxlen) )+1 
+                ind_k = int( n_size*(8*x(i,3)-3*boxlen)/(2*boxlen) )+1 
+             endif
         end if
 
         rc=sqrt(xx**2+yy**2)
@@ -384,7 +399,7 @@ subroutine condinit(x,u,dx,nn)
        !endif
 
            !q(i,id) = d0* (1.0 + delta_rho * (q_idl(1,ind_i,ind_j,ind_k)/(1.01*abs(mean_tab_pert_aleat-std_tab_pert_aleat))) )
-       q(i,id) = q_idl(1,ind_i,ind_j,ind_k)
+       q(i,id) = d0 !q_idl(1,ind_i,ind_j,ind_k)
 
 
 
@@ -1145,7 +1160,7 @@ subroutine calc_boxlen
   logical,save:: first=.true.
   integer::taille_boite
 
-    taille_boite=2  !1 pour taille normale, 2 pour bigbox, 3 pour hugebox
+    taille_boite=1  !1 pour taille normale, 2 pour bigbox, 3 pour hugebox
 
     if (first) then
 

@@ -84,8 +84,10 @@ subroutine flag_formation_sites
         dist2=sum(rrel**2)
 !PH modifies this number to prevent close fragmentation
 !AV modifies this number to prevent close fragmentation
-        !if (dist2<(20.*ir_cloud*dx_min/aexp)**2)then
-        if (dist2<boxlen/2.)then
+        !if (dist2<(2.*ir_cloud*dx_min/aexp)**2)then
+        !if (dist2<(2.*ir_cloud/4.*dx_min/aexp)**2)then
+        if (dist2<(20.*ir_cloud/2.*dx_min/aexp)**2)then
+        !if (dist2<boxlen/2.)then
            occupied(i)=1
            if(clinfo)write(*,*)'CPU # ',myid,'blocked clump # ',i+ipeak_start(myid),' for sink production because of sink # ',idsink(j)
         end if

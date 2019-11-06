@@ -8,7 +8,7 @@ NPRE = 8
 
 NDIM = 3
 SOLVER = mhd
-NIMHD=0
+NIMHD=1
 
 NCR = 0
 NENT =0+$(NCR)
@@ -31,7 +31,7 @@ NIONS = 0
 PATCH = ../patch/av_jet
 
 GRACKLE = 0
-EXEC = ramses_jet_cluster_
+EXEC = ramses_jet_cluster_niMHD_
 
 MPI = 1
 #COMP = "GNU"

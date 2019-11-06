@@ -1002,7 +1002,7 @@ subroutine read_hydro_params(nml_ok)
      call init_opacities
   end if
  
-  if(PMS_evol .and. rt_feedback .and. Hosokawa_track)then
+  if((PMS_evol .and. rt_feedback .and. Hosokawa_track) .or. Hosokawa_track_jet_feedback)then
      open(101,file='Hosokawa_track.dat', status='old')
      read(101,*)nmdot_PMS,nm_PMS,ndata_PMS
      allocate(nb_ligne_PMS(nmdot_PMS))

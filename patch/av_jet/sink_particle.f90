@@ -692,6 +692,10 @@ subroutine grow_sink(ilevel,on_creation)
       M_for_jets_all=M_for_jets
       vol_tot_for_jets_all=vol_tot_for_jets
 #endif
+
+      call compute_sink_radius !Pour calculer le rayon de chaque protostar,
+                               !les rayons sont alors dans rsink_star(isink)
+                               !en unité de code
     endif
 
 
@@ -1084,7 +1088,7 @@ subroutine accrete_sink(ind_grid,ind_part,ind_grid_part,ng,np,ilevel,on_creation
            !---------------------------------
            if( .not. on_creation)then
                if(feedback_scheme=='protostel_jets')then
-                   if(msink(isink)>0.1*Msun/(scale_d*scale_l**3))then
+                   if(msink(isink)>0.15*Msun/(scale_d*scale_l**3))then
                        !Add by AV on 18/04/2019 to compute the mass to be put in jets
                        M_for_jets(isink)=M_for_jets(isink) + m_acc/3.0d0
 
@@ -1119,6 +1123,7 @@ subroutine protostellar_jets_feedback(ind_grid,ind_part,ind_grid_part,ng,np,ilev
   use amr_commons
   use pm_commons
   use hydro_commons
+  use cloud_module
   implicit none
   integer::ng,np,ilevel
   integer,dimension(1:nvector)::ind_grid
@@ -1272,7 +1277,8 @@ subroutine protostellar_jets_feedback(ind_grid,ind_part,ind_grid_part,ng,np,ilev
              !----------------------------------
              if(M_for_jets_all(isink)>0.0 .and. vol_tot_for_jets_all(isink)>0.0)then
 
-                 v_jets = v_jets_frac * sqrt( msink(isink) / (10*Rsun/scale_l) )  ! G=1, fraction de la vitesse de liberation
+                 !v_jets = v_jets_frac * sqrt( msink(isink) / (10*Rsun/scale_l) )  ! G=1, fraction de la vitesse de liberation
+                 v_jets = v_jets_frac * sqrt( facc_star*msink(isink) / rsink_star(isink) )  ! G=1, fraction de la vitesse de liberation
 
                  fbk_mom_jets=M_for_jets_all(isink)*v_jets !*1.e5/scale_v !*weight/volume*d/density
                  !Ce que j'ai compris : weight~volume d'une part. CIC
@@ -1295,7 +1301,7 @@ subroutine protostellar_jets_feedback(ind_grid,ind_part,ind_grid_part,ng,np,ilev
 
                      unew(indp(j,ind),5)=unew(indp(j,ind),5)+M_for_jets_all(isink)*e/vol_tot_for_jets_all(isink)  !e est defini plus haut
 
-                     !Comptage de la masse reelement mise dans le jet
+                     !Comptage de la masse reellement mise dans le jet
                      M_jet_new(isink)=M_jet_new(isink)+M_for_jets_all(isink)*vol_loc/vol_tot_for_jets_all(isink)
 
                      !On enleve a la sink la masse mise dans le jet
@@ -1330,6 +1336,216 @@ subroutine protostellar_jets_feedback(ind_grid,ind_part,ind_grid_part,ng,np,ilev
   endif
 #endif
 end subroutine protostellar_jets_feedback
+!################################################################
+!################################################################
+!################################################################
+!################################################################
+subroutine compute_sink_radius
+  use pm_commons
+  use amr_commons
+  use hydro_commons
+  use cloud_module
+  implicit none
+#ifndef WITHOUTMPI
+  include 'mpif.h'
+#endif
+
+  !------------------------------------------------------------------------
+  ! This routine is based on compute_accretion_rate to just get the radius of
+  ! the protostar using Hosokawa modelisation
+  !------------------------------------------------------------------------
+  !----------------------------------
+  ! AV tries to set protostellar jets
+  !----------------------------------
+  !----------------------------------
+  ! Pour optimiser, surement besoin de nettoyer ce qui concerne la luminosité 
+  !----------------------------------
+
+  integer::i,nx_loc,isink
+  integer::imdot,im1,im2
+  real(dp)::scale_nH,scale_T2,scale_l,scale_d,scale_t,scale_v,scale_m
+  real(dp)::factG,d_star,boost
+  real(dp)::r2,v2,c2,density,volume,ethermal,dx_min,scale,mgas,rho_inf,v_bondi
+  real(dp),dimension(1:3)::velocity
+  real(dp),dimension(1:nsinkmax)::dMEDoverdt
+  real(dp)::T2_gas,delta_mass_min
+  real(dp)::mass,log_mdot,mean_mdot,mass_reduced,star_mass,pi
+  real(dp)::de1,de2,dd1,dd2,mass_table,Lum,radius,mdot_real,y1,y2,z2,z1,a,b,surface
+
+  dt_acc=huge(0._dp)
+
+  ! Gravitational constant
+  factG=1d0
+  pi=acos(-1.0d0)
+  if(cosmo)factG=3d0/8d0/pi*omega_m*aexp
+
+  ! Conversion factor from user units to cgs units
+  call units(scale_l,scale_t,scale_d,scale_v,scale_nH,scale_T2)
+  scale_m=scale_d*scale_l**3d0
+  nx_loc=(icoarse_max-icoarse_min+1)
+  scale=boxlen/dble(nx_loc)
+  dx_min=scale*0.5D0**nlevelmax/aexp
+  d_star=n_star/scale_nH
+
+  
+
+    !do isink=1,nsink
+    !      rsink_star(isink) = 10*Rsun/scale_l
+    !enddo
+
+    ! Compute internal luminosity from Hosokawa PMS tracks
+    do isink=1,nsink
+       star_mass=facc_star*msink(isink)
+!           if((star_mass*scale_m/Msun) .gt. 1.d-2)then! .and. (t-tsink(isink))*(scale_t/year) .gt. larson_lifetime)then 
+          if(star_mass*scale_m/Msun .gt. 7.1d-2)then
+             mean_mdot = star_mass/(t-tsink(isink))*scale_m/Msun &
+                  & /(scale_t/year) !in msun/year
+             mass = star_mass*scale_m/Msun
+             !print*,'mass =  ',mass
+             
+             mass=log10(mass)
+             log_mdot = log10(mean_mdot)
+             imdot = floor(log_mdot) + 8
+             
+             if(imdot .lt. 1)then
+                imdot=1              
+                mass_table=-10.0
+                i=1
+                do while(mass_table .lt. mass)
+                   if((i+1) .gt. nb_ligne_PMS(imdot))then
+                      lum = data_PMS(imdot,i+1,3)
+                      radius = data_PMS(imdot,i+1,4)
+                      GOTO 110
+                   end if
+                   i=i+1
+                   mass_table = data_PMS(imdot,i,1)
+                end do
+
+!                   if(myid==1)print*,'imdot lt 1',i,imdot,star_mass*scale_m/Msun
+              
+                z1 = data_PMS(imdot,i  ,3)
+                z2 = data_PMS(imdot,i-1,3)
+                
+                y1 = data_PMS(imdot,i  ,1)
+                y2 = data_PMS(imdot,i-1,1)
+                
+                a = (z2-z1)/(y2-y1)
+                b=z2-a*y2
+             
+                lum = a*mass + b
+                
+                z1 = data_PMS(imdot,i  ,4)
+                z2 = data_PMS(imdot,i-1,4)
+                a = (z2-z1)/(y2-y1)
+                b=z2-a*y2
+    !            
+                radius = a*mass + b
+                
+                
+!          print*,'Luminosity=',lum,'Lsol',', mass=',mass,'Msol'
+                
+             else if(imdot .ge. 5)then
+                imdot=5
+                
+                mass_table=-10.0
+                i=1
+!                    if(myid==1)print*,i,mass_table,mass, nb_ligne_PMS(imdot),log_mdot
+                do while(mass_table .lt. mass)
+                   if((i+1) .gt. nb_ligne_PMS(imdot))then
+                      lum = data_PMS(imdot,i+1,3)
+                      radius = data_PMS(imdot,i+1,4)
+                      GOTO 110
+                   end if
+                    i=i+1
+                    mass_table = data_PMS(imdot,i,1)
+                end do
+!                    if(myid==1)print*,'imdot ge 5',i,imdot,star_mass*scale_m/Msun
+                z1 = data_PMS(imdot,i  ,3)
+                z2 = data_PMS(imdot,i-1,3)
+                
+                y1 = data_PMS(imdot,i  ,1)
+                y2 = data_PMS(imdot,i-1,1)
+                
+                a = (z2-z1)/(y2-y1)
+                b=z2-a*y2
+                
+                lum = a*mass + b
+                
+                z1 = data_PMS(imdot,i  ,4)
+                z2 = data_PMS(imdot,i-1,4)
+                a = (z2-z1)/(y2-y1)
+                b=z2-a*y2
+                
+                radius = a*mass + b
+                
+             else !if(imdot .gt. 1 .and. imdot .lt. 5)then
+                mdot_real = float(imdot-8)
+                
+                !   mdot=log10(mdot)
+                dd1 = log_mdot - (mdot_real)
+                
+                i=1
+                mass_table = data_PMS(imdot,i,1)
+                do while(mass_table .lt. mass)
+                   if((i+1) .gt. nb_ligne_PMS(imdot))then
+                      GOTO 130
+                   end if
+                   i=i+1
+                   mass_table = data_PMS(imdot,i,1)
+                end do
+130                dd2 = mass - mass_table
+                im1=i
+                
+                i=1
+                mass_table = data_PMS(imdot+1,i,1)
+                do while(mass_table .lt. mass)
+                   dd2 = mass - mass_table      
+                   if((i+1) .gt. nb_ligne_PMS(imdot))then
+                      GOTO 140
+                   end if
+                   i=i+1
+                   mass_table = data_PMS(imdot+1,i,1)
+                end do
+                
+140                im2=i
+                
+                de1 = 1.0d0 - dd1
+                de2 = 1.0d0 - dd2
+                Lum = 0.d0
+                
+!if(myid==1)print*,im1,im2,imdot,star_mass*scale_m/Msun
+                Lum = Lum + de1*de2*data_PMS(imdot  ,im1  ,3)
+                Lum = Lum + dd1*de2*data_PMS(imdot+1,im2  ,3)
+                Lum = Lum + de1*dd2*data_PMS(imdot  ,im1-1,3)
+                Lum = Lum + dd1*dd2*data_PMS(imdot+1,im2-1,3)
+                
+                radius = 0.d0
+                
+                radius = radius + de1*de2*data_PMS(imdot  ,im1  ,4)
+                radius = radius + dd1*de2*data_PMS(imdot+1,im2  ,4)
+                radius = radius + de1*dd2*data_PMS(imdot  ,im1-1,4)
+                radius = radius + dd1*dd2*data_PMS(imdot+1,im2-1,4)
+                
+             end if
+             
+110             int_lum(isink) = (10.0d0**(lum))*Lsun/(scale_d*scale_v**2*scale_l**3/scale_t)
+             radius=(10.0d0**radius)*Rsun/scale_l
+!             end ifs
+!              acc_lum(isink) = facc_star_lum*star_mass*star_mass/(t-tsink(isink))/radius!acc_rate(isink)/radiu
+          acc_lum(isink) = facc_star_lum*star_mass*facc_star*acc_rate(isink)/radius
+
+!              print*,'Acc_lum',facc_star_lum,star_mass,(t-tsink(isink)),radius!acc_rate(isink)/radius
+          lum_sink(isink)=acc_lum(isink)+int_lum(isink)
+          surface = 4.*pi*(radius*scale_l)**2 ! stellar surface in cgs
+          Teff_sink(isink) = (lum_sink(isink) *(scale_d*scale_v**2*scale_l**3/scale_t) /(5.6705d-5*surface))**0.25
+          rsink_star(isink) = radius
+          !print*,'rsink_star(isink) =  ',rsink_star(isink)
+
+       end if
+    end do
+
+
+end subroutine compute_sink_radius
 !################################################################
 !################################################################
 !################################################################

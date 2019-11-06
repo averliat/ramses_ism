@@ -53,14 +53,7 @@ subroutine condinit(x,u,dx,nn)
   real(dp)::ener_rot,ener_grav,ener_therm,ener_grav2,ener_turb,dd,ee,theta_mag_radians
   real(dp),dimension(1000):: mass_rad    
   real(dp),dimension(1:3,1:3):: rot_M,rot_invM,rot_tilde
-  real(dp):: costheta, sintheta, vel 
 
-  integer:: taille_boite
-  real(dp)::R_shu, A_shu
-
-
-
-  taille_boite=2 !ATTENTION, A CHANGER AUSSI DANS calc_boxlen, 1 pour taille normale, 2 pour bigbox, 3 pour hugebox
   small_er=eray_min/(scale_d*scale_v**2)
 
   id=1; iu=2; iv=3; iw=4; ip=5
@@ -94,18 +87,9 @@ subroutine condinit(x,u,dx,nn)
      rot_tilde(2,1:3) = (/-1.0d0,0.0d0,0.0d0/)
      rot_tilde(3,1:3) = (/0.0d0,0.0d0,0.0d0/)
 
-     costheta=cos(theta_mag_radians)
-     sintheta=sin(theta_mag_radians)
-
      ! sound speed
      Temp = Tr_floor
      C_s = sqrt( Temp / scale_T2 )
-     
-     ! vanishing Shu cloud edge 
-     !R=MG/(2A*Cs**2) et en unite de code G=1
-     !et a priori ici M et Cs sont deja en unite de code
-     A_shu = 2.1  !a priori la limite basse pour avoir collapse
-     R_shu = mass_c*1.d0/(2*A_shu*C_s**2)
 
      ! turbulence
      if( first) then 
@@ -166,7 +150,6 @@ subroutine condinit(x,u,dx,nn)
            print*,'Mass=',mass_c*scale_m/Msun,' Msun'
            print*,'d0=',d0*scale_d
            print*,'Turbulent Mach=',Mach
-           print*,'R_shu=',R_shu
            print*,r0,boxlen
         endif
         first = .false.
@@ -199,33 +182,15 @@ subroutine condinit(x,u,dx,nn)
         rc=sqrt(xx**2+yy**2)
         rs=sqrt(xx**2+yy**2+zz**2)
 
-        !IF(rs .le. r0) THEN  
-        IF(rs .le. R_shu) THEN  !Added by AV on 08/02/2019 to have density
-                               !increasing toward the center
-           !q(i,id) = d0*exp(-rs**2/r0**2)
-           !modifies by AV on 05/03/2019 to be have higher central density than sink threshold :
-           q(i,id) = A_shu * C_s**2/(2*pi) / rs**2  !G=1 en unite de code 
-           !Solution de Shu, le 1d0 de Shu est changeable mais ~1
-                                                  
+        IF(rs .le. r0) THEN 
 
+           q(i,id) = d0*(1.0+delta_rho*cos(2.*atan(yy/(cos(theta_mag_radians)*xx-sin(theta_mag_radians)*zz))))
            if(Mach .ne. 0)then
               q(i,iu) =  v_rms*(q_idl(1,ind_i,ind_j,ind_k)-vx_tot/dble(count_vrms))
               q(i,iv) =  v_rms*(q_idl(2,ind_i,ind_j,ind_k)-vy_tot/dble(count_vrms))
               q(i,iw) =  v_rms*(q_idl(3,ind_i,ind_j,ind_k)-vz_tot/dble(count_vrms))
            end if
-           !q(i,iu:iw) = q(i,iu:iw)+matmul(rot_invM,omega0*matmul(rot_tilde,matmul(rot_M,(/xx,yy,zz/))))
-           !Modified by AV on 15/04/2019 to have same amount of specific
-           !momentum with the r^-2 density profile rather than the flat one
-           !q(i,iu) = q(i,iu) + omega0 * R0**2 * R_shu**(-2.d0/3.d0) * rc**(-4.d0/3.d0) * (-yy)
-           !q(i,iv) = q(i,iv) + omega0 * R0**2 * R_shu**(-2.d0/3.d0) * rc**(-4.d0/3.d0) * (xx)
-
-           vel = omega0 * R0**2 * R_shu**(-2.d0/3.d0) * (sqrt(xx**2+(yy*costheta-zz*sintheta)**2))**(-4./3.)
-
-           q(i,iu) = q(i,iu) + vel*(-(yy*costheta-zz*sintheta))
-           q(i,iv) = q(i,iv) + vel*(xx*costheta)
-           q(i,iw) = q(i,iw) + vel*(-xx*sintheta)
-
-
+           q(i,iu:iw) = q(i,iu:iw)+matmul(rot_invM,omega0*matmul(rot_tilde,matmul(rot_M,(/xx,yy,zz/))))
 
 #if NGRP>0
            do igroup=1,ngrp
@@ -233,9 +198,7 @@ subroutine condinit(x,u,dx,nn)
            enddo
 #endif
         ELSE
-           !q(i,id) = d0/contrast
-           !q(i,id) = d0 * exp(-4.0d0**2) !Added by AV on 08/02/2019
-           q(i,id) = A_shu * C_s**2/(2*pi) / R_shu**2 /contrast  !Added by AV on 10/04/2019, G=1 en unite de code 
+           q(i,id) = d0/contrast
            xx = r0 * xx / rc
            yy = r0 * yy / rc
            if(Mach .ne. 0)then
@@ -875,13 +838,9 @@ subroutine calc_boxlen
   integer :: i
   real(dp):: pi
   real(dp):: d_c,zeta
-  real(dp):: res_int,r_0,C_s,R_shu,A_shu
+  real(dp):: res_int,r_0,C_s
   integer::  np
   logical,save:: first=.true.
-  integer::taille_boite
-
-    taille_boite=2  !1 pour taille normale, 2 pour bigbox, 3 pour hugebox
-    A_shu=2.1
 
     if (first) then
 
@@ -896,18 +855,7 @@ subroutine calc_boxlen
     
     if(bb_test)then
        r_0 = (alpha_dense_core*2.*6.67d-8*mass_c*mu_gas*mH/(5.*kB*Tr_floor))/scale_l* scale_m 
-       R_shu = mass_c*1.d0/(2*A_shu*C_s**2)
-       if (taille_boite==1) then
-           !boxlen = r_0 * r0_box      ! Normal box
-           boxlen = R_shu * r0_box      ! Normal box
-       elseif (taille_boite==2) then
-           !boxlen = r_0 * r0_box * 2. !*2. modif by averliat to have bigbox
-           boxlen = R_shu * r0_box * 2. !*2. modif by averliat to have bigbox
-       elseif (taille_boite==3) then
-           !boxlen = r_0 * r0_box * 4. !*4. modif by averliat to have hugebox
-           boxlen = R_shu * r0_box * 4. !*4. modif by averliat to have hugebox
-       endif
-       
+       boxlen = r_0 * r0_box
        
        if (myid == 1) then 
           write(*,*) '** Cloud parameters estimated in calc-boxlen **' 
@@ -942,21 +890,9 @@ subroutine calc_boxlen
        r_0 = mass_c / (2.*pi*rap*res_int) * (ff_sct)**2 / (3.*pi/32.) / C_s**2
 
        d_c = mass_c / (2.*pi*rap*res_int) / r_0**3
-
-       R_shu = mass_c*1.d0/(2*A_shu*C_s**2)
        
        !it is equal to twice the length of the major axis
-       !modif by averliat, 04/12/2018
-       if (taille_boite==1) then
-            !boxlen = r_0 * zeta * max(rap,1.) * 4.  ! Normal box
-            boxlen = R_shu * zeta * max(rap,1.) * 4.  ! Normal box
-       elseif (taille_boite==2) then
-            !boxlen = r_0 * zeta * max(rap,1.) * 8.  ! bigbox
-            boxlen = R_shu * zeta * max(rap,1.) * 8.  ! bigbox
-       elseif (taille_boite==3) then
-            !boxlen = r_0 * zeta * max(rap,1.) * 16.  ! hugebox
-            boxlen = R_shu * zeta * max(rap,1.) * 16.  ! hugebox
-       endif
+       boxlen = r_0 * zeta * max(rap,1.) * 4.
        
        if (myid == 1) then 
           write(*,*) '** Cloud parameters estimated in calc-boxlen **' 

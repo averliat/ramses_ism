@@ -48,6 +48,13 @@ subroutine backup_sink(filename)
      end do
      write(ilun)xdp ! Write sink mass
 
+     !!ADDED by AV on 27/09/2019
+     ! to restart simu with protostellar jets
+     do i=1,nsink
+        xdp(i)=M_jet(i)
+     end do
+     write(ilun)xdp ! Write mass in put in jets by sink
+     
      !to be reintroduced
      !!ADDED by PH 09/2013
      do i=1,nsink
